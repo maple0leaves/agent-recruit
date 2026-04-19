@@ -30,10 +30,12 @@
 - [快速开始](#快速开始)
 - [环境变量配置](#环境变量配置)
 - [运行方式](#运行方式)
+- [前端设计](#前端设计)
 - [API 接口说明](#api-接口说明)
 - [添加简历数据](#添加简历数据)
 - [项目结构](#项目结构)
 - [常见问题](#常见问题)
+- [评测（Kaggle 简历集）](#评测kaggle-简历集)
 
 ---
 
@@ -232,6 +234,15 @@ curl -X POST http://localhost:8000/recruit/hitl/resume \
 
 ---
 
+## 前端设计
+
+- 前端页面位于 `static/index.html`，视觉改版参考 **awesome-design-md** skills。
+- 实施方式：先选定目标风格（如 Airtable / Linear），再按对应 `design-md` 规则统一颜色、间距、卡片层级与交互细节。
+- 设计目的：让后续维护者快速理解“界面为何这样设计”，并能沿用同一方法持续迭代。
+- 参考库：<https://github.com/VoltAgent/awesome-design-md/tree/main/design-md>
+
+---
+
 ## API 接口说明
 
 | 方法 | 路径 | 说明 |
@@ -312,12 +323,26 @@ hellojobs/
 ├── static/
 │   └── index.html                # 前端页面
 │
-└── data/
-    ├── resumes/                  # 简历文件（.txt / .pdf）
-    ├── vector_store/             # FAISS 索引（自动生成）
-    ├── chroma_memory/            # ChromaDB 候选人记忆（自动生成）
-    └── candidate_memory.json     # JSON 降级记忆（自动生成）
+├── data/
+│   ├── resumes/                  # 简历文件（.txt / .pdf）
+│   ├── vector_store/             # FAISS 索引（自动生成）
+│   ├── chroma_memory/            # ChromaDB 候选人记忆（自动生成）
+│   └── candidate_memory.json     # JSON 降级记忆（自动生成）
+│
+└── testdataset/                  # Kaggle Resume 子集（可选，用于扩大评测池）
+    └── TEST_SUMMARY.md           # 数据结构、脚本与指标总结（含 mix_520 检索/端到端）
 ```
+
+---
+
+## 评测（Kaggle 简历集）
+
+可选使用 `testdataset/` 中的 [Kaggle Resume Dataset](https://www.kaggle.com/datasets/snehaanbhawal/resume-dataset) 子集做 **更大候选池** 的检索与端到端评测（需自行确认许可证），数据集需自行下载，太大Github传不上。
+
+- **说明与指标（Recall@5、MRR、检索 P50、mix_520 端到端墙钟等）**：见 **`testdataset/TEST_SUMMARY.md`**  
+- **脚本**：`scripts/materialize_multi_pool.py`、`synth_aligned_eval_llm.py`、`eval_rag_metrics.py`、`eval_end_to_end.py`（用法见该文档）
+
+评测时请将 **`RESUME_DIR`** 指向评测软链池，评测结束后改回业务简历目录并重建索引。
 
 ---
 

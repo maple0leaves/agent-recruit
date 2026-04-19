@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{郭岩}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0014-0014,%
+  \ResumeUrl{mailto:guoyan@nju.edu.cn}{guoyan@nju.edu.cn},%
+  \textnormal{南京大学 | 计算机科学与技术 · 学士 | 2020—2024}%
+}
+
+\ResumeTitle
+
+\noindent 全栈与 Node.js，熟悉 NestJS、TypeORM 与 React；独立交付内部工单系统，日活用户约 800 人。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{南京大学}
+[\textnormal{计算机科学与技术系 | 计算机科学与技术 | 学士}]
+[2020.09—2024.06]
+
+\begin{itemize}
+  \item Web 全栈与系统设计课程项目丰富。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 TypeScript、Node.js、NestJS、PostgreSQL、Redis。
+  \item 掌握 React、Ant Design、Vite 与 REST/GraphQL 基础。
+  \item 了解 PM2 部署与 Nginx 反向代理、JWT 鉴权。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{SaaS 初创公司}
+[\textnormal{全栈开发实习生}]
+[2023.12—2024.06]
+
+\begin{itemize}
+  \item \textbf{职责}: 计费模块与多租户数据隔离方案落地。
+  \item \textbf{成果}: 账单对账人工工时从 16h/周 降至 4h/周。
+\end{itemize}
+
+
+\ResumeItem
+{网易 | 杭州研究院}
+[\textnormal{中间件方向实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{消息}: 参与 MQ 控制台 Topic 治理与消息轨迹查询性能优化。
+  \item \textbf{存储}: 调研并输出对象存储冷热分层方案对比报告 25 页。
+  \item \textbf{演练}: 参与双活切换演练，验证 RPO/RTO 指标达标。
+  \item \textbf{开源}: 向社区组件提交文档 PR 2 个并被合并。
+  \item \textbf{软技能}: 跨 3 团队协调排期，保证里程碑按时交付。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{开源工单插件}
+[\textnormal{GitHub}]
+[2023.06—2023.12]
+
+\begin{itemize}
+  \item npm 周下载量峰值 1.2k，Issue 平均响应时间 <24h。
+\end{itemize}
+
+
+\ResumeItem
+{特征存储与在线推理}
+[\textnormal{Feast 类实践（演示）}]
+[2023.08—2024.01]
+
+\begin{itemize}
+  \item \textbf{一致}: 离线在线特征对齐，监控 PSI 漂移。
+  \item \textbf{延迟}: 在线特征查询 P99 <6ms，支撑排序模型实时更新。
+  \item \textbf{平台}: 与模型服务 gRPC 联调，完成金丝雀发布。
+  \item \textbf{文档}: 输出特征字典与血缘说明，供算法与工程共用。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 南京大学 优秀学生
+  \item 开源软件供应链大赛 华东赛区 三等奖
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{林杰}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0013-0013,%
+  \ResumeUrl{mailto:linjie@seu.edu.cn}{linjie@seu.edu.cn},%
+  \textnormal{东南大学 | 软件工程 · 硕士 | 2022—2025}%
+}
+
+\ResumeTitle
+
+\noindent 测试开发与质量保障，熟悉 Pytest、接口自动化与 CI 集成；搭建冒烟套件使主干回归时间从 6h 降至 2h。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{东南大学}
+[\textnormal{计算机科学与工程学院 | 软件工程 | 硕士}]
+[2022.09—2025.06]
+
+\begin{itemize}
+  \item 软件测试与可靠性方向。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Python、Pytest、Requests、Allure 报告与 Jenkins Pipeline。
+  \item 掌握 Postman/Newman、Mock Server 与契约测试入门。
+  \item 了解 Docker 化测试环境与覆盖率门禁（JaCoCo）。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{携程}
+[\textnormal{测试开发实习生}]
+[2024.06—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 酒店库存接口自动化与流量回放验证。
+  \item \textbf{成果}: 线上 P1 缺陷漏测率季度环比下降 40\%。
+\end{itemize}
+
+
+\ResumeItem
+{海康威视 | 行业应用}
+[\textnormal{嵌入式 / 后端实习生}]
+[2023.09—2024.02]
+
+\begin{itemize}
+  \item \textbf{设备接入}: 参与国标设备接入网关协议适配与异常码映射。
+  \item \textbf{可靠性}: 实现断线重连与心跳退避策略，掉线恢复时间缩短 40\%。
+  \item \textbf{日志}: 统一日志格式与 traceId 透传，问题定位时间减半。
+  \item \textbf{客户}: 支持 2 次驻场联调，收集需求并转化为可验收用例。
+  \item \textbf{规范}: 熟悉编码规范与静态检查门禁，CI 全绿方可合并。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{基于标签的用例选择器}
+[\textnormal{课题 Demo}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item 结合代码变更 Diff 与用例标签，平均执行用例数减少 62\%。
+\end{itemize}
+
+
+\ResumeItem
+{实时风控规则引擎}
+[\textnormal{Drools / 自研 DSL（演示）}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item \textbf{需求}: 支持运营侧快速上线规则，T+0 生效且可审计。
+  \item \textbf{架构}: 规则编译为字节码缓存，热加载版本号隔离。
+  \item \textbf{指标}: 规则平均评估耗时 <2ms，峰值 QPS 12k 稳定。
+  \item \textbf{治理}: 规则变更双人复核 + 影子流量对比。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 江苏省互联网+大学生创新创业大赛 铜奖
+  \item 东南大学 三好研究生
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{黄婷}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0012-0012,%
+  \ResumeUrl{mailto:huangting@mail.sysu.edu.cn}{huangting@mail.sysu.edu.cn},%
+  \textnormal{中山大学 | 数据科学与大数据技术 · 学士 | 2021—2025}%
+}
+
+\ResumeTitle
+
+\noindent 数据工程与离线数仓，熟悉 Hive、Spark SQL 与数据质量规则；参与日增量 10TB 级日志入仓分层建模。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{中山大学}
+[\textnormal{计算机学院 | 数据科学与大数据技术 | 学士}]
+[2021.09—2025.06]
+
+\begin{itemize}
+  \item 大数据平台与可视化选修。
+\end{itemize}
+
+
+\ResumeItem
+{科研训练与竞赛}
+[\textnormal{大创 / 挑战杯 / 互联网+（演示）}]
+[2021—2025]
+
+\begin{itemize}
+  \item 主持或核心参与校级大创项目 1 项，负责方案设计、里程碑管理与中期答辩材料。
+  \item 挑战杯 / 互联网+ 校赛金奖团队成员，负责技术方案书与 Demo 部署脚本。
+  \item 在实验室周会中汇报进展 10+ 次，形成实验记录与可复现实验脚本仓库。
+  \item 协助导师撰写专利交底书 1 份（流程中，测试数据）。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 SQL、Hive、Spark、Airflow 调度与分区治理。
+  \item 掌握数据质量（Great Expectations 思想）与血缘文档化。
+  \item 了解 ClickHouse 与 OLAP 查询优化入门。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{网易}
+[\textnormal{数据开发实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 游戏埋点 DWD 表重构与缓慢变化维处理。
+  \item \textbf{成果}: 下游任务平均运行时长下降 28\%。
+\end{itemize}
+
+
+\ResumeItem
+{贝壳找房 | 如视}
+[\textnormal{C++/Go 工程实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{职责}: 参与三维空间数据处理流水线，负责任务队列与重试策略。
+  \item \textbf{优化}: 调整 gRPC 流式传输参数，大文件传输失败重试率下降 45\%。
+  \item \textbf{质量}: 引入 fuzz 测试覆盖解析模块，发现边界崩溃 3 类并修复。
+  \item \textbf{部署}: 熟悉 Ansible 批量发布与蓝绿切换流程。
+  \item \textbf{成长}: 完成从业务代码到性能剖析工具链的完整闭环实践。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{用户留存漏斗实时看板}
+[\textnormal{大作业}]
+[2024.03—2024.06]
+
+\begin{itemize}
+  \item Flink SQL + Redis 维表，端到端延迟 P99 <8s。
+\end{itemize}
+
+
+\ResumeItem
+{日志检索与告警平台}
+[\textnormal{ELK + 规则引擎（演示）}]
+[2023.10—2024.03]
+
+\begin{itemize}
+  \item \textbf{痛点}: 多业务线日志格式不统一，检索慢且告警噪声高。
+  \item \textbf{落地}: 制定 log schema，Filebeat 多管道 + Ingest Pipeline 清洗。
+  \item \textbf{指标}: 检索 P95 从 4.2s 降至 0.9s，告警误报率下降 55\%。
+  \item \textbf{运营}: 建立 on-call 轮值与告警分级 SOP。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 全国大学生数学建模竞赛 省一等奖
+  \item 中山大学 优秀志愿者
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

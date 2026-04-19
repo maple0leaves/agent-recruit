@@ -1,5 +1,6 @@
 """Vector store builder for resume documents."""
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -8,6 +9,62 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+RESUME_MANIFEST_NAME = "resume_manifest.json"
+
+
+def _resume_catalog(resume_dir: str) -> dict:
+    """简历目录指纹：用于判断是否需要相对磁盘索引重新建库。"""
+    root = Path(resume_dir)
+    files: list[dict] = []
+    if not root.is_dir():
+        return {"v": 1, "files": files}
+    for f in sorted(root.iterdir()):
+        if f.is_file() and f.suffix.lower() in (".txt", ".pdf"):
+            try:
+                st = f.stat()
+                files.append(
+                    {
+                        "name": f.name,
+                        "mtime": int(st.st_mtime),
+                        "size": st.st_size,
+                    }
+                )
+            except OSError:
+                continue
+    return {"v": 1, "files": files}
+
+
+def _manifest_path(store_path: str) -> Path:
+    return Path(store_path) / RESUME_MANIFEST_NAME
+
+
+def _read_saved_catalog(store_path: str) -> dict | None:
+    mp = _manifest_path(store_path)
+    if not mp.is_file():
+        return None
+    try:
+        return json.loads(mp.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def _write_resume_manifest(resume_dir: str, store_path: str) -> None:
+    Path(store_path).mkdir(parents=True, exist_ok=True)
+    catalog = _resume_catalog(resume_dir)
+    _manifest_path(store_path).write_text(
+        json.dumps(catalog, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _invalidate_retriever_cache() -> None:
+    try:
+        from rag.retriever import invalidate_vector_store_cache
+
+        invalidate_vector_store_cache()
+    except Exception:
+        pass
 
 
 def _extract_pdf_text(file: Path) -> str:
@@ -85,6 +142,8 @@ def build_vector_store(resume_dir: str, store_path: str) -> FAISS:
     embeddings = _get_embeddings()
     store = FAISS.from_documents(split_docs, embeddings)
     store.save_local(store_path)
+    _write_resume_manifest(resume_dir, store_path)
+    _invalidate_retriever_cache()
     print(f"[VectorStore] 构建完成，共 {len(split_docs)} 个文本块，已保存到 {store_path}")
     return store
 
@@ -104,8 +163,25 @@ def load_vector_store(store_path: str) -> FAISS:
 
 
 def get_or_build_vector_store(resume_dir: str, store_path: str) -> FAISS:
-    """Load existing vector store or build a new one if it doesn't exist."""
+    """加载已有 FAISS；不存在则全量构建。
+
+    当 ``config.VECTOR_INDEX_AUTO_REBUILD`` 为真时：若 ``index.faiss`` 已存在但
+    简历目录相对 ``resume_manifest.json`` 有变化（增删改、替换），则自动重建并刷新检索缓存。
+    """
+    from config import VECTOR_INDEX_AUTO_REBUILD
+
     index_file = Path(store_path) / "index.faiss"
-    if index_file.exists():
-        return load_vector_store(store_path)
-    return build_vector_store(resume_dir, store_path)
+    if not index_file.exists():
+        return build_vector_store(resume_dir, store_path)
+
+    if VECTOR_INDEX_AUTO_REBUILD:
+        current = _resume_catalog(resume_dir)
+        saved = _read_saved_catalog(store_path)
+        if saved != current:
+            print(
+                "[VectorStore] 检测到简历目录与已保存索引不一致，自动重建向量索引…",
+                flush=True,
+            )
+            return build_vector_store(resume_dir, store_path)
+
+    return load_vector_store(store_path)

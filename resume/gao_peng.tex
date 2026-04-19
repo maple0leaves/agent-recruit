@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{高鹏}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0018-0018,%
+  \ResumeUrl{mailto:gaopeng@nudt.edu.cn}{gaopeng@nudt.edu.cn},%
+  \textnormal{国防科技大学 | 计算机科学与技术 · 学士 | 2020—2024}%
+}
+
+\ResumeTitle
+
+\noindent 高性能 C++ 与低延迟系统，熟悉无锁队列、内存池与 CPU 亲和性；量化回测引擎单线程延迟优化 30\%。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{国防科技大学}
+[\textnormal{计算机学院 | 计算机科学与技术 | 学士}]
+[2020.09—2024.06]
+
+\begin{itemize}
+  \item 高性能计算选修与竞赛训练。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 精通 C++17、多线程、模板元编程与 perf 火焰图分析。
+  \item 熟悉 Linux epoll、零拷贝与 DPDK 入门。
+  \item 了解 FIX 协议与回测撮合仿真基础。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{某量化私募}
+[\textnormal{C++ 开发实习生}]
+[2024.03—2024.08]
+
+\begin{itemize}
+  \item \textbf{职责}: 行情接入与订单路由模块性能剖析。
+  \item \textbf{成果}: 关键路径指令数减少 12\%（llvm-mca 辅助）。
+\end{itemize}
+
+
+\ResumeItem
+{中国工商银行 | 软件开发中心}
+[\textnormal{金科研发实习生}]
+[2024.01—2024.06]
+
+\begin{itemize}
+  \item \textbf{合规}: 在监管要求下完成日志脱敏与字段分级打标方案落地。
+  \item \textbf{批处理}: 参与日终对账任务优化，将窗口期从 4.5h 压缩到 3.1h。
+  \item \textbf{数据库}: 协助 DBA 分析慢 SQL，增加覆盖索引与分页改写，平均耗时下降 62\%。
+  \item \textbf{安全}: 参与渗透测试整改，修复 XSS 与越权访问类问题 6 处。
+  \item \textbf{流程}: 熟悉银行版本发布、双人复核与变更窗口制度。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{内存池化订单簿}
+[\textnormal{毕业设计}]
+[2023.10—2024.05]
+
+\begin{itemize}
+  \item 预分配 slab，碎片率 <3\%，压测下抖动方差下降 40\%。
+\end{itemize}
+
+
+\ResumeItem
+{实时风控规则引擎}
+[\textnormal{Drools / 自研 DSL（演示）}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item \textbf{需求}: 支持运营侧快速上线规则，T+0 生效且可审计。
+  \item \textbf{架构}: 规则编译为字节码缓存，热加载版本号隔离。
+  \item \textbf{指标}: 规则平均评估耗时 <2ms，峰值 QPS 12k 稳定。
+  \item \textbf{治理}: 规则变更双人复核 + 影子流量对比。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item ACM-ICPC 亚洲区域赛 银牌
+  \item 国防科大 优秀学员
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

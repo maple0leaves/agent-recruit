@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{韩露}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0025-0025,%
+  \ResumeUrl{mailto:hanlu@zju.edu.cn}{hanlu@zju.edu.cn},%
+  \textnormal{浙江大学 | 工业设计（智能设计）· 学士 | 2021—2025}%
+}
+
+\ResumeTitle
+
+\noindent 计算机图形学与 WebGL，熟悉 Three.js、着色器与 PBR 材质；Web 端数字孪生场景帧率稳定在 45 FPS。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{浙江大学}
+[\textnormal{计算机学院 | 工业设计（智能设计）| 学士}]
+[2021.09—2025.06]
+
+\begin{itemize}
+  \item 交叉方向：人机交互与图形学。
+\end{itemize}
+
+
+\ResumeItem
+{科研训练与竞赛}
+[\textnormal{大创 / 挑战杯 / 互联网+（演示）}]
+[2021—2025]
+
+\begin{itemize}
+  \item 主持或核心参与校级大创项目 1 项，负责方案设计、里程碑管理与中期答辩材料。
+  \item 挑战杯 / 互联网+ 校赛金奖团队成员，负责技术方案书与 Demo 部署脚本。
+  \item 在实验室周会中汇报进展 10+ 次，形成实验记录与可复现实验脚本仓库。
+  \item 协助导师撰写专利交底书 1 份（流程中，测试数据）。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 JavaScript、TypeScript、Three.js、GLSL。
+  \item 掌握 glTF、Draco 压缩与实例化绘制优化。
+  \item 了解 WebGPU 与 Babylon.js 入门实验。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{阿里云 | 视觉计算}
+[\textnormal{图形渲染实习生}]
+[2024.06—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 三维园区编辑器性能剖析与 LOD 策略。
+  \item \textbf{成果}: 同屏三角面数上限提升约 2.1 倍仍保持可交互。
+\end{itemize}
+
+
+\ResumeItem
+{百度 | 移动生态}
+[\textnormal{后端研发实习生}]
+[2023.06—2023.11]
+
+\begin{itemize}
+  \item \textbf{检索}: 参与搜索相关性特征工程与离线任务调度稳定性治理。
+  \item \textbf{存储}: 优化 HBase Get 批量模式，P95 延迟下降 19\%。
+  \item \textbf{平台}: 熟悉内部 BVC 构建与发布流水线。
+  \item \textbf{算法对接}: 与算法同学联调 A/B 实验埋点与分流一致性校验。
+  \item \textbf{文档}: 维护接口字典与错误码说明，降低联调沟通成本。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{WebGL 体素地形}
+[\textnormal{毕设}]
+[2024.02—2024.06]
+
+\begin{itemize}
+  \item Chunk 加载 + 视锥裁剪，内存峰值控制在 1.2GB 内。
+\end{itemize}
+
+
+\ResumeItem
+{IoT 设备 OTA 平台}
+[\textnormal{差分包 + 回滚（演示）}]
+[2024.02—2024.07]
+
+\begin{itemize}
+  \item \textbf{安全}: 固件签名校验与分块哈希校验，防篡改。
+  \item \textbf{体验}: 断点续传与静默升级策略可配置，失败自动回滚。
+  \item \textbf{规模}: 管理设备 10 万台级模拟压测通过（测试数据）。
+  \item \textbf{观测}: OTA 成功率、重试次数与版本分布实时大盘。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 中国好设计奖 学生组 提名
+  \item 浙江大学 研究与创新奖学金
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

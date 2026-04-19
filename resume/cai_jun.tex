@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{蔡俊}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0026-0026,%
+  \ResumeUrl{mailto:caijun@mail.shufe.edu.cn}{caijun@mail.shufe.edu.cn},%
+  \textnormal{上海财经大学 | 金融数学 · 硕士 | 2022—2025}%
+}
+
+\ResumeTitle
+
+\noindent 量化研究与 Python 工程，熟悉 Pandas、回测框架与风控指标；期货 CTA 策略样本外夏普 1.4（仿真盘）。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{上海财经大学}
+[\textnormal{数学学院 | 金融数学 | 硕士}]
+[2022.09—2025.06]
+
+\begin{itemize}
+  \item 交叉选修：机器学习与程序设计。
+\end{itemize}
+
+
+\ResumeItem
+{实验室与助教}
+[\textnormal{本科生科研 / 课程助教}]
+[2022—2025]
+
+\begin{itemize}
+  \item 进入校级重点实验室参与课题，负责数据采集、清洗与可视化看板搭建。
+  \item 担任《数据结构》《操作系统》课程助教，批改作业 200+ 份，答疑课时 40h+。
+  \item 组织期中复习串讲与上机辅导，课程评教得分位于前 10\%（演示）。
+  \item 整理课程 FAQ 与实验踩坑文档，被后续年级沿用。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Python、NumPy、Pandas、Cython 热点函数加速。
+  \item 掌握向量化回测、滑价与手续费模型。
+  \item 了解 Linux 定时任务与数据落盘校验。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{某券商自营}
+[\textnormal{量化研究实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 商品期货因子挖掘与组合优化。
+  \item \textbf{成果}: 新因子组合在仿真盘最大回撤下降 1.8pt。
+\end{itemize}
+
+
+\ResumeItem
+{网易 | 杭州研究院}
+[\textnormal{中间件方向实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{消息}: 参与 MQ 控制台 Topic 治理与消息轨迹查询性能优化。
+  \item \textbf{存储}: 调研并输出对象存储冷热分层方案对比报告 25 页。
+  \item \textbf{演练}: 参与双活切换演练，验证 RPO/RTO 指标达标。
+  \item \textbf{开源}: 向社区组件提交文档 PR 2 个并被合并。
+  \item \textbf{软技能}: 跨 3 团队协调排期，保证里程碑按时交付。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{事件驱动回测引擎}
+[\textnormal{课题代码}]
+[2024.01—2024.06]
+
+\begin{itemize}
+  \item 日级 K 线回测速度 120 万 bar/min（单进程）。
+\end{itemize}
+
+
+\ResumeItem
+{多租户 SaaS 计费引擎}
+[\textnormal{订阅制 + 用量计费（演示）}]
+[2023.09—2024.02]
+
+\begin{itemize}
+  \item \textbf{模型}: 设计套餐、用量累计、账单周期与 proration 规则。
+  \item \textbf{一致}: 使用 Outbox + 消息表保证计费事件与财务对账一致。
+  \item \textbf{性能}: 批价任务分片并行，账单生成时间缩短 48\%。
+  \item \textbf{测试}: 构造边界用例库 150+，覆盖闰月与升级降级场景。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 全国研究生数学建模竞赛 一等奖
+  \item 上财 优秀学生
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

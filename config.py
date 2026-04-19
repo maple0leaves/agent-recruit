@@ -31,6 +31,8 @@ RESUME_DIR = _resolve_path(os.getenv("RESUME_DIR", "data/resumes"))
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 EMBEDDING_BACKEND = os.getenv("EMBEDDING_BACKEND", "openai")  # openai | huggingface
 RAG_TOP_K = int(os.getenv("RAG_TOP_K", "5"))
+# 为 true 时：每次加载索引前比对简历目录指纹，有增删改则自动全量重建 FAISS 并刷新内存缓存
+VECTOR_INDEX_AUTO_REBUILD = os.getenv("VECTOR_INDEX_AUTO_REBUILD", "true").lower() == "true"
 
 # Rerank（API 模式，兼容 Cohere / Jina / aihubmix）
 RERANK_ENABLED = os.getenv("RERANK_ENABLED", "false").lower() == "true"

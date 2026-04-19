@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{白锐}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0019-0019,%
+  \ResumeUrl{mailto:bairui@scut.edu.cn}{bairui@scut.edu.cn},%
+  \textnormal{华南理工大学 | 软件工程 · 学士 | 2021—2025}%
+}
+
+\ResumeTitle
+
+\noindent 跨平台 Flutter 与移动端工程化，熟悉 Dart、Provider 与混合栈通信；完成企业内部考勤 App 双端交付。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{华南理工大学}
+[\textnormal{软件学院 | 软件工程 | 学士}]
+[2021.09—2025.06]
+
+\begin{itemize}
+  \item 移动开发与人机交互课程。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Flutter、Dart、Riverpod/Provider 状态管理。
+  \item 掌握 Platform Channel 与原生地图 SDK 集成。
+  \item 了解 CI 双端打包与 Firebase Crashlytics。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{顺丰科技}
+[\textnormal{移动端开发实习生}]
+[2024.06—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 小哥端扫描模块 Flutter 重构。
+  \item \textbf{成果}: 扫码页崩溃率下降 60\%，包体增加 <800KB。
+\end{itemize}
+
+
+\ResumeItem
+{贝壳找房 | 如视}
+[\textnormal{C++/Go 工程实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{职责}: 参与三维空间数据处理流水线，负责任务队列与重试策略。
+  \item \textbf{优化}: 调整 gRPC 流式传输参数，大文件传输失败重试率下降 45\%。
+  \item \textbf{质量}: 引入 fuzz 测试覆盖解析模块，发现边界崩溃 3 类并修复。
+  \item \textbf{部署}: 熟悉 Ansible 批量发布与蓝绿切换流程。
+  \item \textbf{成长}: 完成从业务代码到性能剖析工具链的完整闭环实践。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{Flutter 插件：蓝牙打印}
+[\textnormal{pub.dev}]
+[2023.08—2024.01]
+
+\begin{itemize}
+  \item likes 200+，支持 ESC/POS 常用指令子集。
+\end{itemize}
+
+
+\ResumeItem
+{特征存储与在线推理}
+[\textnormal{Feast 类实践（演示）}]
+[2023.08—2024.01]
+
+\begin{itemize}
+  \item \textbf{一致}: 离线在线特征对齐，监控 PSI 漂移。
+  \item \textbf{延迟}: 在线特征查询 P99 <6ms，支撑排序模型实时更新。
+  \item \textbf{平台}: 与模型服务 gRPC 联调，完成金丝雀发布。
+  \item \textbf{文档}: 输出特征字典与血缘说明，供算法与工程共用。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 广东省大学生计算机设计大赛 一等奖
+  \item 华南理工 三好学生
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

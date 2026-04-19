@@ -1,0 +1,11 @@
+{"user_input": "我司急招一名熟悉 Java、Spring Cloud、Redis 与消息队列的后端工程师，有电商高并发经验优先，请从简历库中检索并给出匹配度与面试建议。", "relevant_files": ["zhang_wei.pdf"], "expected_names": ["张伟", "Zhang Wei"]}
+{"user_input": "招聘云原生方向实习生：要求 Go、gRPC、Kubernetes 与 Prometheus 监控经验，能写 Operator 更佳。", "relevant_files": ["li_ming.pdf"], "expected_names": ["李明", "Li Ming"]}
+{"user_input": "需要一名前端工程师，技术栈 React、TypeScript、Vite，有中后台与性能优化经验。", "relevant_files": ["wang_fang.pdf"], "expected_names": ["王芳", "Wang Fang"]}
+{"user_input": "算法岗：计算机视觉、PyTorch、目标检测与工业质检相关项目经验。", "relevant_files": ["liu_yang.pdf"], "expected_names": ["刘洋", "Liu Yang"]}
+{"user_input": "大模型应用研发：RAG、向量检索、LangChain 或类似框架，有 LoRA 微调经验。", "relevant_files": ["chen_jing.pdf"], "expected_names": ["陈静", "Chen Jing"]}
+{"user_input": "招聘 SRE / 稳定性工程师，熟悉 Linux、Kubernetes、Prometheus、Grafana 与 on-call 流程。", "relevant_files": ["ma_xin.pdf"], "expected_names": ["马欣", "Ma Xin"]}
+{"user_input": "数据开发：Hive、Spark、离线数仓分层与 Airflow 调度，有电商或广告数据经验。", "relevant_files": ["huang_ting.pdf"], "expected_names": ["黄婷", "Huang Ting"]}
+{"user_input": "测试开发：Python、Pytest、接口自动化与 CI 集成，有互联网业务测试经验。", "relevant_files": ["lin_jie.pdf"], "expected_names": ["林杰", "Lin Jie"]}
+{"user_input": "安全方向：Web 渗透、漏洞验证、Python 自动化扫描，有 SRC 或攻防演练经验优先。", "relevant_files": ["zhou_qiang.pdf"], "expected_names": ["周强", "Zhou Qiang"]}
+{"user_input": "嵌入式软件：C、FreeRTOS、MQTT、Linux 驱动或网关开发经验。", "relevant_files": ["xu_lin.pdf"], "expected_names": ["徐琳", "Xu Lin"]}
+{"user_input": "推荐算法：排序模型、PyTorch、离线 AUC 与线上实验对接经验。", "relevant_files": ["tang_li.pdf"], "expected_names": ["唐莉", "Tang Li"]}

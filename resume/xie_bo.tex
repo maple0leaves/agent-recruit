@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{谢波}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0022-0022,%
+  \ResumeUrl{mailto:xiebo@scu.edu.cn}{xiebo@scu.edu.cn},%
+  \textnormal{四川大学 | 软件工程 · 硕士 | 2023—2026}%
+}
+
+\ResumeTitle
+
+\noindent 音视频与 FFmpeg，熟悉 H.264/HEVC 封装、硬编解码与 QoS；直播推流端卡顿率（卡顿时长占比）降低 0.7pp。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{四川大学}
+[\textnormal{计算机学院 | 软件工程 | 硕士}]
+[2023.09—2026.06(预计)]
+
+\begin{itemize}
+  \item 多媒体技术实验室。
+\end{itemize}
+
+
+\ResumeItem
+{实验室与助教}
+[\textnormal{本科生科研 / 课程助教}]
+[2022—2025]
+
+\begin{itemize}
+  \item 进入校级重点实验室参与课题，负责数据采集、清洗与可视化看板搭建。
+  \item 担任《数据结构》《操作系统》课程助教，批改作业 200+ 份，答疑课时 40h+。
+  \item 组织期中复习串讲与上机辅导，课程评教得分位于前 10\%（演示）。
+  \item 整理课程 FAQ 与实验踩坑文档，被后续年级沿用。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 C/C++、FFmpeg API、MediaCodec/VideoToolbox。
+  \item 掌握 RTMP/HLS、码率自适应与弱网重传策略。
+  \item 了解 WebRTC 信令与 STUN/TURN 基础。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{B站}
+[\textnormal{音视频工程实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 移动端直播 SDK 功耗与发热优化。
+  \item \textbf{成果}: 同等画质下平均码率下降 8\%，CPU 占用下降 6pt。
+\end{itemize}
+
+
+\ResumeItem
+{中国工商银行 | 软件开发中心}
+[\textnormal{金科研发实习生}]
+[2024.01—2024.06]
+
+\begin{itemize}
+  \item \textbf{合规}: 在监管要求下完成日志脱敏与字段分级打标方案落地。
+  \item \textbf{批处理}: 参与日终对账任务优化，将窗口期从 4.5h 压缩到 3.1h。
+  \item \textbf{数据库}: 协助 DBA 分析慢 SQL，增加覆盖索引与分页改写，平均耗时下降 62\%。
+  \item \textbf{安全}: 参与渗透测试整改，修复 XSS 与越权访问类问题 6 处。
+  \item \textbf{流程}: 熟悉银行版本发布、双人复核与变更窗口制度。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{实时美颜滤镜链}
+[\textnormal{课题 Demo}]
+[2024.02—2024.06]
+
+\begin{itemize}
+  \item GPU Shader + FFmpeg filter 组合，端到端延迟 +12ms。
+\end{itemize}
+
+
+\ResumeItem
+{多租户 SaaS 计费引擎}
+[\textnormal{订阅制 + 用量计费（演示）}]
+[2023.09—2024.02]
+
+\begin{itemize}
+  \item \textbf{模型}: 设计套餐、用量累计、账单周期与 proration 规则。
+  \item \textbf{一致}: 使用 Outbox + 消息表保证计费事件与财务对账一致。
+  \item \textbf{性能}: 批价任务分片并行，账单生成时间缩短 48\%。
+  \item \textbf{测试}: 构造边界用例库 150+，覆盖闰月与升级降级场景。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 四川大学 优秀研究生
+  \item 中国高校计算机大赛 智能交互创新赛 三等奖
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

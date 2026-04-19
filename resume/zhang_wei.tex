@@ -1,0 +1,131 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{张伟}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0001-0001,%
+  \ResumeUrl{mailto:zhangwei26@zju.edu.cn}{zhangwei26@zju.edu.cn},%
+  \textnormal{浙江大学 | 软件工程 · 硕士 | 2023—2026}%
+}
+
+\ResumeTitle
+
+\noindent 主攻 Java 与分布式微服务，熟悉 Spring Cloud、Kafka 与 MySQL 分库分表；在电商高并发场景完成接口 P99 从 420ms 降至 180ms 的优化实践。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{浙江大学}
+[\textnormal{软件学院 | 软件工程 | 硕士 | 排名前 10\%}]
+[2023.09—2026.06(预计)]
+
+\begin{itemize}
+  \item 核心课程：分布式系统、中间件原理、高可用架构设计。
+\end{itemize}
+
+\ResumeItem
+{浙江大学}
+[\textnormal{计算机学院 | 软件工程 | 学士}]
+[2019.09—2023.06]
+
+\begin{itemize}
+  \item 校级优秀毕业生，ACM 校赛银牌。
+\end{itemize}
+
+
+\ResumeItem
+{实验室与助教}
+[\textnormal{本科生科研 / 课程助教}]
+[2022—2025]
+
+\begin{itemize}
+  \item 进入校级重点实验室参与课题，负责数据采集、清洗与可视化看板搭建。
+  \item 担任《数据结构》《操作系统》课程助教，批改作业 200+ 份，答疑课时 40h+。
+  \item 组织期中复习串讲与上机辅导，课程评教得分位于前 10\%（演示）。
+  \item 整理课程 FAQ 与实验踩坑文档，被后续年级沿用。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Java、JVM 调优与 Spring Boot / Spring Cloud Alibaba 微服务栈。
+  \item 掌握 MySQL 索引与事务、Redis 缓存与分布式锁、RocketMQ 异步解耦。
+  \item 了解 Kubernetes 部署与 SkyWalking 链路追踪，具备线上问题定位经验。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{阿里巴巴集团 | 本地生活}
+[\textnormal{Java 开发实习生}]
+[2024.07—2025.01]
+
+\begin{itemize}
+  \item \textbf{职责}: 参与营销中台订单接口改造，日均调用量约 2 亿次。
+  \item \textbf{成果}: 通过批量查询与本地缓存，核心下单链路 P99 延迟下降 58\%。
+\end{itemize}
+
+
+\ResumeItem
+{小米集团 | 互联网商业部}
+[\textnormal{广告服务端实习生}]
+[2023.12—2024.05]
+
+\begin{itemize}
+  \item \textbf{业务}: 参与广告召回与排序链路监控埋点，建设异常流量识别规则。
+  \item \textbf{性能}: 优化 protobuf 序列化热点，CPU 占用下降约 8\%。
+  \item \textbf{数据}: 与数据团队协作搭建小时级报表，支持运营策略迭代。
+  \item \textbf{稳定性}: 大促前完成容量评估与限流预案演练 3 轮。
+  \item \textbf{总结}: 输出「大促保障清单」模板并在组内复用。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{秒杀系统课程设计}
+[\textnormal{高并发库存与限流}]
+[2024.03—2024.06]
+
+\begin{itemize}
+  \item 基于 Redis 预减库存 + Lua 脚本保证原子性，支撑压测峰值 1.2 万 QPS。
+  \item 网关层令牌桶限流，误杀率控制在 0.3\% 以下。
+\end{itemize}
+
+
+\ResumeItem
+{API 网关插件体系}
+[\textnormal{鉴权 / 限流 / 审计（演示）}]
+[2024.01—2024.06]
+
+\begin{itemize}
+  \item \textbf{扩展}: 定义插件 SPI，支持 Lua / WASM 沙箱（演示）。
+  \item \textbf{安全}: 统一 JWT 校验与 mTLS 可选链路。
+  \item \textbf{运维}: 插件热更新与版本回滚，0 停机。
+  \item \textbf{指标}: 网关自身 CPU 开销 <3\% 额外基线（压测）。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 中国高校计算机大赛 网络技术挑战赛 华东赛区 一等奖
+  \item 浙江大学 学业优秀奖学金 二等
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

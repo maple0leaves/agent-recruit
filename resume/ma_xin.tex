@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{马欣}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0011-0011,%
+  \ResumeUrl{mailto:maxin@tongji.edu.cn}{maxin@tongji.edu.cn},%
+  \textnormal{同济大学 | 计算机科学与技术 · 硕士 | 2023—2026}%
+}
+
+\ResumeTitle
+
+\noindent SRE 与可观测性，熟悉 Prometheus、Thanos 与 OpenTelemetry；推动黄金四指标看板覆盖核心服务 95\%。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{同济大学}
+[\textnormal{电子与信息工程学院 | 计算机科学与技术 | 硕士}]
+[2023.09—2026.06(预计)]
+
+\begin{itemize}
+  \item 云计算与智能系统方向。
+\end{itemize}
+
+
+\ResumeItem
+{国际交流（演示）}
+[\textnormal{暑期学校 / 线上联合项目}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加海外高校暑期学校（在线），完成 Distributed Systems 课程 Project 3 个。
+  \item 与海外小组合作完成跨时区项目，使用 Slack/Discord 进行异步协作与代码评审。
+  \item 撰写全英文技术报告 8 页，获得课程组 Best Presentation 提名（测试数据）。
+  \item 口语与写作训练：技术博客英文化 5 篇，累计阅读量 1.2 万（演示）。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 掌握 Linux、Bash、Python，熟悉 Kubernetes 运维与 HPA/VPA。
+  \item 熟悉 Prometheus、Grafana、Loki、Alertmanager 告警路由。
+  \item 了解 Chaos Mesh 故障演练与 SLO 错误预算管理。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{蚂蚁集团}
+[\textnormal{SRE 实习生}]
+[2024.06—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 支付链路容量评估与大促压测值班。
+  \item \textbf{成果}: 压测脚本复用率提升，准备时间缩短 45\%。
+\end{itemize}
+
+
+\ResumeItem
+{拼多多 | 交易平台}
+[\textnormal{后端实习生}]
+[2024.03—2024.08]
+
+\begin{itemize}
+  \item \textbf{活动}: 参与大促「万人团」库存预占与释放逻辑开发与压测。
+  \item \textbf{一致性}: 使用分布式锁 + 版本号控制超卖风险，压测零超卖。
+  \item \textbf{观测}: 搭建 Grafana 看板跟踪关键指标，值班期间 0 P1 事故。
+  \item \textbf{复盘}: 参与事故复盘 2 次，输出改进项并跟踪闭环。
+  \item \textbf{代码}: MR 平均评论轮次 4 轮，注重可读性与边界条件注释。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{统一 TraceID 注入中间件}
+[\textnormal{实验室项目}]
+[2024.02—2024.07]
+
+\begin{itemize}
+  \item 基于 OTel Java Agent 扩展，跨 30+ 微服务调用链完整率 98.6\%。
+\end{itemize}
+
+
+\ResumeItem
+{数据血缘与元数据管理}
+[\textnormal{Atlas 类方案（演示）}]
+[2023.10—2024.04]
+
+\begin{itemize}
+  \item \textbf{采集}: SQL 解析 + 日志埋点双通道，覆盖 Hive/Spark/Flink 任务。
+  \item \textbf{价值}: 影响分析时间从数小时缩短到分钟级。
+  \item \textbf{治理}: 推动核心表负责人认领与分级打标。
+  \item \textbf{交付}: 提供开放 API 供数据质量平台订阅血缘变更。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 同济大学 优秀学生奖学金
+  \item 云原生技术沙龙 优秀分享者
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

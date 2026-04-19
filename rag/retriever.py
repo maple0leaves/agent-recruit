@@ -18,6 +18,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 _vector_store = None
 
 
+def invalidate_vector_store_cache() -> None:
+    """丢弃内存中的 FAISS 实例。在磁盘上 ``build_vector_store`` 之后调用，避免仍用旧索引。"""
+    global _vector_store
+    _vector_store = None
+
+
 def _get_vector_store():
     global _vector_store
     if _vector_store is None:

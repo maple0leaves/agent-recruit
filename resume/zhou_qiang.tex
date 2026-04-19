@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{周强}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0010-0010,%
+  \ResumeUrl{mailto:zhouqiang@whu.edu.cn}{zhouqiang@whu.edu.cn},%
+  \textnormal{武汉大学 | 信息安全 · 学士 | 2020—2024}%
+}
+
+\ResumeTitle
+
+\noindent Web 安全与渗透测试，熟悉 OWASP Top 10、Burp Suite 与 Python 自动化扫描；为校内 SRC 提交有效漏洞 12 个。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{武汉大学}
+[\textnormal{国家网络安全学院 | 信息安全 | 学士}]
+[2020.09—2024.06]
+
+\begin{itemize}
+  \item CTF 战队成员，主攻 Web 与 Crypto。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 HTTP/S 协议、JWT 安全、SSRF/反序列化常见利用与修复。
+  \item 掌握 Python 脚本化扫描与 Frida 动态分析入门。
+  \item 了解 SDL 安全开发生命周期与依赖漏洞治理（SCA）。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{奇安信}
+[\textnormal{安全研究实习生}]
+[2024.03—2024.08]
+
+\begin{itemize}
+  \item \textbf{职责}: 政企客户 Web 资产漏洞验证与报告撰写。
+  \item \textbf{成果}: 平均单项目高危漏洞发现数提升 20\%（同比组内基线）。
+\end{itemize}
+
+
+\ResumeItem
+{海康威视 | 行业应用}
+[\textnormal{嵌入式 / 后端实习生}]
+[2023.09—2024.02]
+
+\begin{itemize}
+  \item \textbf{设备接入}: 参与国标设备接入网关协议适配与异常码映射。
+  \item \textbf{可靠性}: 实现断线重连与心跳退避策略，掉线恢复时间缩短 40\%。
+  \item \textbf{日志}: 统一日志格式与 traceId 透传，问题定位时间减半。
+  \item \textbf{客户}: 支持 2 次驻场联调，收集需求并转化为可验收用例。
+  \item \textbf{规范}: 熟悉编码规范与静态检查门禁，CI 全绿方可合并。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{自动化漏洞 PoC 框架}
+[\textnormal{毕业设计}]
+[2023.10—2024.05]
+
+\begin{itemize}
+  \item 插件化加载 Nuclei 模板，日均扫描 URL 约 50 万条。
+\end{itemize}
+
+
+\ResumeItem
+{特征存储与在线推理}
+[\textnormal{Feast 类实践（演示）}]
+[2023.08—2024.01]
+
+\begin{itemize}
+  \item \textbf{一致}: 离线在线特征对齐，监控 PSI 漂移。
+  \item \textbf{延迟}: 在线特征查询 P99 <6ms，支撑排序模型实时更新。
+  \item \textbf{平台}: 与模型服务 gRPC 联调，完成金丝雀发布。
+  \item \textbf{文档}: 输出特征字典与血缘说明，供算法与工程共用。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 强网杯 全国总决赛 优胜奖
+  \item 武汉大学 优秀学生
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

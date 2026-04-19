@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{汤伟}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0024-0024,%
+  \ResumeUrl{mailto:tangwei@sdu.edu.cn}{tangwei@sdu.edu.cn},%
+  \textnormal{山东大学 | 计算机科学与技术 · 学士 | 2021—2025}%
+}
+
+\ResumeTitle
+
+\noindent Linux 运维与自动化，熟悉 Ansible、Terraform 与 ELK；将虚拟机交付从手工 2h 降至 IaC 15min。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{山东大学}
+[\textnormal{计算机科学与技术学院 | 计算机科学与技术 | 学士}]
+[2021.09—2025.06]
+
+\begin{itemize}
+  \item 云计算与数据中心课程。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Linux、Shell、Ansible、Terraform、GitLab CI。
+  \item 掌握 ELK、Filebeat 与日志解析 Grok。
+  \item 了解 VMware/KVM 与基础网络 ACL。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{浪潮}
+[\textnormal{运维开发实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 政务云租户资源巡检与告警降噪。
+  \item \textbf{成果}: 月均无效告警条数下降 38\%。
+\end{itemize}
+
+
+\ResumeItem
+{拼多多 | 交易平台}
+[\textnormal{后端实习生}]
+[2024.03—2024.08]
+
+\begin{itemize}
+  \item \textbf{活动}: 参与大促「万人团」库存预占与释放逻辑开发与压测。
+  \item \textbf{一致性}: 使用分布式锁 + 版本号控制超卖风险，压测零超卖。
+  \item \textbf{观测}: 搭建 Grafana 看板跟踪关键指标，值班期间 0 P1 事故。
+  \item \textbf{复盘}: 参与事故复盘 2 次，输出改进项并跟踪闭环。
+  \item \textbf{代码}: MR 平均评论轮次 4 轮，注重可读性与边界条件注释。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{Ansible Role 仓库}
+[\textnormal{开源}]
+[2024.01—2024.06]
+
+\begin{itemize}
+  \item 标准化中间件安装，被学院实验室 4 个课题组复用。
+\end{itemize}
+
+
+\ResumeItem
+{实时风控规则引擎}
+[\textnormal{Drools / 自研 DSL（演示）}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item \textbf{需求}: 支持运营侧快速上线规则，T+0 生效且可审计。
+  \item \textbf{架构}: 规则编译为字节码缓存，热加载版本号隔离。
+  \item \textbf{指标}: 规则平均评估耗时 <2ms，峰值 QPS 12k 稳定。
+  \item \textbf{治理}: 规则变更双人复核 + 影子流量对比。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 山东省大学生科技创新大赛 三等奖
+  \item 山东大学 社会实践先进个人
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

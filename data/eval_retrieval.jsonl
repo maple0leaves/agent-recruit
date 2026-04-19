@@ -1,0 +1,12 @@
+{"query": "招聘熟悉 Java Spring Cloud 与 Redis 的后端开发，有高并发电商经验优先", "relevant": ["zhang_wei.pdf"]}
+{"query": "云原生 Go 开发 Kubernetes Operator Prometheus 监控", "relevant": ["li_ming.pdf"]}
+{"query": "React TypeScript 前端工程化 Vite 性能优化", "relevant": ["wang_fang.pdf"]}
+{"query": "计算机视觉 目标检测 PyTorch 工业缺陷检测", "relevant": ["liu_yang.pdf"]}
+{"query": "大模型 RAG LangChain 向量检索 LoRA 微调", "relevant": ["chen_jing.pdf"]}
+{"query": "Android Kotlin Jetpack Compose 客户端性能", "relevant": ["zhao_lei.pdf"]}
+{"query": "SRE 可观测性 Prometheus Grafana Kubernetes 值班", "relevant": ["ma_xin.pdf"]}
+{"query": "数据开发 Spark Hive 离线数仓 Airflow", "relevant": ["huang_ting.pdf"]}
+{"query": "测试开发 Pytest CI 自动化接口测试", "relevant": ["lin_jie.pdf"]}
+{"query": "网络安全 渗透 Web 安全 Python", "relevant": ["zhou_qiang.pdf"]}
+{"query": "嵌入式 Linux FreeRTOS MQTT 网关", "relevant": ["xu_lin.pdf"]}
+{"query": "推荐系统 排序模型 PyTorch AUC 实验", "relevant": ["tang_li.pdf"]}

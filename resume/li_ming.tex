@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{李明}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0002-0002,%
+  \ResumeUrl{mailto:liming@sjtu.edu.cn}{liming@sjtu.edu.cn},%
+  \textnormal{上海交通大学 | 计算机科学与技术 · 硕士 | 2022—2025}%
+}
+
+\ResumeTitle
+
+\noindent Go 语言与云原生方向，熟悉 gRPC、etcd 与 Operator 开发；参与内部 PaaS 控制面组件交付，单元测试覆盖率提升至 78\%。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{上海交通大学}
+[\textnormal{电子信息与电气工程学院 | 计算机科学与技术 | 硕士}]
+[2022.09—2025.06]
+
+\begin{itemize}
+  \item 研究方向：容器调度与多集群联邦。
+\end{itemize}
+
+
+\ResumeItem
+{科研训练与竞赛}
+[\textnormal{大创 / 挑战杯 / 互联网+（演示）}]
+[2021—2025]
+
+\begin{itemize}
+  \item 主持或核心参与校级大创项目 1 项，负责方案设计、里程碑管理与中期答辩材料。
+  \item 挑战杯 / 互联网+ 校赛金奖团队成员，负责技术方案书与 Demo 部署脚本。
+  \item 在实验室周会中汇报进展 10+ 次，形成实验记录与可复现实验脚本仓库。
+  \item 协助导师撰写专利交底书 1 份（流程中，测试数据）。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 掌握 Go、Kubernetes、Prometheus/Grafana 监控体系。
+  \item 熟悉 Docker 镜像分层优化与 CI/CD（GitLab CI、Argo CD）。
+  \item 了解 Istio 流量管理与 gRPC 服务网格实践。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{字节跳动 | 基础架构}
+[\textnormal{云原生开发实习生}]
+[2024.06—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 维护多集群节点生命周期 Operator，对接公司 CMDB。
+  \item \textbf{成果}: 节点就绪平均时间从 4.2min 降至 1.1min，线上故障工单下降 35\%。
+\end{itemize}
+
+
+\ResumeItem
+{网易 | 杭州研究院}
+[\textnormal{中间件方向实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{消息}: 参与 MQ 控制台 Topic 治理与消息轨迹查询性能优化。
+  \item \textbf{存储}: 调研并输出对象存储冷热分层方案对比报告 25 页。
+  \item \textbf{演练}: 参与双活切换演练，验证 RPO/RTO 指标达标。
+  \item \textbf{开源}: 向社区组件提交文档 PR 2 个并被合并。
+  \item \textbf{软技能}: 跨 3 团队协调排期，保证里程碑按时交付。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{轻量级 K8s 审计日志聚合}
+[\textnormal{Fluent Bit + Kafka}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item 设计 Sidecar 采集策略，日日志量约 800GB 场景下 ES 写入失败率 <0.02\%。
+\end{itemize}
+
+
+\ResumeItem
+{日志检索与告警平台}
+[\textnormal{ELK + 规则引擎（演示）}]
+[2023.10—2024.03]
+
+\begin{itemize}
+  \item \textbf{痛点}: 多业务线日志格式不统一，检索慢且告警噪声高。
+  \item \textbf{落地}: 制定 log schema，Filebeat 多管道 + Ingest Pipeline 清洗。
+  \item \textbf{指标}: 检索 P95 从 4.2s 降至 0.9s，告警误报率下降 55\%。
+  \item \textbf{运营}: 建立 on-call 轮值与告警分级 SOP。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 上海交通大学 优秀研究生干部
+  \item 开源之夏 OSPP 结项（Kubernetes 相关）
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

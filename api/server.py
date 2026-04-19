@@ -337,7 +337,10 @@ def rebuild_index():
 
     try:
         build_vector_store(RESUME_DIR, VECTOR_STORE_PATH)
-        return {"status": "ok", "message": "向量索引已重建"}
+        from rag.retriever import invalidate_vector_store_cache
+
+        invalidate_vector_store_cache()
+        return {"status": "ok", "message": "向量索引已重建，检索缓存已刷新"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

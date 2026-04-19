@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{徐琳}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0009-0009,%
+  \ResumeUrl{mailto:xulin@stu.xidian.edu.cn}{xulin@stu.xidian.edu.cn},%
+  \textnormal{西安电子科技大学 | 物联网工程 · 硕士 | 2022—2025}%
+}
+
+\ResumeTitle
+
+\noindent 嵌入式 Linux 与 RTOS，熟悉 FreeRTOS、STM32 与驱动开发；完成工业网关 Modbus 转 MQTT 量产固件维护。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{西安电子科技大学}
+[\textnormal{通信工程学院 | 物联网工程 | 硕士}]
+[2022.09—2025.06]
+
+\begin{itemize}
+  \item 嵌入式系统与边缘计算实验室。
+\end{itemize}
+
+
+\ResumeItem
+{企业开放日与实训}
+[\textnormal{短期实训营（演示）}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加头部互联网公司 2 周封闭实训，完成从需求到上线的完整小组项目。
+  \item 在实训中负责接口设计与联调，小组答辩成绩排名前 20\%。
+  \item 获得实训营「优秀学员」与内推绿色通道（测试数据，勿当真）。
+  \item 沉淀实训笔记 1.5 万字，含架构图与排错记录。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 C、FreeRTOS、UART/SPI/I2C 与常见传感器驱动。
+  \item 掌握 Wireshark 抓包、gdb 远程调试与 OTA 差分升级。
+  \item 了解 MQTT、CoAP 与 TLS 在资源受限设备上的裁剪。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{华为西安研究所}
+[\textnormal{嵌入式软件实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: IoT 模组功耗与唤醒时序优化。
+  \item \textbf{成果}: 深度睡眠电流下降 22\%，满足客户标书指标。
+\end{itemize}
+
+
+\ResumeItem
+{贝壳找房 | 如视}
+[\textnormal{C++/Go 工程实习生}]
+[2023.07—2024.01]
+
+\begin{itemize}
+  \item \textbf{职责}: 参与三维空间数据处理流水线，负责任务队列与重试策略。
+  \item \textbf{优化}: 调整 gRPC 流式传输参数，大文件传输失败重试率下降 45\%。
+  \item \textbf{质量}: 引入 fuzz 测试覆盖解析模块，发现边界崩溃 3 类并修复。
+  \item \textbf{部署}: 熟悉 Ansible 批量发布与蓝绿切换流程。
+  \item \textbf{成长}: 完成从业务代码到性能剖析工具链的完整闭环实践。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{边缘网关协议栈}
+[\textnormal{校企课题}]
+[2024.01—2024.08]
+
+\begin{itemize}
+  \item 支持 200+ 子设备并发轮询，CPU 占用峰值 <35\%（Cortex-A7）。
+\end{itemize}
+
+
+\ResumeItem
+{实时风控规则引擎}
+[\textnormal{Drools / 自研 DSL（演示）}]
+[2024.01—2024.05]
+
+\begin{itemize}
+  \item \textbf{需求}: 支持运营侧快速上线规则，T+0 生效且可审计。
+  \item \textbf{架构}: 规则编译为字节码缓存，热加载版本号隔离。
+  \item \textbf{指标}: 规则平均评估耗时 <2ms，峰值 QPS 12k 稳定。
+  \item \textbf{治理}: 规则变更双人复核 + 影子流量对比。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 全国大学生嵌入式芯片设计大赛 华东二等奖
+  \item 西电 研究生学业奖学金
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}

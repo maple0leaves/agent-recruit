@@ -1,0 +1,121 @@
+% !TeX TS-program = xelatex
+% 虚构演示简历 — 仅用于 hellojobs 测试数据
+\documentclass{resume-photo}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+
+\ResumeName{孙悦}
+
+\begin{document}
+
+\ResumeContacts{
+  138-0007-0007,%
+  \ResumeUrl{mailto:sunyue@buaa.edu.cn}{sunyue@buaa.edu.cn},%
+  \textnormal{北京航空航天大学 | 软件工程 · 硕士 | 2023—2026}%
+}
+
+\ResumeTitle
+
+\noindent iOS 与 SwiftUI，熟悉 Combine、Core Data 与网络层封装；实习期间负责金融 App 安全键盘与证书钉扎改造。注重可观测性与文档沉淀，习惯在评审阶段拆解风险；参与线上复盘与跨团队联调，英语 CET-6，可阅读官方文档与 RFC（演示数据）。
+
+\section{教育背景}
+\ResumeItem
+{北京航空航天大学}
+[\textnormal{软件学院 | 软件工程 | 硕士}]
+[2023.09—2026.06(预计)]
+
+\begin{itemize}
+  \item 移动与嵌入式软件方向。
+\end{itemize}
+
+
+\ResumeItem
+{国际交流（演示）}
+[\textnormal{暑期学校 / 线上联合项目}]
+[2023—2024]
+
+\begin{itemize}
+  \item 参加海外高校暑期学校（在线），完成 Distributed Systems 课程 Project 3 个。
+  \item 与海外小组合作完成跨时区项目，使用 Slack/Discord 进行异步协作与代码评审。
+  \item 撰写全英文技术报告 8 页，获得课程组 Best Presentation 提名（测试数据）。
+  \item 口语与写作训练：技术博客英文化 5 篇，累计阅读量 1.2 万（演示）。
+\end{itemize}
+
+
+
+\section{专业技能}
+\begin{itemize}
+  \item 掌握 Swift、UIKit/SwiftUI、Xcode Instruments。
+  \item 熟悉 HTTPS 证书钉扎、Keychain 与防截屏策略。
+  \item 了解 Objective-C 互操作与 SPM 模块化。
+  \item 熟悉 Linux 日常运维与 Shell，具备日志检索与 CPU/内存突增初步定位能力。
+  \item 掌握 Git / CI 与 Code Review，了解 Docker 与 Kubernetes 基本编排与滚动发布。
+  \item 了解 OAuth2 / JWT、接口幂等与 REST 规范，具备单元测试与集成测试习惯（JUnit/pytest 等）。
+  \item 能阅读英文技术文档，具备跨团队沟通与需求澄清能力（测试简历）。
+\end{itemize}
+
+\section{实习经历}
+\ResumeItem
+{东方财富}
+[\textnormal{iOS 开发实习生}]
+[2024.07—2024.12]
+
+\begin{itemize}
+  \item \textbf{职责}: 交易模块崩溃率治理与启动框架拆分。
+  \item \textbf{成果}: 崩溃率从 0.35\% 降至 0.12\%（周活维度）。
+\end{itemize}
+
+
+\ResumeItem
+{海康威视 | 行业应用}
+[\textnormal{嵌入式 / 后端实习生}]
+[2023.09—2024.02]
+
+\begin{itemize}
+  \item \textbf{设备接入}: 参与国标设备接入网关协议适配与异常码映射。
+  \item \textbf{可靠性}: 实现断线重连与心跳退避策略，掉线恢复时间缩短 40\%。
+  \item \textbf{日志}: 统一日志格式与 traceId 透传，问题定位时间减半。
+  \item \textbf{客户}: 支持 2 次驻场联调，收集需求并转化为可验收用例。
+  \item \textbf{规范}: 熟悉编码规范与静态检查门禁，CI 全绿方可合并。
+\end{itemize}
+
+
+
+\section{项目经历}
+\ResumeItem
+{SwiftUI 股票分时图组件}
+[\textnormal{课程设计}]
+[2024.03—2024.06]
+
+\begin{itemize}
+  \item Canvas 绘制 + 手势缩放，帧率稳定在 55+ FPS（iPhone 12）。
+\end{itemize}
+
+
+\ResumeItem
+{灰度发布与流量染色}
+[\textnormal{网关 + 标签路由（演示）}]
+[2024.02—2024.06]
+
+\begin{itemize}
+  \item \textbf{能力}: 基于用户 ID / 地域 / 白名单实现多维度灰度与染色。
+  \item \textbf{实现}: 扩展网关插件，透传染色 Header 至下游 RPC Metadata。
+  \item \textbf{验证}: 与 QA 共建自动化回归集，覆盖 200+ 核心用例。
+  \item \textbf{效果}: 月均生产配置事故从 3 起降至 0.5 起（演示数据）。
+\end{itemize}
+
+
+
+\section{个人荣誉}
+\begin{itemize}
+  \item 中国大学生服务外包创新创业大赛 国家三等奖
+  \item 北航 学习优秀奖学金
+  \item 全国计算机等级考试四级（网络工程师）（演示）
+  \item 校级「优秀学生干部 / 优秀团员」或技术社团骨干（综合测评前 15\%）
+  \item 开源贡献：向知名项目提交被合并的 PR（文档/测试/feature）（演示）
+\end{itemize}
+
+\end{document}
