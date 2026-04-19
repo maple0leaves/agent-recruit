@@ -2,7 +2,9 @@
 
 import json
 import os
+import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from uuid import uuid4
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -117,6 +119,32 @@ def _coerce_match_result(value: MatchResult | dict | str) -> MatchResult:
     return MatchResult.model_validate(value)
 
 
+# ── Triage 规则前置 ──────────────────────────────────────────────────────────
+# 大多数真实流量是「招一个 X 工程师」「找一个 Y 经验的人」这种明显的招聘
+# 检索请求；显式触发词命中时直接路由，无需调用 LLM。仅在规则无法判定时
+# 才回退到 _llm_router。
+_INQUIRY_KEYWORDS = (
+    "招聘", "招", "寻找", "找", "查找", "查询", "推荐",
+    "候选人", "简历", "工程师", "开发", "开发者", "算法",
+    "前端", "后端", "全栈", "测试", "运维", "产品经理", "数据",
+    "hr", "hire", "hiring", "recruit", "candidate", "engineer", "developer",
+)
+_IGNORE_PATTERNS = ("你好", "hi", "hello", "在吗", "测试", "test", "ping")
+
+
+def _fast_classify(user_input: str) -> str | None:
+    """轻量级规则分类：命中返回结果字符串，否则返回 None 让 LLM 兜底。"""
+    text = (user_input or "").strip()
+    if not text:
+        return "ignore"
+    if len(text) <= 6 and text.lower() in _IGNORE_PATTERNS:
+        return "ignore"
+    lowered = text.lower()
+    if any(kw in lowered for kw in _INQUIRY_KEYWORDS):
+        return "inquiry"
+    return None
+
+
 def triage_router(state: RecruitmentState) -> Command[Literal["planner_agent", "single_resume_agent", "__end__"]]:
     """Classify the incoming request and route to the appropriate agent."""
     if state.get("resume_text"):
@@ -126,14 +154,19 @@ def triage_router(state: RecruitmentState) -> Command[Literal["planner_agent", "
             update={"classification": "new_resume"},
         )
 
-    result = _llm_router.invoke(
-        [
-            {"role": "system", "content": TRIAGE_SYSTEM_PROMPT},
-            {"role": "user", "content": TRIAGE_USER_PROMPT.format(user_input=state["user_input"])},
-        ]
-    )
-
-    classification = result.classification
+    user_input = state["user_input"]
+    fast = _fast_classify(user_input)
+    if fast is not None:
+        classification = fast
+        print(f"⚡ 规则分类命中：{classification.upper()}")
+    else:
+        result = _llm_router.invoke(
+            [
+                {"role": "system", "content": TRIAGE_SYSTEM_PROMPT},
+                {"role": "user", "content": TRIAGE_USER_PROMPT.format(user_input=user_input)},
+            ]
+        )
+        classification = result.classification
 
     if classification == "new_resume":
         print("📄 分类：NEW_RESUME → 解析单份简历")
@@ -164,7 +197,12 @@ def _parse_jd(user_input: str) -> JDInfo:
 
 
 def planner_agent(state: RecruitmentState) -> dict:
-    """Planner: parse JD and decide which tools to call."""
+    """Planner: parse JD and decide which tools to call.
+
+    优化点：第一轮（messages 为空 / 无候选人）直接走 ``_fallback_search_plan``，
+    省掉一次本质上没有决策价值的 LLM 调用。只有后续轮次（已有部分工具结果、
+    需要决定下一步）才让 LLM 介入。
+    """
     jd_info = state.get("jd_info") or _parse_jd(state["user_input"])
     print(f"📋 JD 解析完成：{jd_info.title or '未命名岗位'}")
 
@@ -175,35 +213,111 @@ def planner_agent(state: RecruitmentState) -> dict:
             "next_action": "reviewer",
         }
 
-    response = _llm_with_tools.invoke(
-        [
-            {
-                "role": "system",
-                "content": PLANNER_SYSTEM_PROMPT.format(
-                    user_input=state["user_input"],
-                    jd_info=jd_info.model_dump_json(ensure_ascii=False),
-                ),
-            },
-            *state.get("messages", []),
-            {
-                "role": "user",
-                "content": (
-                    "请开始执行招聘任务。"
-                    "如果还没有检索结果，请优先调用 search_candidates。"
-                    "如果已经有完整候选人评分结果，就不要再调用工具。"
-                ),
-            },
-        ]
-    )
+    history = state.get("messages", [])
+    has_candidates = bool(state.get("candidates"))
 
-    if not getattr(response, "tool_calls", None) and not state.get("candidates"):
+    if not history and not has_candidates:
         response = _fallback_search_plan(jd_info, state["user_input"])
+        print("⚡ 首轮直跳：不调用 Planner LLM，直接发起 search_candidates")
+    else:
+        response = _llm_with_tools.invoke(
+            [
+                {
+                    "role": "system",
+                    "content": PLANNER_SYSTEM_PROMPT.format(
+                        user_input=state["user_input"],
+                        jd_info=jd_info.model_dump_json(ensure_ascii=False),
+                    ),
+                },
+                *history,
+                {
+                    "role": "user",
+                    "content": (
+                        "请开始执行招聘任务。"
+                        "如果还没有检索结果，请优先调用 search_candidates。"
+                        "如果已经有完整候选人评分结果，就不要再调用工具。"
+                    ),
+                },
+            ]
+        )
+        if not getattr(response, "tool_calls", None) and not has_candidates:
+            response = _fallback_search_plan(jd_info, state["user_input"])
 
     return {
         "jd_info": jd_info,
         "messages": [response],
         "next_action": "execute_tools" if getattr(response, "tool_calls", None) else "reviewer",
     }
+
+
+_EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+
+# 候选人并行处理上限。简历数 <= 此值时全部并行；超出后按批处理，
+# 避免一次打爆 LLM 提供方的 RPM/TPM 限制。
+_CANDIDATE_PARALLELISM = int(os.getenv("CANDIDATE_PARALLELISM", "8"))
+
+
+def _process_one_candidate(
+    candidate_payload: dict,
+    jd_json: str,
+) -> tuple[CandidateInfo, MatchResult] | None:
+    """Run analyze_resume + score_match for a single candidate.
+
+    Designed to be called concurrently. Returns ``None`` when the resume
+    text is empty so the caller can skip it cleanly.
+
+    简历全文获取优先级：
+    1. payload 自带 ``resume_text``（向后兼容旧数据 / 直接传入的场景）
+    2. 通过 ``source`` 路径调 ``_read_resume_file``（带 LRU 缓存，零额外成本）
+    3. 退化使用 ``content`` 摘要（短文本兜底）
+    """
+    resume_text = candidate_payload.get("resume_text") or ""
+    source = candidate_payload.get("source", "")
+    if not resume_text and source:
+        try:
+            from agent.tools import _read_resume_file
+
+            resume_text = _read_resume_file(source)
+        except Exception as exc:  # noqa: BLE001
+            print(f"⚠️ 读取简历失败 {source}: {exc}")
+    if not resume_text:
+        resume_text = candidate_payload.get("content", "")
+    if not resume_text:
+        return None
+
+    candidate_json = TOOLS_BY_NAME["analyze_resume"].invoke({"resume_text": resume_text})
+    candidate = _coerce_candidate(candidate_json)
+    if not candidate.name:
+        candidate.name = candidate_payload.get("name", "") or _derive_name_from_source(
+            candidate_payload.get("source", "")
+        )
+    if not candidate.email:
+        fallback_email = candidate_payload.get("email", "")
+        if not fallback_email:
+            match = _EMAIL_RE.search(resume_text)
+            fallback_email = match.group(0) if match else ""
+        candidate.email = fallback_email
+
+    match_json = TOOLS_BY_NAME["score_match"].invoke(
+        {
+            "candidate_json": candidate.model_dump_json(ensure_ascii=False),
+            "jd_json": jd_json,
+        }
+    )
+    match_result = _coerce_match_result(match_json)
+    if not match_result.candidate_name:
+        match_result.candidate_name = candidate.name
+    match_result.resume_source = candidate_payload.get("source", "")
+    match_result.resume_text = resume_text
+    return candidate, match_result
+
+
+def _derive_name_from_source(source: str) -> str:
+    """Best-effort name fallback derived from the resume file name."""
+    if not source:
+        return ""
+    stem = os.path.splitext(os.path.basename(source))[0]
+    return stem.replace("_", " ").title()
 
 
 def worker_agent(state: RecruitmentState) -> dict:
@@ -213,14 +327,15 @@ def worker_agent(state: RecruitmentState) -> dict:
     jd_info = state.get("jd_info")
     jd_json = jd_info.model_dump_json(ensure_ascii=False) if jd_info else "{}"
 
-    candidate_map = {
-        _candidate_key(_coerce_candidate(candidate)): _coerce_candidate(candidate)
-        for candidate in state.get("candidates", [])
-    }
-    match_map = {
-        _coerce_match_result(result).candidate_name or f"candidate_{index}": _coerce_match_result(result)
-        for index, result in enumerate(state.get("match_results", []))
-    }
+    candidate_map: dict[str, CandidateInfo] = {}
+    for candidate in state.get("candidates", []):
+        coerced = _coerce_candidate(candidate)
+        candidate_map[_candidate_key(coerced)] = coerced
+
+    match_map: dict[str, MatchResult] = {}
+    for index, result in enumerate(state.get("match_results", [])):
+        coerced = _coerce_match_result(result)
+        match_map[coerced.candidate_name or f"candidate_{index}"] = coerced
 
     for tool_call in last_message.tool_calls:
         tool = TOOLS_BY_NAME[tool_call["name"]]
@@ -235,32 +350,25 @@ def worker_agent(state: RecruitmentState) -> dict:
         )
 
         if tool_call["name"] == "search_candidates":
-            candidates = json.loads(observation)
-            for candidate_payload in candidates:
-                resume_text = candidate_payload.get("resume_text") or candidate_payload.get("content", "")
-                if not resume_text:
-                    continue
+            candidates_payload = json.loads(observation)
+            if not candidates_payload:
+                continue
 
-                candidate_json = TOOLS_BY_NAME["analyze_resume"].invoke({"resume_text": resume_text})
-                candidate = _coerce_candidate(candidate_json)
-                if not candidate.name:
-                    candidate.name = candidate_payload.get("name", "")
-                if not candidate.email:
-                    candidate.email = candidate_payload.get("email", "")
-
-                candidate_map[_candidate_key(candidate)] = candidate
-
-                match_json = TOOLS_BY_NAME["score_match"].invoke(
-                    {
-                        "candidate_json": candidate.model_dump_json(ensure_ascii=False),
-                        "jd_json": jd_json,
-                    }
+            workers = min(_CANDIDATE_PARALLELISM, len(candidates_payload))
+            print(f"🚀 并行解析+评分 {len(candidates_payload)} 位候选人 (并发={workers})")
+            with ThreadPoolExecutor(max_workers=workers) as pool:
+                processed = list(
+                    pool.map(
+                        lambda payload: _process_one_candidate(payload, jd_json),
+                        candidates_payload,
+                    )
                 )
-                match_result = _coerce_match_result(match_json)
-                if not match_result.candidate_name:
-                    match_result.candidate_name = candidate.name
-                match_result.resume_source = candidate_payload.get("source", "")
-                match_result.resume_text = resume_text
+
+            for item in processed:
+                if item is None:
+                    continue
+                candidate, match_result = item
+                candidate_map[_candidate_key(candidate)] = candidate
                 match_map[match_result.candidate_name] = match_result
 
         elif tool_call["name"] == "analyze_resume":

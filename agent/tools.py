@@ -1,16 +1,43 @@
 """Tool definitions for the recruitment agent system."""
 
+import hashlib
 import json
 import logging
 import re
+from functools import lru_cache
 from pathlib import Path
 
 from langchain_core.tools import tool
 
 from agent.schemas import CandidateInfo, MatchResult
 
+# 模块级缓存：避免每次工具调用都新建 LLM 客户端 + 重新绑定结构化输出 schema。
+# 这两个对象是无状态的，可安全跨线程共享。
+_LLM_RESUME_PARSER = None
+_LLM_MATCH_SCORER = None
 
-def _read_resume_file(file_path: str) -> str:
+
+def _get_resume_parser():
+    """Return a process-wide singleton LLM bound to CandidateInfo schema."""
+    global _LLM_RESUME_PARSER
+    if _LLM_RESUME_PARSER is None:
+        from agent.agent import _build_llm
+
+        _LLM_RESUME_PARSER = _build_llm().with_structured_output(CandidateInfo)
+    return _LLM_RESUME_PARSER
+
+
+def _get_match_scorer():
+    """Return a process-wide singleton LLM bound to MatchResult schema."""
+    global _LLM_MATCH_SCORER
+    if _LLM_MATCH_SCORER is None:
+        from agent.agent import _build_llm
+
+        _LLM_MATCH_SCORER = _build_llm().with_structured_output(MatchResult)
+    return _LLM_MATCH_SCORER
+
+
+def _read_resume_file_uncached(file_path: str) -> str:
     """Read resume content from a .txt or .pdf file."""
     path = Path(file_path)
     if path.suffix.lower() == ".pdf":
@@ -21,6 +48,25 @@ def _read_resume_file(file_path: str) -> str:
         doc.close()
         return "\n".join(pages)
     return path.read_text(encoding="utf-8")
+
+
+@lru_cache(maxsize=256)
+def _read_resume_file(file_path: str) -> str:
+    """Cached resume reader. PDF/TXT 解析结果按文件路径缓存，避免反复读盘。"""
+    return _read_resume_file_uncached(file_path)
+
+
+@lru_cache(maxsize=512)
+def _analyze_resume_cached(text_hash: str, resume_text: str) -> str:
+    """LLM 解析的进程内缓存。同一份简历重复出现时直接返回上次结果。
+
+    Key 用 ``text_hash``（md5），原文也作为参数传入是为了避免 hash 冲突时
+    误用旧结果（lru_cache 用全部参数做 key，但只有 text_hash 实际产生哈希）。
+    """
+    from agent.prompt import RESUME_PARSE_PROMPT
+
+    result = _get_resume_parser().invoke(RESUME_PARSE_PROMPT.format(resume_text=resume_text))
+    return result.model_dump_json(ensure_ascii=False)
 
 
 @tool
@@ -48,17 +94,22 @@ def search_candidates(query: str, top_k: int = 5) -> str:
         if source:
             seen_sources.add(source)
 
+        # 优先复用 vector store 已切好的 chunk，避免重复打开 PDF。
+        # 仅当 chunk 明显是被切片的片段（无邮箱且很短）才回退去读全文。
         resume_text = doc.page_content
-        if source and Path(source).exists():
+        needs_full_text = source and len(resume_text) < 400 and "@" not in resume_text
+        if needs_full_text and Path(source).exists():
             resume_text = _read_resume_file(source)
 
         email_match = re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", resume_text)
+        # 注意：tool 返回值会进入 LangGraph messages，会被后续 LLM 调用反复
+        # 重发。这里只回传摘要 + source 引用，避免全文污染上下文；worker
+        # 拿到 source 后通过 _read_resume_file（已带 LRU 缓存）取全文。
         results.append(
             {
                 "name": doc.metadata.get("name", "Unknown"),
                 "email": email_match.group(0) if email_match else doc.metadata.get("email", ""),
                 "content": resume_text[:500],
-                "resume_text": resume_text,
                 "source": source,
             }
         )
@@ -68,32 +119,16 @@ def search_candidates(query: str, top_k: int = 5) -> str:
 @tool
 def analyze_resume(resume_text: str) -> str:
     """Parse and extract structured information from a resume text."""
-    from agent.prompt import RESUME_PARSE_PROMPT
-    import os
-    import sys
-
-    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-    from agent.agent import _build_llm
-
-    llm = _build_llm()
-    llm_structured = llm.with_structured_output(CandidateInfo)
-    result = llm_structured.invoke(RESUME_PARSE_PROMPT.format(resume_text=resume_text))
-    return result.model_dump_json(ensure_ascii=False)
+    text_hash = hashlib.md5(resume_text.encode("utf-8")).hexdigest()
+    return _analyze_resume_cached(text_hash, resume_text)
 
 
 @tool
 def score_match(candidate_json: str, jd_json: str) -> str:
     """Evaluate the match between a candidate and a job description."""
     from agent.prompt import MATCH_SCORING_PROMPT
-    import os
-    import sys
 
-    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-    from agent.agent import _build_llm
-
-    llm = _build_llm()
-    llm_structured = llm.with_structured_output(MatchResult)
-    result = llm_structured.invoke(
+    result = _get_match_scorer().invoke(
         MATCH_SCORING_PROMPT.format(
             candidate_info=candidate_json,
             jd_info=jd_json,
