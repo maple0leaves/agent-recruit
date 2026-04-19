@@ -1,0 +1,76 @@
+% !TeX TS-program = xelatex
+\documentclass{resume-photo}
+
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{geometry}
+\geometry{top=0.55cm, bottom=0.45cm, left=0.85cm, right=0.85cm, includefoot}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+\linespread{1.05}
+
+\ResumeName{刘婷}
+
+\begin{document}
+
+\ResumeContacts{
+  139-XXXX-4407,%
+  \ResumeUrl{mailto:liuting@zju.edu.cn}{liuting@zju.edu.cn},%
+  \textnormal{浙江大学 | 计算机科学与技术 · 硕士 | 20XX-XX}%
+}
+
+\ResumeTitle
+
+% ====================== 简介 ======================
+\noindent {\small 浙江大学计算机科学与技术专业硕士，4 年推荐系统与广告算法工程经验。专注召回/排序/重排全链路优化，在电商搜索推荐和信息流广告方向有深厚积累。熟悉特征工程、CTR 预估与多目标优化，具备千亿参数量级模型线上服务落地经验。}
+
+% ====================== 教育 ======================
+\section{教育背景}
+\ResumeItem{浙江大学}[\textnormal{计算机学院 | 计算机科学与技术 | 硕士 | 研究方向：推荐系统}][2018.09—2021.06]
+\ResumeItem{浙江大学}[\textnormal{信息与电子工程学院 | 信息工程 | 学士}][2014.09—2018.06]
+
+% ====================== 技能 ======================
+\section{专业技能}
+\begin{itemize}
+  \item \textbf{算法}：CTR 预估（DeepFM / DCN / DIEN）；召回（双塔 / HNSW / 图神经网络）；多目标排序（MMoE / PLE）。
+  \item \textbf{框架}：TensorFlow / PyTorch / PaddlePaddle；熟悉 TensorFlow Serving / TorchServe 模型部署。
+  \item \textbf{大数据}：Spark / Flink / Hive；熟悉特征平台（Feast）与实时特征流水线构建。
+  \item \textbf{工程}：Python / Scala / C++；熟悉 A/B 实验平台搭建与效果评估体系设计。
+\end{itemize}
+
+% ====================== 工作 ======================
+\section{工作经历}
+
+\ResumeItem{阿里巴巴｜淘宝推荐算法团队}[\textnormal{高级算法工程师}][2023.03—至今]
+\begin{itemize}
+  \item 主导首页猜你喜欢召回侧优化：引入图协同过滤（GraphSAGE）建模用户行为序列，召回指标 Recall@50 提升 8.5\%，带动 GMV 提升 2.1\%。
+  \item 设计多兴趣召回框架（MIND 改进版），实现用户兴趣自适应分裂；A/B 实验中人均点击数提升 6\%，用户留存时长增加 4\%。
+  \item 推动实时特征接入（用户最近 10 分钟行为），基于 Flink 构建低延迟特征流水线，特征新鲜度从 15min 降至 30s。
+\end{itemize}
+
+\ResumeItem{京东｜广告算法团队}[\textnormal{算法工程师}][2021.07—2023.02]
+\begin{itemize}
+  \item 负责搜索广告精排模型迭代，将 DIEN 序列建模引入排序层，CTR AUC 提升 0.005，线上 RPM 提升 3.2\%。
+  \item 设计广告多目标优化框架（CTR + CVR + GMV 联合优化），基于 PLE 解决任务冲突；GMV 提升 4.5\%，CPM 下降 2\%。
+  \item 主导出价策略优化：基于 DRL（DDPG）实现自动出价，广告主 ROI 平均提升 18\%，平台收入提升 5\%。
+\end{itemize}
+
+% ====================== 科研/项目 ======================
+\section{科研与项目经历}
+
+\ResumeItem{硕士论文：基于图神经网络的序列推荐研究}[][2020.03—2021.05]
+\begin{itemize}
+  \item 提出 Gated Graph Attention 网络建模用户会话内商品转移关系，在 MovieLens / Amazon 数据集上 HR@20 较 BERT4Rec 提升 5.3\%。
+  \item 论文发表于 SIGIR 2021（CCF-A），被引 42 次；开源代码 GitHub 800+ stars。
+\end{itemize}
+
+% ====================== 荣誉 ======================
+\section{个人荣誉}
+\begin{itemize}
+  \item SIGIR 2021 第一作者论文 (CCF-A)；KDD Cup 2022 推荐赛道 Top 3\%
+  \item 阿里巴巴 2023 年度"突出贡献奖"（淘宝推荐算法方向 Top 10\%）
+  \item 浙江大学 2021 年度国家奖学金；浙江省优秀毕业研究生；CCF 大数据与计算智能大赛全国二等奖
+\end{itemize}
+
+\end{document}

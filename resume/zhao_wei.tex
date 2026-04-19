@@ -1,0 +1,76 @@
+% !TeX TS-program = xelatex
+\documentclass{resume-photo}
+
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+\usepackage{geometry}
+\geometry{top=0.55cm, bottom=0.45cm, left=0.85cm, right=0.85cm, includefoot}
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+\linespread{1.05}
+
+\ResumeName{赵伟}
+
+\begin{document}
+
+\ResumeContacts{
+  135-XXXX-9963,%
+  \ResumeUrl{mailto:zhaowei@bupt.edu.cn}{zhaowei@bupt.edu.cn},%
+  \textnormal{北京邮电大学 | 计算机科学与技术 · 本科 | 20XX-XX}%
+}
+
+\ResumeTitle
+
+% ====================== 简介 ======================
+\noindent {\small 北京邮电大学计算机科学与技术本科毕业，5 年 Java 后端开发经验，专注高并发、高可用分布式系统设计与落地。先后在互联网与金融科技领域参与核心交易系统建设，具备亿级流量服务治理经验，熟悉 Spring Cloud 微服务全技术栈与中间件调优。}
+
+% ====================== 教育 ======================
+\section{教育背景}
+\ResumeItem{北京邮电大学}[\textnormal{计算机学院 | 计算机科学与技术 | 本科 | 专业排名前 8\%}][2015.09—2019.06]
+
+% ====================== 技能 ======================
+\section{专业技能}
+\begin{itemize}
+  \item \textbf{语言/框架}：Java 8/11/17、Kotlin；Spring Boot / Spring Cloud / Dubbo；熟悉响应式编程（WebFlux / Reactor）。
+  \item \textbf{存储/缓存}：MySQL（InnoDB 调优、分库分表 ShardingSphere）；Redis 集群；Elasticsearch；HBase。
+  \item \textbf{消息/流}：Kafka（百亿级消息吞吐）；RocketMQ；熟悉 Flink 流处理与实时数仓。
+  \item \textbf{基础设施}：Kubernetes / Docker；Prometheus + Grafana 监控；Skywalking 链路追踪；熟悉 AWS / 腾讯云。
+\end{itemize}
+
+% ====================== 工作 ======================
+\section{工作经历}
+
+\ResumeItem{蚂蚁集团｜支付宝核心交易平台}[\textnormal{高级 Java 工程师}][2022.03—至今]
+\begin{itemize}
+  \item 参与收单交易核心链路重构（Dubbo 3.x 升级），服务调用 P99 延迟从 120ms 降至 45ms，双十一峰值 TPS 支撑 15 万+。
+  \item 设计幂等框架（分布式锁 + 唯一流水号 + 状态机），解决网络重试导致的重复扣款问题，资损事件归零。
+  \item 主导 MySQL 分库分表改造（ShardingSphere），将订单表从单库 8 亿行拆分至 16 库 256 表，查询耗时降低 85\%。
+  \item 构建实时对账流水线（Kafka + Flink），账单核对时效从 T+1 批处理缩短至准实时 5 分钟，差错发现率提升 40\%。
+\end{itemize}
+
+\ResumeItem{滴滴出行｜出行服务后端团队}[\textnormal{Java 工程师}][2019.07—2022.02]
+\begin{itemize}
+  \item 负责行程匹配服务后端开发，基于 Redis GEO + 自研调度算法实现司机就近匹配，响应时间 < 30ms，高峰 QPS 50 万+。
+  \item 参与动态定价模块开发，引入 Flink 实时计算供需比，定价策略迭代周期从周级缩短至分钟级。
+  \item 推进核心服务容器化（K8s），节省 30\% 机器资源；基于 Skywalking 建立全链路监控，故障定位时间从 2h 降至 10min。
+\end{itemize}
+
+% ====================== 项目 ======================
+\section{项目经历}
+
+\ResumeItem{开源中间件：easy-distributed-lock}[][2021.06—至今]
+\begin{itemize}
+  \item 基于 Redis / Zookeeper 实现支持可重入、公平锁、读写锁的分布式锁框架，兼容 Spring Boot Starter 自动装配。
+  \item GitHub 获得 900+ stars，Maven Central 月下载量 3000+；被 10+ 家企业用于生产环境。
+\end{itemize}
+
+% ====================== 荣誉 ======================
+\section{个人荣誉}
+\begin{itemize}
+  \item 蚂蚁集团 2023 年度"卓越工程师"（支付宝核心交易方向 Top 5\%）
+  \item 北京邮电大学 2019 年度优秀毕业生；ACM-ICPC 北京区域赛银奖
+  \item InfoQ 认证技术作者；CSDN Java 领域博主（粉丝 2 万+）；掘金年度优秀作者 2022
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,26 @@
+姓名：张三
+邮箱：zhangsan@example.com
+电话：138-0000-0001
+
+教育背景：
+- 本科，计算机科学，北京大学，2018年毕业
+
+工作经验（5年）：
+
+2021-至今 | 高级后端工程师 | ABC科技有限公司
+- 负责核心业务系统开发，使用 Python/FastAPI 构建微服务
+- 设计并维护 PostgreSQL 数据库架构，优化查询性能 40%
+- 使用 Redis 实现缓存层，降低接口延迟 60%
+- 主导 Docker + Kubernetes 容器化部署改造
+
+2019-2021 | 后端工程师 | XYZ互联网公司
+- 参与电商平台核心模块开发（Python/Django）
+- 负责 RESTful API 设计与开发
+- 编写单元测试，测试覆盖率达 85%
+
+技能：
+- 编程语言：Python（精通）、Go（熟悉）、SQL
+- 框架：FastAPI、Django、Flask
+- 数据库：PostgreSQL、MySQL、Redis、MongoDB
+- 工具：Docker、Kubernetes、Git、Jenkins
+- 其他：微服务架构、系统设计、性能优化

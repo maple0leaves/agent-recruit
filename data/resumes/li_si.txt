@@ -1,0 +1,21 @@
+姓名：李四
+邮箱：lisi@example.com
+电话：138-0000-0002
+
+教育背景：
+- 硕士，软件工程，上海交通大学，2020年毕业
+
+工作经验（3年）：
+
+2020-至今 | 后端开发工程师 | DEF云计算公司
+- 使用 Python/Django 开发 SaaS 平台功能模块
+- 参与微服务拆分，使用 gRPC 实现服务间通信
+- 负责 MySQL 数据库设计与优化
+- 使用 Celery + Redis 实现异步任务队列
+
+技能：
+- 编程语言：Python（熟练）、Java（了解）
+- 框架：Django、DRF、Flask
+- 数据库：MySQL、Redis
+- 工具：Docker、Git、Linux
+- 其他：RESTful API、异步编程

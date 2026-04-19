@@ -1,0 +1,97 @@
+% !TeX TS-program = xelatex
+\documentclass{resume-photo}
+
+% 字体
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage{fontspec}
+
+% 覆盖 cls 默认页边距，压缩至单页
+\usepackage{geometry}
+\geometry{top=0.55cm, bottom=0.45cm, left=0.85cm, right=0.85cm, includefoot}
+
+% 紧凑排版
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=0pt, topsep=1pt, parsep=0pt, partopsep=0pt}
+\linespread{1.05}
+
+\ResumeName{阿东玩AI}
+\ResumePhoto{adongwanai.jpg}
+
+\begin{document}
+
+\ResumeContacts{
+  1XX-XXXX-XXXX,%
+  \ResumeUrl{mailto:adong@tsinghua.edu.cn}{adong@tsinghua.edu.cn},%
+  \textnormal{清华大学 | 计算机科学与技术 · 硕士 | 20XX-XX}%
+}
+
+\ResumeTitle
+
+% ====================== 简介 ======================
+\noindent {\small 清华大学计算机科学与技术专业硕士在读（2026.06 预计毕业），主攻大模型方向，在模型压缩、微调对齐与 Agent 决策方面积累了系统性研究与工程实践经验。以第一作者身份在 NeurIPS 2024 发表论文；先后于字节跳动 AI Lab 与腾讯微信 AI 团队完成大模型算法与推理优化实习；曾获 Kaggle 大模型微调比赛金牌及天池大赛第一名。}
+
+% ====================== 教育 ======================
+\section{教育背景}
+\ResumeItem{清华大学}[\textnormal{计算机学院 | 计算机科学与技术 | 硕士 | 专业排名前 5\%}][2023.09—2026.06(预计)]
+\ResumeItem{清华大学}[\textnormal{计算机系 | 计算机科学与技术 | 学士 | GPA 3.9/4.0}][2019.09—2023.06]
+
+% ====================== 技能 ======================
+\section{专业技能}
+\begin{itemize}
+  \item 熟悉 Python / PyTorch / Hugging Face Transformers；掌握 LoRA、P-tuning、QLoRA 等微调技术及提示工程实践。
+  \item 熟悉 LLaMA / Qwen 等主流架构及 RLHF / DPO 对齐方法；掌握知识蒸馏与结构化剪枝，具备 DeepSpeed 分布式训练经验。
+  \item 熟悉 vLLM 推理框架、INT8/INT4 量化加速；了解 RAG 检索增强与 Agent（ReAct / MCTS / ToT）应用开发。
+  \item 熟悉 Linux / Git / Docker 开发环境；有 A100 / H800 集群大规模训练与性能调优经验。
+\end{itemize}
+
+% ====================== 科研 ======================
+\section{科研经历}
+
+\ResumeItem{大模型知识蒸馏与模型压缩技术研究}[][2023.09—2024.02]
+\begin{itemize}
+  \item 提出层级知识蒸馏压缩方法，同时对齐注意力分布、隐层特征与输出概率，在保持 95\% 性能前提下将 LLaMA-13B 压缩至 3B；结合低秩分解与自适应结构化剪枝，在 MMLU / GSM8K 上较标准蒸馏平均提升 4.2\%。
+  \item \textbf{成果}：第一作者论文发表于 NeurIPS 2024 (CCF-A)，被引 15 次；相关代码已开源。
+\end{itemize}
+
+\ResumeItem{基于强化学习的自主决策 Agent 系统研究}[][2024.03—至今]
+\begin{itemize}
+  \item 提出 PPO-based Agent 决策框架，引入分层 RL（HER 加速稀疏奖励收敛）与 MCTS 混合机制；在 ALFWorld / WebShop 上较 ReAct 基线任务成功率提升 12\%\textasciitilde18\%，决策步数减少 25\%，样本效率提升 35\%。
+  \item \textbf{成果}：第一作者论文投稿 NeurIPS 2026（Under Review）；开源项目 GitHub 500+ stars。
+\end{itemize}
+
+% ====================== 实习 ======================
+\section{实习经历}
+
+\ResumeItem{字节跳动｜人工智能实验室}[\textnormal{大模型算法实习生}][2024.06—2024.12]
+\begin{itemize}
+  \item 构造高质量 CoT 数据 5B tokens 进行持续预训练，HumanEval / MATH / GSM8K 稳定提升 5\textasciitilde8pp；构建多轮对话数据集 50 万条，SFT + DPO 后内部 benchmark 再提升 3pp，用户满意度 87\%。
+  \item 采用 ReAct 范式构造工具调用数据，基于 Qwen-14B 混合训练，准确率从 72\% 升至 89\%；实现 Tree-of-Thought 推理框架，复杂任务成功率提升 12\%。
+  \item 参与模型红队测试与安全对齐，设计对抗提示数据集，有效降低越狱成功率 30\%。
+\end{itemize}
+
+\ResumeItem{腾讯｜微信 AI 团队}[\textnormal{算法工程实习生}][2023.06—2023.12]
+\begin{itemize}
+  \item KV Cache 优化、算子融合、批处理策略将推理延迟从 P99 3.2s 降至 1.8s，QPS 提升 65\%；INT8 量化使显存降低 55\%，单机部署模型数提升 2 倍。
+  \item 基于 vLLM 实现动态 / 连续批处理与调度策略优化，高并发（1000+ QPS）下吞吐量提升 80\%，P95 延迟降低 40\%。
+\end{itemize}
+
+% ====================== 项目 ======================
+\section{项目经历}
+
+\ResumeItem{基于自我纠错机制的智能 RAG 检索系统}[][2024.01—2024.05]
+\begin{itemize}
+  \item 设计迭代式检索策略：置信度低于阈值时 Agent 自动触发反思重查；融合向量检索、BM25 与交叉编码器重排序三阶段流程，根据查询类型自适应选择最优策略。
+  \item 在 MS MARCO / Natural Questions 及内部知识库上完成消融实验；召回率从 65\% 提升至 85\%，平均检索轮次 1.3 次，用户满意度 82\%；方案已落地生产环境。
+\end{itemize}
+
+% ====================== 荣誉 ======================
+\section{个人荣誉}
+\begin{itemize}
+  \item NeurIPS 2024 第一作者论文 (CCF-A)，研究方向：大模型知识蒸馏与压缩；论文被引 15 次
+  \item Kaggle LLM Science Exam 金牌 (Top 1\%, 128/2664)；天池 TIANCHI LLM Fine-tuning Challenge 第一名
+  \item 清华大学 2024 年度一等学业奖学金、优秀研究生；2023 年度国家奖学金
+  \item 第十四届 CCPC 全国银奖；MCM/ICM Meritorious Winner；GitHub "Agent-RL-Framework" 500+ stars
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,36 @@
+# 环境变量（包含密钥，禁止提交）
+.env
+.env.local
+.env.*.local
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境
+venv/
+.venv/
+env/
+
+# 数据 / 索引（运行时生成，不应入库）
+data/vector_store/
+data/chroma_memory/
+data/candidate_memory.json
+data/resume_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# 日志
+*.log
+logs/
+
+# 系统
+.DS_Store
+Thumbs.db
