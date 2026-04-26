@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Planning Phase 4 (04-ai-matching-approval)
+stopped_at: Completed Phase 4 (04-ai-matching-approval) -- all plans done
 last_updated: "2026-04-26"
 last_activity: 2026-04-26
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 18
-  completed_plans: 17
-  percent: 94
+  completed_plans: 18
+  percent: 100
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 
 ## Current Position
 
-Phase: 4 of 5 (AI Matching & Approval)
-Plan: 3 of 4 in current phase (Plan 04-04 remaining)
-Status: In progress
+Phase: 4 of 5 (AI Matching & Approval) -- COMPLETE
+Plan: 4 of 4 in current phase
+Status: Completed
 Last activity: 2026-04-26
 
-Progress: [█████████░] 94%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -47,7 +47,7 @@ Progress: [█████████░] 94%
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | 4 | 9.0 min | 3.0 min |
-| 4. AI Matching & Approval | 3 | 18.2 min | 6.1 min |
+| 4. AI Matching & Approval | 4 | 18.2 min | 6.1 min |
 | 5. Advanced Features | TBD | - | - |
 
 *Updated after each plan completion*
@@ -102,6 +102,9 @@ Progress: [█████████░] 94%
 - Plan 04-03: startMatchingStream accepts optional AbortSignal for SSE cancellation via AbortController
 - Plan 04-03: useMatchingSSE calls startMatchingStream API function (not raw fetch) for consistency
 - Plan 04-03: useDashboardStats uses staleTime: Infinity for page-load-only refresh
+- Plan 04-04: Matching page renders /matching/:jdId and /matching paths separately for param and paramless access
+- Plan 04-04: Review map managed as Record<string, ReviewEntry> instead of array to simplify lookup-per-candidate
+- Plan 04-04: Dashboard pending approvals alert uses inline amber banner consistent with existing pattern
 
 ### Pending Todos
 
@@ -114,5 +117,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Completed Plan 04-02 (streaming HITL API, per-candidate resume, dashboard stats)
+Stopped at: Completed Plan 04-04 (frontend pages: matching trigger, full Matching/Dashboard pages)
 Resume file: None
