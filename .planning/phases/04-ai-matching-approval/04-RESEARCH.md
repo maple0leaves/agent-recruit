@@ -714,7 +714,7 @@ export function useDashboardStats() {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **How to pass JD context to the matching agent?**
    - What we know: The agent accepts `user_input` (text) and `resume_text`. For JD-based matching, we need to pass the JD's structured data (title, skills, experience, etc.)
