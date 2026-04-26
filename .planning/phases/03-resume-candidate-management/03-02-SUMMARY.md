@@ -79,7 +79,7 @@ Each task was committed atomically:
 1. **Task 1: Create TypeScript types and API functions for Candidate domain** - `4cff49e` (feat)
 2. **Task 2: Create TanStack Query hooks for Candidate domain** - `711c36c` (feat)
 
-**Plan metadata:** `pending (will be recorded in final commit)`
+**Plan metadata:** `2259782` (docs: complete plan 03-02)
 
 ## Files Created
 - `frontend/src/types/candidate.ts` - CandidateStatus union type, Candidate interface, CandidateListResponse, CandidateUpdate, CandidateUploadResponse
