@@ -66,3 +66,17 @@ def init_langsmith() -> bool:
 # API
 API_HOST = os.getenv("API_HOST", "0.0.0.0")
 API_PORT = int(os.getenv("API_PORT", "8000"))
+
+# ── Database ───────────────────────────────────────────────────────────
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./data/dev.db")
+
+# ── JWT / Auth ─────────────────────────────────────────────────────────
+JWT_SECRET = os.getenv("JWT_SECRET", "dev-secret-change-in-production-min-32-bytes!")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
+
+# ── CORS ───────────────────────────────────────────────────────────────
+# Frontend dev server + production domain
+_cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:8000")
+CORS_ORIGINS = [origin.strip() for origin in _cors_origins.split(",") if origin.strip()]

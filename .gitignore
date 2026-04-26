@@ -37,3 +37,14 @@ logs/
 # 系统
 .DS_Store
 Thumbs.db
+
+# 数据库文件（SQLite）
+data/dev.db
+data/dev.db-journal
+
+# 前端
+frontend/node_modules/
+frontend/dist/
+
+# 后端缓存
+backend/__pycache__/
