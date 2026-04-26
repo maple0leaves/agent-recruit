@@ -212,8 +212,14 @@ def _sse_event(event: str, data: dict) -> str:
     return f"data: {payload}\n\n"
 
 
-async def _stream_recruitment(user_input: str, resume_text: str):
-    """Generator that streams LangGraph node events as SSE."""
+async def _stream_recruitment(user_input: str, resume_text: str, request: Request):
+    """Generator that streams LangGraph node events as SSE.
+
+    Includes:
+    - 120-second timeout via asyncio.wait_for
+    - Client disconnect detection via request.is_disconnected()
+    - [DONE] sentinel on all terminal paths
+    """
     from uuid import uuid4
 
     config = {"configurable": {"thread_id": f"stream-{uuid4().hex}"}}
@@ -245,6 +251,8 @@ async def _stream_recruitment(user_input: str, resume_text: str):
             },
         )
 
+    TIMEOUT_SECONDS = 120
+
     try:
         loop = asyncio.get_running_loop()
         queue: asyncio.Queue = asyncio.Queue()
@@ -257,7 +265,13 @@ async def _stream_recruitment(user_input: str, resume_text: str):
                 loop.call_soon_threadsafe(queue.put_nowait, exc)
             loop.call_soon_threadsafe(queue.put_nowait, None)
 
-        loop.run_in_executor(None, _run_graph)
+        # Run with timeout
+        stream_task = asyncio.create_task(
+            asyncio.wait_for(
+                asyncio.get_event_loop().run_in_executor(None, _run_graph),
+                timeout=TIMEOUT_SECONDS,
+            )
+        )
 
         progress_map = {
             "triage_router": "请求分类完成",
@@ -268,8 +282,34 @@ async def _stream_recruitment(user_input: str, resume_text: str):
         }
 
         final_state: dict = {}
+
         while True:
-            item = await queue.get()
+            done, pending = await asyncio.wait(
+                [stream_task, asyncio.ensure_future(queue.get())],
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+
+            # Check for client disconnect
+            if await request.is_disconnected():
+                stream_task.cancel()
+                yield _sse_event("done", {})
+                return
+
+            # Check for timeout
+            if stream_task in done and stream_task.exception() is not None:
+                exc = stream_task.exception()
+                if isinstance(exc, asyncio.TimeoutError):
+                    yield _sse_event("error", {"message": "请求超时，请稍后重试"})
+                    yield _sse_event("done", {})
+                    return
+                raise exc
+
+            if stream_task.done():
+                # Stream completed normally
+                break
+
+            # Process queue items
+            item = queue.get_nowait() if not stream_task.done() else None
             if item is None:
                 break
             if isinstance(item, Exception):
@@ -296,6 +336,7 @@ async def _stream_recruitment(user_input: str, resume_text: str):
                 if isinstance(node_output, dict):
                     final_state.update(node_output)
 
+        # Send final result
         parsed_results = _parse_match_results(final_state.get("match_results", []))
         yield _sse_event(
             "result",
@@ -306,16 +347,24 @@ async def _stream_recruitment(user_input: str, resume_text: str):
             },
         )
 
+    except asyncio.TimeoutError:
+        yield _sse_event("error", {"message": "请求超时，请稍后重试"})
     except Exception as e:
         logger.exception("Streaming recruitment failed")
         yield _sse_event("error", {"message": str(e)})
+    finally:
+        yield _sse_event("done", {})
 
 
 @app.post("/recruit/stream")
-async def recruit_stream(request: RecruitmentInput, _user: dict = Depends(get_current_user)):
+async def recruit_stream(
+    request: RecruitmentInput,
+    http_request: Request,
+    _user: dict = Depends(get_current_user),
+):
     """SSE streaming endpoint for the recruitment workflow."""
     return StreamingResponse(
-        _stream_recruitment(request.user_input, request.resume_text or ""),
+        _stream_recruitment(request.user_input, request.resume_text or "", http_request),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
