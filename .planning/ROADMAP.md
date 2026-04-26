@@ -100,8 +100,13 @@ Plans:
   2. HR can send feedback to the agent during review and request re-adjustment of results
   3. HR can export matching results as a formatted PDF report
   4. HR can export matching results as an Excel spreadsheet
-**Plans**: TBD
+**Plans**: 3 plans across 3 waves
 **UI hint**: yes
+
+Plans:
+- [ ] 05-01-PLAN.md -- Reverse matching: backend schema migration + streaming endpoint + CandidateDetail button + Matching page candidateId support
+- [ ] 05-02-PLAN.md -- Agent feedback: feedback_rerun in resume endpoint + FeedbackDialog + SSE re-stream flow
+- [ ] 05-03-PLAN.md -- PDF/Excel export: reportlab/openpyxl module + export API endpoints + Matching page download buttons
 
 ## Progress
 
@@ -114,4 +119,4 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 | 2. JD Management | 4/4 | Complete | 2026-04-26 |
 | 3. Resume & Candidate Management | 4/4 | Complete | 2026-04-26 |
 | 4. AI Matching & Approval | 4/4 | Complete | 2026-04-26 |
-| 5. Advanced Features & Export | 0/TBD | Not started | - |
+| 5. Advanced Features & Export | 0/3 | Not started | - |
