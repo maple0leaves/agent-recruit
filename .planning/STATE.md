@@ -10,25 +10,25 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 2 of 5 (JD Management)
-Plan: 1 of TBD in current phase
-Status: Plan 02-01 complete (JD model, templates, CRUD API, tests)
-Last activity: 2026-04-26 -- Plan 02-01 completed: JD ORM model, Alembic migration, 3 templates, 6 CRUD endpoints, 14 integration tests
+Plan: 2 of 4 in current phase
+Status: Plan 02-02 complete (frontend infra: npm packages, shadcn components, TS types, API helpers, Query hooks)
+Last activity: 2026-04-26 -- Plan 02-02 completed: 4 new npm packages, 10 shadcn v4 components, JD TypeScript types, 5 API functions, 5 TanStack Query hooks
 
-Progress: [████░░░░░░░░] 42%
+Progress: [██████░░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 5.9 min
-- Total execution time: 41.0 min
+- Total plans completed: 8
+- Average duration: 5.8 min
+- Total execution time: 46.2 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
-| 2. JD Management | 1 | 9.0 min | 9.0 min |
+| 2. JD Management | 2 | 14.2 min | 7.1 min |
 | 3. Resume Management | TBD | - | - |
 | 4. AI Matching & Approval | TBD | - | - |
 | 5. Advanced Features | TBD | - | - |
@@ -58,6 +58,8 @@ Progress: [████░░░░░░░░] 42%
 - Plan 01-06: Use file-based temp SQLite for test isolation (not :memory:) so test data is shared across sessions
 - Plan 01-06: Use FastAPI app.dependency_overrides to inject test DB engine (not module patching)
 - Plan 02-01: JD EducationLevel enum with Chinese values (高中, 大专, 本科, 硕士, 博士, 不限)
+- Plan 02-02: shadcn v4 form component manually created (base-nova registry has empty form entry; radix-ui/react-label and react-slot peer deps installed manually)
+- Plan 02-02: useJDs hook uses `placeholderData: keepPreviousData` (imported function, v5 API) not boolean (v4 API)
 - Plan 02-01: JDStatus three-state lifecycle: draft -> active -> closed -> active
 - Plan 02-01: JD status transitions enforced via dict lookup (not state machine library)
 - Plan 02-01: Date filtering uses direct string comparison instead of cast(..., Date) for SQLite compatibility
@@ -75,5 +77,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Plan 02-01 completed (JD model + templates + CRUD + tests)
-Resume file: .planning/phases/02-jd-management/02-01-SUMMARY.md
+Stopped at: Plan 02-02 completed (frontend infra for JD management)
+Resume file: .planning/phases/02-jd-management/02-02-SUMMARY.md
