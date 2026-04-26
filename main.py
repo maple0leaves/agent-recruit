@@ -6,7 +6,8 @@ from uuid import uuid4
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from langgraph.checkpoint.memory import InMemorySaver
+import sqlite3
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import StateGraph, START, END
 
 from config import init_langsmith, LANGSMITH_TRACING, LANGSMITH_PROJECT
@@ -67,7 +68,9 @@ def build_graph(use_hitl: bool = False):
     # HITL: interrupt before reviewer so HR can review
     interrupt_before = ["reviewer_agent"] if use_hitl else []
 
-    checkpointer = InMemorySaver()
+    # Use SqliteSaver for persistent checkpoints
+    sqlite_conn = sqlite3.connect("data/dev.db", check_same_thread=False)
+    checkpointer = SqliteSaver(sqlite_conn)
     return builder.compile(
         checkpointer=checkpointer,
         interrupt_before=interrupt_before,
