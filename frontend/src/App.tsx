@@ -19,6 +19,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/jd" element={<JDManagement />} />
           <Route path="/candidates" element={<Candidates />} />
+          <Route path="/matching/:jdId" element={<Matching />} />
           <Route path="/matching" element={<Matching />} />
         </Route>
       </Route>
