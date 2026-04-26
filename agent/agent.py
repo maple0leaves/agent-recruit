@@ -390,7 +390,13 @@ def worker_agent(state: RecruitmentState) -> dict:
 
 
 def reviewer_agent(state: RecruitmentState) -> dict:
-    """Reviewer: evaluate all match results and generate final report."""
+    """Reviewer: evaluate all match results and generate final report.
+
+    Supports two modes:
+    1. Per-candidate mode (D-09, D-11): each candidate independently approved or rejected
+       via candidate_decisions dict in state.
+    2. Legacy mode (backward compat): single hr_approved boolean for all candidates.
+    """
     match_results = [_coerce_match_result(result) for result in state.get("match_results", [])]
     jd_info = state.get("jd_info")
 
@@ -398,9 +404,54 @@ def reviewer_agent(state: RecruitmentState) -> dict:
         return {"final_report": "未找到可推荐的候选人，请尝试调整岗位描述或补充简历库。"}
 
     match_results = sorted(match_results, key=lambda item: item.match_score, reverse=True)
+    candidate_decisions = state.get("candidate_decisions", {})
     hr_approved = state.get("hr_approved")
     hr_feedback = state.get("hr_feedback", "").strip()
 
+    # ── Per-candidate approval mode (D-09, D-11) ──
+    if candidate_decisions:
+        for result in match_results:
+            decision = candidate_decisions.get(result.candidate_name, True)
+            result.should_proceed = decision
+
+        approved_results = [r for r in match_results if candidate_decisions.get(r.candidate_name, True)]
+        rejected_results = [r for r in match_results if not candidate_decisions.get(r.candidate_name, False)]
+
+        if approved_results:
+            match_results_str = json.dumps(
+                [r.model_dump() for r in approved_results],
+                ensure_ascii=False, indent=2,
+            )
+            jd_str = jd_info.model_dump_json(ensure_ascii=False) if jd_info else state.get("user_input", "")
+            hr_feedback_text = ""
+            if hr_feedback:
+                hr_feedback_text = f"\nHR 反馈：{hr_feedback}"
+            report = _llm_reviewer.invoke([
+                {"role": "system", "content": REVIEWER_SYSTEM_PROMPT.format(jd_info=jd_str, match_results=match_results_str)},
+                {"role": "user", "content": f"请为已通过的候选人生成最终推荐报告。{hr_feedback_text}"},
+            ])
+            final_report = report.content
+        else:
+            summary_lines = ["无通过的候选人。"]
+            if rejected_results:
+                summary_lines.append("驳回的候选人：")
+                for r in rejected_results:
+                    summary_lines.append(f"- {r.candidate_name}: {r.match_score}/100")
+            final_report = "\n".join(summary_lines)
+
+        # Save candidate records for approved ones only
+        position = jd_info.title if jd_info else state.get("user_input", "")
+        for result in approved_results:
+            save_candidate_record(
+                candidate_name=result.candidate_name,
+                match_score=result.match_score,
+                position=position,
+                decision="approved",
+            )
+
+        return {"final_report": final_report, "match_results": match_results}
+
+    # ── Legacy single-boolean mode (backward compat) ──
     if hr_approved is False:
         summary_lines = ["HR 未批准当前候选人推荐结果。"]
         if hr_feedback:
@@ -412,8 +463,7 @@ def reviewer_agent(state: RecruitmentState) -> dict:
 
     match_results_str = json.dumps(
         [result.model_dump() for result in match_results],
-        ensure_ascii=False,
-        indent=2,
+        ensure_ascii=False, indent=2,
     )
     jd_str = jd_info.model_dump_json(ensure_ascii=False) if jd_info else state.get("user_input", "")
 
@@ -423,18 +473,10 @@ def reviewer_agent(state: RecruitmentState) -> dict:
     if hr_feedback:
         reviewer_request += f"\nHR 反馈：{hr_feedback}"
 
-    report = _llm_reviewer.invoke(
-        [
-            {
-                "role": "system",
-                "content": REVIEWER_SYSTEM_PROMPT.format(
-                    jd_info=jd_str,
-                    match_results=match_results_str,
-                ),
-            },
-            {"role": "user", "content": reviewer_request},
-        ]
-    )
+    report = _llm_reviewer.invoke([
+        {"role": "system", "content": REVIEWER_SYSTEM_PROMPT.format(jd_info=jd_str, match_results=match_results_str)},
+        {"role": "user", "content": reviewer_request},
+    ])
 
     position = jd_info.title if jd_info else state.get("user_input", "")
     for result in match_results:
