@@ -15,7 +15,7 @@
 
 ### Authentication Strategy
 - **D-01:** JWT 存储在 HTTP-only cookie（不用 localStorage）— 防 XSS，SSE 无需额外处理
-- **D-02:** PyJWT + passlib(bcrypt) 作为 JWT 和密码哈希库，搭配 FastAPI OAuth2PasswordBearer 模式
+- **D-02:** PyJWT + bcrypt (direct, not passlib) 作为 JWT 和密码哈希库，搭配 FastAPI Depends() 认证模式 *(已更新：passlib 1.7.4 与 bcrypt 5.0.0 不兼容，改用 bcrypt 直接调用)*
 - **D-03:** 简单角色检查 — JWT payload 里带 role 字段，后端 Depends() 检查。三种角色：admin / recruiter / hiring-manager
 - **D-04:** 登录页提供用户名+密码登录，不需要注册页、不需要"记住我"
 
