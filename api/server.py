@@ -108,6 +108,8 @@ class HITLResumeRequest(BaseModel):
     """Request body to resume HITL workflow with per-candidate approvals (D-09)."""
     thread_id: str
     approvals: list[CandidateApproval] = Field(description="逐候选人审核结果列表")
+    feedback_rerun: bool = Field(default=False, description="触发 Agent 根据反馈重新匹配 (APRV-03, D-04)")
+    global_feedback: str = Field(default="", description="HR 对匹配结果的全局反馈文本")
 
 
 @app.post("/recruit/hitl/start")
@@ -157,6 +159,7 @@ async def hitl_start(request: HITLStartRequest, _user: dict = Depends(get_curren
 @app.post("/recruit/hitl/resume")
 async def hitl_resume(
     request: HITLResumeRequest,
+    http_request: Request,
     db: AsyncSession = Depends(get_db),
     _user: dict = Depends(get_current_user),
 ):
@@ -164,7 +167,31 @@ async def hitl_resume(
 
     Accepts per-candidate approvals list. Builds candidate_decisions dict from
     approvals, passes to graph via invoke. Updates MatchSession record.
+
+    When feedback_rerun=True, returns SSE stream with re-run results (APRV-03, D-04, D-05).
     """
+    # ── Feedback re-run mode (APRV-03, D-04, D-05) ──
+    if request.feedback_rerun and request.global_feedback.strip():
+        # Get the original graph state to reconstruct user_input
+        original_config = {"configurable": {"thread_id": request.thread_id}}
+        try:
+            original_state = recruitment_graph_hitl.get_state(original_config)
+        except Exception:
+            original_state = None
+        original_values = original_state.values if original_state else {}
+
+        # Construct feedback-enhanced user_input
+        original_input = original_values.get("user_input", "")
+        feedback_text = request.global_feedback.strip()
+        enhanced_input = f"{original_input}\n\nHR 反馈意见（请据此重新调整匹配结果）：{feedback_text}"
+
+        # Return SSE stream with new matching run + feedback context
+        return StreamingResponse(
+            _stream_feedback_rerun(enhanced_input, request.thread_id, feedback_text, http_request, db),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        )
+
     config = {"configurable": {"thread_id": request.thread_id}}
 
     # Build candidate_decisions from approvals (D-09, D-11)
@@ -577,6 +604,166 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
         yield _sse_event("error", {"message": "请求超时，请稍后重试"})
     except Exception as e:
         logger.exception("Streaming HITL recruitment failed")
+        yield _sse_event("error", {"message": str(e)})
+    finally:
+        yield _sse_event("done", {})
+
+
+async def _stream_feedback_rerun(
+    enhanced_input: str, original_thread_id: str, feedback_text: str,
+    request: Request, db: AsyncSession
+):
+    """SSE generator for feedback-based re-run (APRV-03, D-05).
+
+    Creates a new graph thread with feedback context and streams
+    updated matching results. Follows same SSE format as _stream_hitl_recruitment.
+    """
+    from uuid import uuid4
+    new_thread_id = f"feedback-{uuid4().hex}"
+    config = {"configurable": {"thread_id": new_thread_id}}
+    initial_state = {
+        "user_input": enhanced_input,
+        "resume_text": None,
+        "jd_info": None,
+        "candidates": [],
+        "match_results": [],
+        "final_report": "",
+        "classification": "",
+        "next_action": "",
+        "hr_approved": None,
+        "hr_feedback": feedback_text,
+        "candidate_decisions": {},
+        "messages": [],
+    }
+
+    TIMEOUT_SECONDS = 120
+
+    try:
+        loop = asyncio.get_running_loop()
+        queue: asyncio.Queue = asyncio.Queue()
+
+        def _run_hitl_graph():
+            try:
+                for chunk in recruitment_graph_hitl.stream(initial_state, config=config):
+                    loop.call_soon_threadsafe(queue.put_nowait, chunk)
+            except Exception as exc:
+                loop.call_soon_threadsafe(queue.put_nowait, exc)
+            loop.call_soon_threadsafe(queue.put_nowait, None)
+
+        stream_task = asyncio.create_task(
+            asyncio.wait_for(
+                asyncio.get_event_loop().run_in_executor(None, _run_hitl_graph),
+                timeout=TIMEOUT_SECONDS,
+            )
+        )
+
+        progress_map = {
+            "triage_router": "正在分析需求...",
+            "planner_agent": "正在规划搜索策略...",
+            "worker_agent": "正在搜索并评分候选人...",
+            "reviewer_agent": "正在生成审核报告...",
+        }
+
+        final_state: dict = {}
+        match_results_sent: set[str] = set()
+
+        while True:
+            done, pending = await asyncio.wait(
+                [stream_task, asyncio.ensure_future(queue.get())],
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+
+            if await request.is_disconnected():
+                stream_task.cancel()
+                yield _sse_event("done", {})
+                return
+
+            if stream_task in done and stream_task.exception() is not None:
+                exc = stream_task.exception()
+                if isinstance(exc, asyncio.TimeoutError):
+                    yield _sse_event("error", {"message": "请求超时，请稍后重试"})
+                    yield _sse_event("done", {})
+                    return
+                raise exc
+
+            if stream_task.done():
+                break
+
+            item = queue.get_nowait() if not stream_task.done() else None
+            if item is None:
+                break
+            if isinstance(item, Exception):
+                raise item
+
+            for node_name, node_output in item.items():
+                yield _sse_event("status", {"node": node_name, "status": "completed"})
+
+                if isinstance(node_output, dict) and node_output.get("messages"):
+                    for msg in node_output["messages"]:
+                        if hasattr(msg, "tool_calls") and msg.tool_calls:
+                            for tc in msg.tool_calls:
+                                yield _sse_event(
+                                    "tool_call",
+                                    {
+                                        "tool": tc["name"],
+                                        "args": tc.get("args", {}),
+                                    },
+                                )
+
+                if node_name in progress_map:
+                    yield _sse_event("progress", {"message": progress_map[node_name]})
+
+                if isinstance(node_output, dict):
+                    final_state.update(node_output)
+
+                # Progressive match_result emission (D-07)
+                if isinstance(node_output, dict) and node_output.get("match_results"):
+                    for result in node_output["match_results"]:
+                        candidate_name = result.get("candidate_name", "") if isinstance(result, dict) else getattr(result, "candidate_name", "")
+                        if candidate_name and candidate_name not in match_results_sent:
+                            match_results_sent.add(candidate_name)
+                            if isinstance(result, dict):
+                                yield _sse_event("match_result", result)
+                            else:
+                                yield _sse_event("match_result", result.model_dump())
+
+        # Stream ended (hit interrupt_before=["reviewer_agent"])
+        parsed_results = _parse_match_results(final_state.get("match_results", []))
+
+        # Create MatchSession for the re-run -- copy jd_id/candidate_id from original
+        match_session = None
+        if parsed_results:
+            try:
+                from sqlalchemy import select as sa_select
+                original_result = await db.execute(
+                    sa_select(MatchSession).where(MatchSession.thread_id == original_thread_id)
+                )
+                original_session = original_result.scalar_one_or_none()
+
+                new_session = MatchSession(
+                    jd_id=original_session.jd_id if original_session else None,
+                    candidate_id=original_session.candidate_id if original_session else None,
+                    thread_id=new_thread_id,
+                    status="pending",
+                    total_candidates=len(parsed_results),
+                )
+                db.add(new_session)
+                await db.commit()
+                await db.refresh(new_session)
+                match_session = new_session
+            except Exception as exc:
+                logger.warning(f"Failed to create MatchSession for feedback re-run: {exc}")
+
+        yield _sse_event("hitl_pause", {
+            "match_results": [r.model_dump() for r in parsed_results],
+            "thread_id": new_thread_id,
+            "session_id": match_session.id if match_session else None,
+        })
+
+    except asyncio.TimeoutError:
+        yield _sse_event("error", {"message": "请求超时，请稍后重试"})
+    except Exception as e:
+        logger.exception("Streaming feedback re-run failed")
         yield _sse_event("error", {"message": str(e)})
     finally:
         yield _sse_event("done", {})
