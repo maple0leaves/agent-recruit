@@ -19,10 +19,12 @@ from backend.api.deps import get_current_user, get_db
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from agent.schemas import MatchResult, RecruitmentInput, RecruitmentOutput
+from agent.schemas import CandidateApproval, MatchResult, RecruitmentInput, RecruitmentOutput
 from agent.skills import build_skill_context, get_skill_tools, load_all_skills, match_skills
 from main import recruitment_graph, recruitment_graph_hitl, run
 from backend.db.models.match_session import MatchSession
+from backend.db.models.jd import JD
+from backend.db.models.candidate import Candidate
 from backend.api.routes.auth import router as auth_router
 from backend.api.routes.jd import router as jd_router
 from backend.api.routes.candidate import router as candidate_router
@@ -103,9 +105,9 @@ class HITLStartRequest(BaseModel):
 
 
 class HITLResumeRequest(BaseModel):
+    """Request body to resume HITL workflow with per-candidate approvals (D-09)."""
     thread_id: str
-    hr_approved: bool
-    hr_feedback: str = ""
+    approvals: list[CandidateApproval] = Field(description="逐候选人审核结果列表")
 
 
 @app.post("/recruit/hitl/start")
@@ -153,24 +155,82 @@ async def hitl_start(request: HITLStartRequest, _user: dict = Depends(get_curren
 
 
 @app.post("/recruit/hitl/resume")
-async def hitl_resume(request: HITLResumeRequest, _user: dict = Depends(get_current_user)):
-    """Resume the HITL workflow after HR review."""
+async def hitl_resume(
+    request: HITLResumeRequest,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """Resume the HITL workflow after HR per-candidate review (APRV-01, D-12).
+
+    Accepts per-candidate approvals list. Builds candidate_decisions dict from
+    approvals, passes to graph via invoke. Updates MatchSession record.
+    """
     config = {"configurable": {"thread_id": request.thread_id}}
+
+    # Build candidate_decisions from approvals (D-09, D-11)
+    candidate_decisions = {a.candidate_name: a.approved for a in request.approvals}
+    feedback_payload = [a.model_dump() for a in request.approvals]
+
     result = await asyncio.to_thread(
         recruitment_graph_hitl.invoke,
         {
-            "hr_approved": request.hr_approved,
-            "hr_feedback": request.hr_feedback,
+            "candidate_decisions": candidate_decisions,
+            "hr_feedback": json.dumps(feedback_payload, ensure_ascii=False),
         },
         config=config,
     )
-    parsed_results = _parse_match_results(result.get("match_results", []))
 
+    # Update MatchSession record (D-13)
+    try:
+        from sqlalchemy import select as sa_select
+        match_result = await db.execute(
+            sa_select(MatchSession).where(MatchSession.thread_id == request.thread_id)
+        )
+        match_session = match_result.scalar_one_or_none()
+        if match_session:
+            approved_count = sum(1 for a in request.approvals if a.approved)
+            rejected_count = sum(1 for a in request.approvals if not a.approved)
+            match_session.status = "approved" if approved_count > 0 else "rejected"
+            match_session.approved_count = approved_count
+            match_session.rejected_count = rejected_count
+            await db.commit()
+    except Exception as exc:
+        logger.warning(f"Failed to update MatchSession: {exc}")
+
+    parsed_results = _parse_match_results(result.get("match_results", []))
     return {
         "status": "completed",
         "final_report": result.get("final_report", ""),
         "match_results": parsed_results,
-        "hr_approved": request.hr_approved,
+    }
+
+
+@app.get("/dashboard/stats")
+async def dashboard_stats(
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """Dashboard stats aggregation (D-13, DASH-01).
+
+    Returns 3 key metrics: active JD count, total candidates, pending approvals.
+    Uses SQLAlchemy aggregate queries. No caching -- page-load refresh per D-14.
+    """
+    from sqlalchemy import func, select as sa_select
+
+    active_jds_result, total_candidates_result, pending_approvals_result = await asyncio.gather(
+        db.execute(sa_select(func.count()).select_from(JD).where(JD.status == "active")),
+        db.execute(sa_select(func.count()).select_from(Candidate)),
+        db.execute(
+            sa_select(func.count())
+            .select_from(MatchSession)
+            .where(MatchSession.status == "pending")
+        ),
+    )
+
+    return {
+        "active_jds": active_jds_result.scalar() or 0,
+        "total_candidates": total_candidates_result.scalar() or 0,
+        "pending_approvals": pending_approvals_result.scalar() or 0,
     }
 
 
