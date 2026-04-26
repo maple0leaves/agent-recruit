@@ -46,5 +46,8 @@ data/dev.db-journal
 frontend/node_modules/
 frontend/dist/
 
+# 前端构建产物
+static/
+
 # 后端缓存
 backend/__pycache__/
