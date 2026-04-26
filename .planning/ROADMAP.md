@@ -69,7 +69,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md -- Backend: Candidate model, migration, upload/CRUD/status API, tests, deps
 - [x] 03-02-PLAN.md -- Frontend infra: types, API functions, TanStack Query hooks
-- [ ] 03-03-PLAN.md -- Frontend list page: table, filter bar, upload widget, pagination
+- [x] 03-03-PLAN.md -- Frontend list page: table, filter bar, upload widget, pagination
 - [ ] 03-04-PLAN.md -- Frontend detail page: inline editing, match history placeholder, pipeline controls
 
 ### Phase 4: AI Matching & Approval
@@ -106,6 +106,6 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Backend Foundation & Authentication | 6/6 | Complete | 2026-04-26 |
 | 2. JD Management | 4/4 | Complete | 2026-04-26 |
-| 3. Resume & Candidate Management | 2/4 | In progress | Plan 03-02 complete (2026-04-26) |
+| 3. Resume & Candidate Management | 3/4 | In progress | Plan 03-03 complete (2026-04-26) |
 | 4. AI Matching & Approval | 0/TBD | Not started | - |
 | 5. Advanced Features & Export | 0/TBD | Not started | - |
