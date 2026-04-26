@@ -30,7 +30,7 @@ hellojobs is an AI-assisted, human-judged recruitment matching system. It starts
 Plans:
 - [x] 01-01-PLAN.md — Test infrastructure (conftest.py, test skeletons, pytest deps)
 - [x] 01-02-PLAN.md — Backend auth core (DB engine, User model, bcrypt/JWT, auth routes, CORS, Alembic, seed script)
-- [ ] 01-03-PLAN.md — Frontend scaffold (Vite init, Tailwind v4, shadcn/ui, router, api client, auth store+hook)
+- [x] 01-03-PLAN.md — Frontend scaffold (Vite init, Tailwind v4, shadcn/ui, router, api client, auth store+hook)
 - [ ] 01-04-PLAN.md — Frontend pages (Login page with all states, ProtectedRoute, Layout sidebar, placeholder pages)
 - [ ] 01-05-PLAN.md — Backend hardening (auth middleware, async conversion, SSE timeout/disconnect, SqliteSaver, UUID thread_id)
 - [ ] 01-06-PLAN.md — Integration (frontend build wiring, test suite verification, seed admin user)
@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend Foundation & Authentication | 2/6 | Executing | 2026-04-26 |
+| 1. Backend Foundation & Authentication | 3/6 | Executing | 2026-04-26 |
 | 2. JD Management | 0/TBD | Not started | - |
 | 3. Resume & Candidate Management | 0/TBD | Not started | - |
 | 4. AI Matching & Approval | 0/TBD | Not started | - |

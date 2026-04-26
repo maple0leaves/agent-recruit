@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 1 of 5 (Backend Foundation & Authentication)
-Plan: 3 of 6 (next: 01-03-PLAN.md)
-Status: Completed -- Plan 01-02 done
-Last activity: 2026-04-26 -- Plan 01-02 backend auth core created
+Plan: 4 of 6 (next: 01-04-PLAN.md)
+Status: Completed -- Plan 01-03 done
+Last activity: 2026-04-27 -- Plan 01-03 frontend scaffold completed
 
-Progress: [████░░░░░░] 33%
+Progress: [████████░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 4.5 min
-- Total execution time: 9 min
+- Total plans completed: 3
+- Average duration: 5.8 min
+- Total execution time: 17.5 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation | 6 | 9 min | 4.5 min |
+| 1. Foundation | 6 | 17.5 min | 5.8 min |
 | 2. JD Management | TBD | - | - |
 | 3. Resume Management | TBD | - | - |
 | 4. Matching & Approval | TBD | - | - |
@@ -47,6 +47,11 @@ Progress: [████░░░░░░] 33%
 - Plan 01-02: Access token 30-min expiry; Refresh token 7-day expiry in HttpOnly cookie
 - Plan 01-02: UserRole as str enum with lowercase values (admin, recruiter, hiring-manager)
 - Plan 01-02: CORS restricted to explicit origins with credentials=True
+- Plan 01-03: shadcn/ui v4 (base-nova style) used instead of classic presets; all components installed cleanly
+- Plan 01-03: BrowserRouter placed in main.tsx (standard React pattern), not in App.tsx
+- Plan 01-03: Vite build outputs to ../static/ for direct FastAPI serving (D-14)
+- Plan 01-03: zustand explicitly installed (not listed in plan dependencies but required by authStore)
+- Plan 01-03: static/ added to .gitignore as build artifact output
 
 ### Pending Todos
 
@@ -58,6 +63,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-26 23:57
-Stopped at: Plan 01-02 complete (backend auth core)
-Resume file: .planning/phases/01-backend-foundation-auth/01-02-SUMMARY.md
+Last session: 2026-04-27
+Stopped at: Plan 01-03 complete (frontend scaffold)
+Resume file: .planning/phases/01-backend-foundation-auth/01-03-SUMMARY.md
