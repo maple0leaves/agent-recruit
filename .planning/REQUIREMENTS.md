@@ -32,18 +32,18 @@ Requirements for initial full-stack release. Each maps to roadmap phases.
 
 - [ ] **MATCH-01**: HR 选择一个 JD，系统自动匹配候选人并展示排序结果
 - [ ] **MATCH-02**: 匹配结果展示评分和技能逐项对比（候选人匹配的技能 / 缺失的技能）
-- [ ] **MATCH-03**: 系统实时流式展示 Agent 匹配过程（Triage → 搜索 → 评分），而不是空白等待
+- [x] **MATCH-03**: 系统实时流式展示 Agent 匹配过程（Triage → 搜索 → 评分），而不是空白等待
 - [ ] **MATCH-04**: HR 可以从候选人侧发起反向匹配（此候选人适合哪些 JD）
 
 ### Approval Workflow
 
-- [ ] **APRV-01**: HR 审核匹配结果，可以「通过」或「驳回」每个候选人
+- [x] **APRV-01**: HR 审核匹配结果，可以「通过」或「驳回」每个候选人
 - [ ] **APRV-02**: 审核时可填写备注（通过原因 / 驳回理由）
 - [ ] **APRV-03**: HR 可以在审核中给 Agent 反馈，让 Agent 重新调整结果
 
 ### Dashboard & Export
 
-- [ ] **DASH-01**: 首页仪表盘展示关键指标（活跃 JD 数、候选人总数、待审核数）
+- [x] **DASH-01**: 首页仪表盘展示关键指标（活跃 JD 数、候选人总数、待审核数）
 - [ ] **DASH-02**: HR 可以将匹配结果导出为 PDF 报告或 Excel 表格
 
 ## v2 Requirements
@@ -87,12 +87,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RES-05 | Phase 3 | Complete (03-01, 03-02) |
 | MATCH-01 | Phase 4 | Pending |
 | MATCH-02 | Phase 4 | Pending |
-| MATCH-03 | Phase 4 | Pending |
+| MATCH-03 | Phase 4 | Complete (04-02) |
 | MATCH-04 | Phase 5 | Pending |
-| APRV-01 | Phase 4 | Pending |
+| APRV-01 | Phase 4 | Complete (04-02) |
 | APRV-02 | Phase 4 | Pending |
 | APRV-03 | Phase 5 | Pending |
-| DASH-01 | Phase 4 | Pending |
+| DASH-01 | Phase 4 | Complete (04-02) |
 | DASH-02 | Phase 5 | Pending |
 
 **Coverage:**
