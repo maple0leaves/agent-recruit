@@ -32,6 +32,15 @@ class MatchResult(BaseModel):
     resume_text: str = Field(default="", description="简历全文（可选）")
 
 
+# ── Approval ──
+
+class CandidateApproval(BaseModel):
+    """Per-candidate approval decision from HR review (D-09, D-10)."""
+    candidate_name: str = Field(description="候选人姓名")
+    approved: bool = Field(description="是否通过")
+    feedback: str = Field(default="", description="审核备注（驳回必填）")
+
+
 # ── JD ─────────────────────────────────────────────────────────────────────
 
 class JDInfo(BaseModel):
@@ -80,6 +89,7 @@ class RecruitmentState(TypedDict):
     # ── HITL ──
     hr_approved: Optional[bool]             # HR 是否批准
     hr_feedback: str                         # HR 反馈内容
+    candidate_decisions: dict[str, bool]     # 逐候选人审核结果 (D-09 via per-candidate)
 
     # ── Messages (short-term memory) ──
     messages: Annotated[list, add_messages]
