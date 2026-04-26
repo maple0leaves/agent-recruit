@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 1 of 5 (Backend Foundation & Authentication)
-Plan: 5 of 6 (next: 01-05-PLAN.md)
-Status: Completed -- Plan 01-04 done
-Last activity: 2026-04-26 -- Plan 01-04 frontend auth UI completed
+Plan: 6 of 6 (next: 01-06-PLAN.md)
+Status: Completed -- Plan 01-05 done
+Last activity: 2026-04-26 -- Plan 01-05 backend hardening completed
 
-Progress: [██████████░░] 67%
+Progress: [████████████░░] 83%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 5.6 min
-- Total execution time: 22.5 min
+- Total plans completed: 5
+- Average duration: 6.0 min
+- Total execution time: 30.5 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation | 6 | 22.5 min | 5.6 min |
+| 1. Foundation | 6 | 30.5 min | 6.1 min |
 | 2. JD Management | TBD | - | - |
 | 3. Resume Management | TBD | - | - |
 | 4. Matching & Approval | TBD | - | - |
@@ -52,6 +52,9 @@ Progress: [██████████░░] 67%
 - Plan 01-03: Vite build outputs to ../static/ for direct FastAPI serving (D-14)
 - Plan 01-03: zustand explicitly installed (not listed in plan dependencies but required by authStore)
 - Plan 01-03: static/ added to .gitignore as build artifact output
+- Plan 01-05: SSE timeout set to 120 seconds as a hardcoded constant (TIMEOUT_SECONDS), not configurable via env var for Phase 1
+- Plan 01-05: SqliteSaver reuses the same data/dev.db file as application tables (D-09); tables coexist in SQLite namespaces
+- Plan 01-05: HITL session UUIDs generated with `uuid4().hex` (shorter hex string vs full UUID with dashes)
 
 ### Pending Todos
 
@@ -64,5 +67,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Plan 01-04 complete (frontend auth UI)
-Resume file: .planning/phases/01-backend-foundation-auth/01-04-SUMMARY.md
+Stopped at: Plan 01-05 complete (backend hardening)
+Resume file: .planning/phases/01-backend-foundation-auth/01-05-SUMMARY.md
