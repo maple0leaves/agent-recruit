@@ -27,7 +27,7 @@ interface JDFilterBarProps {
 export default function JDFilterBar({ filters, onFilterChange }: JDFilterBarProps) {
   const [searchInput, setSearchInput] = useState("");
   const [date, setDate] = useState<DateRange | undefined>();
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const handleSearchChange = (value: string) => {
     setSearchInput(value);
@@ -66,7 +66,7 @@ export default function JDFilterBar({ filters, onFilterChange }: JDFilterBarProp
       <Select
         value={filters.status || "all"}
         onValueChange={(value) =>
-          onFilterChange({ status: value === "all" ? undefined : value })
+          onFilterChange({ status: value === "all" ? undefined : value as string | undefined })
         }
       >
         <SelectTrigger className="w-[130px]">

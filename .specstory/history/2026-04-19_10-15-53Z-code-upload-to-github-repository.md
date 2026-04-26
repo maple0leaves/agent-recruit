@@ -64,6 +64,288 @@ _**Agent (default)**_
 ```bash
 cd /root/project && git remote -v && git status -sb && ls -la hellojobs/.gitignore 2>/dev/null; head -50 hellojobs/.gitignore 2>/dev/null
 ```
+
+```
+origin	https://github.com/maple0leaves/project.git (fetch)
+origin	https://github.com/maple0leaves/project.git (push)
+## main
+ M .specstory/.project.json
+ M hellojobs/.specstory/.project.json
+ M "hellojobs/.specstory/history/2026-04-17_12-22-13Z-\351\241\271\347\233\256\351\207\217\345\214\226\346\214\207\346\240\207\345\234\250\347\256\200\345\216\206\344\270\255\347\232\204\345\272\224\347\224\250.md"
+ M hellojobs/.specstory/history/2026-04-18_17-39-50Z-frontend-interface-modification.md
+ M "hellojobs/.specstory/history/2026-04-18_18-57-28Z-reviewer\351\200\237\345\272\246\344\274\230\345\214\226.md"
+ M "hellojobs/.specstory/history/2026-04-19_05-38-33Z-\351\241\271\347\233\256\350\277\220\350\241\214\351\200\237\345\272\246\344\274\230\345\214\226.md"
+ M hellojobs/.specstory/statistics.json
+ M hellojobs/README.md
+ M hellojobs/api/server.py
+ M hellojobs/config.py
+ M hellojobs/rag/retriever.py
+ M hellojobs/rag/vector_store.py
+ M hellojobs/resume/resume-photo.pdf
+ M hellojobs/static/index.html
+ M nanobot/.gitignore
+ M nanobot/README.md
+ M nanobot/bridge/src/whatsapp.ts
+ D nanobot/changerecord.md
+ M nanobot/nanobot/agent/context.py
+ M nanobot/nanobot/agent/loop.py
+ M nanobot/nanobot/agent/memory.py
+ M nanobot/nanobot/agent/subagent.py
+ M nanobot/nanobot/agent/tools/base.py
+ M nanobot/nanobot/agent/tools/cron.py
+ M nanobot/nanobot/agent/tools/filesystem.py
+ M nanobot/nanobot/agent/tools/mcp.py
+ M nanobot/nanobot/agent/tools/registry.py
+ M nanobot/nanobot/agent/tools/web.py
+ M nanobot/nanobot/channels/discord.py
+ M nanobot/nanobot/channels/feishu.py
+ M nanobot/nanobot/channels/qq.py
+ M nanobot/nanobot/channels/telegram.py
+ M nanobot/nanobot/channels/whatsapp.py
+ M nanobot/nanobot/cli/commands.py
+ M nanobot/nanobot/config/schema.py
+ M nanobot/nanobot/providers/__init__.py
+ M nanobot/nanobot/providers/base.py
+ M nanobot/nanobot/providers/custom_provider.py
+ M nanobot/nanobot/providers/litellm_provider.py
+ M nanobot/nanobot/providers/openai_codex_provider.py
+ M nanobot/nanobot/providers/registry.py
+ M nanobot/nanobot/skills/memory/SKILL.md
+ M nanobot/nanobot/utils/helpers.py
+ M nanobot/pyproject.toml
+ D nanobot/record.md
+?? .gitignore
+?? .specstory/.gitignore
+?? .specstory/cli/
+?? .specstory/history/2025-08-11_09-49-45Z-deploying-mapfgpt-without-docker.md
+?? .specstory/history/2025-08-20_13-43-55Z-simplifying-trainsmilespy-for-weight-visualization.md
+?? .specstory/history/2025-08-21_09-35-34Z-fixing-unboundlocalerror-in-python-script.md
+?? .specstory/history/2025-08-27_11-36-45Z-running-benchmarkintegrationpy-in-mapf-environment.md
+?? .specstory/history/2026-01-04_09-29-13Z-paflow-atom-number-prediction-upgrade.md
+?? ".specstory/history/2026-01-05_01-17-42Z-geom\345\212\237\350\203\275\346\225\264\345\220\210.md"
+?? ".specstory/history/2026-01-05_01-53-18Z-\346\250\241\345\236\213-&#96;geom&#96;-\345\212\237\350\203\275.md"
+?? .specstory/history/2026-01-05_07-01-29Z-molopt-model-geom-optimization.md
+?? .specstory/history/2026-01-05_13-19-24Z-protein-aware-steric-and-pocket-guidance.md
+?? ".specstory/history/2026-01-06_13-42-50Z-\347\233\256\345\275\225\346\250\241\345\236\213\350\276\223\345\205\245\346\225\260\346\215\256.md"
+?? ".specstory/history/2026-01-08_05-49-28Z-rerank-\345\210\206\346\225\260\350\256\241\347\256\227\346\226\271\346\263\225.md"
+?? ".specstory/history/2026-01-09_09-00-22Z-&#96;use_demo.py&#96;-\350\277\220\350\241\214\351\224\231\350\257\257.md"
+?? ".specstory/history/2026-01-09_10-30-53Z-&#96;use_demo.py&#96;-\350\277\220\350\241\214\351\224\231\350\257\257.md"
+?? ".specstory/history/2026-01-09_10-57-43Z-\346\225\260\346\215\256\351\233\206\347\224\237\346\210\220-prompt-\344\274\230\345\214\226.md"
+?? ".specstory/history/2026-01-09_11-08-47Z-run_sampling_loop.sh-\350\204\232\346\234\254\346\212\245\351\224\231.md"
+?? ".specstory/history/2026-01-09_11-18-33Z-paflow-\350\204\232\346\234\254\350\277\220\350\241\214\346\212\245\351\224\231\344\270\216\347\216\257\345\242\203.md"
+?? ".specstory/history/2026-01-09_13-23-07Z-\345\216\237\345\255\220\346\225\260\351\242\204\346\265\213\346\250\241\345\235\227\346\233\277\346\215\242\350\256\250\350\256\272.md"
+?? ".specstory/history/2026-01-09_15-25-21Z-\346\225\260\346\215\256\346\226\207\344\273\266\345\206\205\345\256\271\347\241\256\350\256\244.md"
+?? ".specstory/history/2026-01-09_19-10-32Z-llm\346\233\277\346\215\242mlp\351\207\207\346\240\267\345\217\202\346\225\260\345\210\206\346\236\220.md"
+?? .specstory/history/2026-01-10_07-17-11Z-biomistral-7b-fine-tuning-data-quantity.md
+?? ".specstory/history/2026-01-10_14-03-28Z-pocket-features-jsonl-\346\226\207\344\273\266\346\240\274\345\274\217\345\267\256\345\274\202.md"
+?? ".specstory/history/2026-01-10_18-53-14Z-llm-\351\242\204\346\265\213\351\207\215\346\216\222\345\212\237\350\203\275.md"
+?? ".specstory/history/2026-01-10_19-17-26Z-llm_predict-\345\231\252\345\243\260\346\267\273\345\212\240\346\226\271\346\263\225.md"
+?? ".specstory/history/2026-01-11_09-23-39Z-num_atoms_std-\345\217\202\346\225\260\344\270\216\345\231\252\345\243\260.md"
+?? .specstory/history/2026-01-11_21-50-27Z-mlp-noise-addition-comparison.md
+?? .specstory/history/2026-01-12_12-19-01Z-qed-and-evaluation-metrics-improvement.md
+?? .specstory/history/2026-01-12_20-51-46Z-qed,-sa,-and-vina-score-optimization.md
+?? .specstory/history/2026-01-13_04-40-43Z-coarse_steps-parameter-value.md
+?? ".specstory/history/2026-01-13_09-49-16Z-\346\217\220\347\244\272\346\226\207\344\273\266\346\233\277\346\215\242.md"
+?? ".specstory/history/2026-01-14_06-21-51Z-qed\345\222\214sa\345\200\274\346\217\220\345\215\207.md"
+?? ".specstory/history/2026-01-14_11-30-07Z-\346\226\271\346\263\225llm-rerank-geom-\351\207\207\346\240\267\345\205\250\346\265\201\347\250\213.md"
+?? .specstory/history/2026-01-14_16-36-03Z-qed-and-geom_grad_w-parameter-relationship.md
+?? ".specstory/history/2026-01-15_14-38-49Z-\350\204\232\346\234\254100\346\240\267\346\234\254\346\265\213\350\257\225.md"
+?? ".specstory/history/2026-01-15_14-46-31Z-\350\204\232\346\234\254\346\240\267\346\234\254\346\225\260\351\207\217\350\256\276\347\275\256.md"
+?? ".specstory/history/2026-01-16_08-51-05Z-\350\277\220\350\241\214\347\273\223\346\236\234\344\270\255\344\275\215\346\225\260\344\270\216\345\271\263\345\235\207\346\225\260\345\267\256\345\274\202.md"
+?? ".specstory/history/2026-01-18_09-27-21Z-rerank-\345\212\237\350\203\275\347\246\201\347\224\250\347\241\256\350\256\244.md"
+?? ".specstory/history/2026-01-26_07-43-24Z-pos-geom-guidance-\344\270\216\345\217\243\350\242\213\344\270\255\345\277\203\345\205\263\347\263\273.md"
+?? .specstory/history/2026-01-28_15-31-36Z-research-paper-outline-for-molopt_score_model.md
+?? ".specstory/history/2026-01-29_06-10-04Z-llm\350\276\223\345\205\245\350\276\223\345\207\272\350\257\246\346\203\205.md"
+?? ".specstory/history/2026-02-06_12-35-01Z-\346\210\221\346\226\271\346\263\225-vina-\345\210\206\346\225\260\346\225\260\346\215\256.md"
+?? ".specstory/history/2026-02-06_15-54-07Z-medvina.py-\346\226\207\344\273\266\345\233\276\347\211\207\345\200\274\345\244\215\347\216\260.md"
+?? .specstory/history/2026-02-06_17-18-09Z-medvina1.py-label-misalignment.md
+?? ".specstory/history/2026-02-06_17-45-09Z-medvina1.py-\346\225\243\347\202\271\351\242\234\350\211\262\350\256\276\347\275\256\351\227\256\351\242\230.md"
+?? ".specstory/history/2026-02-07_12-43-46Z-\350\233\213\347\231\275\350\264\250\346\225\260\346\215\256\347\233\256\345\275\225\347\256\241\347\220\206.md"
+?? ".specstory/history/2026-02-08_09-10-15Z-evaluate_diffusion.py-\350\204\232\346\234\254\350\276\223\345\207\272.md"
+?? .specstory/history/2026-02-09_11-32-18Z-scrank-and-guidance-sampling-parameters.md
+?? ".specstory/history/2026-02-15_12-08-46Z-\345\210\206\345\255\220\345\235\220\346\240\207\345\222\214\347\261\273\345\236\213\345\244\204\347\220\206.md"
+?? .specstory/history/2026-03-03_08-14-36Z-folder-name-change-to-nanobot.md
+?? .specstory/history/2026-03-03_09-20-17Z-directory-name-change-to-nanobot.md
+?? .specstory/history/2026-03-03_11-42-28Z-quick-start-requirements-for-@nanobot.md
+?? .specstory/history/2026-03-03_13-52-25Z-commit-message-reference.md
+?? .specstory/history/2026-03-03_13-52Z-commit-message-reference.md
+?? ".specstory/history/2026-03-03_14-00-55Z-\345\234\250cursor\344\270\212\346\217\220\344\272\244\344\273\243\347\240\201\345\210\260github.md"
+?? ".specstory/history/2026-03-03_14-00Z-\345\234\250cursor\344\270\212\346\217\220\344\272\244\344\273\243\347\240\201\345\210\260github.md"
+?? .specstory/history/2026-03-03_14-02-30Z-clash-configuration-file-node-check.md
+?? .specstory/history/2026-03-03_14-02Z-clash-configuration-file-node-check.md
+?? .specstory/history/2026-03-04_11-45-31Z-file-path-explanation.md
+?? .specstory/history/2026-03-04_11-45Z-file-path-explanation.md
+?? .specstory/history/2026-03-04_11-52-02Z-issue-in-terminal-text-file.md
+?? .specstory/history/2026-03-04_11-52Z-issue-in-terminal-text-file.md
+?? .specstory/history/2026-03-04_12-33-16Z-skills.jsonl-file-generation-issue.md
+?? .specstory/history/2026-03-04_12-33Z-skills-jsonl-file-generation-issue.md
+?? ".specstory/history/2026-03-04_12-35-18Z-\346\212\200\350\203\275\350\256\260\345\277\206\346\226\207\346\241\243\344\277\256\346\224\271\351\227\256\351\242\230.md"
+?? ".specstory/history/2026-03-04_12-35Z-\346\212\200\350\203\275\350\256\260\345\277\206\346\226\207\346\241\243\344\277\256\346\224\271\351\227\256\351\242\230.md"
+?? .specstory/history/2026-03-05_14-12-29Z-project-name-change-to-leafbot.md
+?? .specstory/history/2026-03-05_14-12Z-project-name-change-to-leafbot.md
+?? .specstory/history/2026-03-07_06-27-41Z-leafbot-skills-memory-functionality-changes.md
+?? .specstory/history/2026-03-07_06-27Z-leafbot-skills-memory-functionality-changes.md
+?? ".specstory/history/2026-03-17_06-55-24Z-sa\345\210\206\346\225\260\344\275\216\344\270\216\347\275\221\347\273\234\347\273\223\346\236\204\351\227\256\351\242\230.md"
+?? ".specstory/history/2026-03-17_07-36-45Z-sa\345\210\206\346\225\260\344\275\216\344\270\216\347\275\221\347\273\234\347\273\223\346\236\204\351\227\256\351\242\230.md"
+?? .specstory/history/2026-03-19_07-16-32Z-script-for-running-crashcore-and-proxy.md
+?? .specstory/history/2026-03-19_07-16Z-script-for-running-crashcore-and-proxy.md
+?? .specstory/history/2026-03-22_03-18-14Z-node.js-version-upgrade.md
+?? .specstory/history/2026-03-23_12-54-05Z-file-path-reference.md
+?? ".specstory/history/2026-04-14_08-04-38Z-vpn-\350\256\242\351\230\205\346\233\264\346\226\260.md"
+?? .specstory/statistics.json
+?? .vscode/
+?? LeafBot/
+?? VPNup.md
+?? ai-agent/
+?? hellojobs/.cursor/
+?? hellojobs/.specstory/history/2026-04-19_09-57-21Z-conversations-about-design.md.md
+?? hellojobs/data/eval_end_to_end.jsonl
+?? hellojobs/data/eval_it_aligned_e2e.jsonl
+?? hellojobs/data/eval_it_aligned_retrieval.jsonl
+?? hellojobs/data/eval_it_run_e2e.jsonl
+?? hellojobs/data/eval_it_run_retrieval.jsonl
+?? hellojobs/data/eval_it_smoke_e2e.jsonl
+?? hellojobs/data/eval_it_smoke_retrieval.jsonl
+?? hellojobs/data/eval_mix520_aligned_e2e.jsonl
+?? hellojobs/data/eval_mix520_aligned_retrieval.jsonl
+?? hellojobs/data/eval_pools/
+?? hellojobs/data/eval_retrieval.jsonl
+?? hellojobs/data/resumes/bai_rui.pdf
+?? hellojobs/data/resumes/cai_jun.pdf
+?? hellojobs/data/resumes/chen_jing.pdf
+?? hellojobs/data/resumes/dong_mei.pdf
+?? hellojobs/data/resumes/feng_qi.pdf
+?? hellojobs/data/resumes/gao_peng.pdf
+?? hellojobs/data/resumes/guo_yan.pdf
+?? hellojobs/data/resumes/han_lu.pdf
+?? hellojobs/data/resumes/he_sen.pdf
+?? hellojobs/data/resumes/huang_ting.pdf
+?? hellojobs/data/resumes/jiang_nan.pdf
+?? hellojobs/data/resumes/li_ming.pdf
+?? hellojobs/data/resumes/lin_jie.pdf
+?? hellojobs/data/resumes/liu_yang.pdf
+?? hellojobs/data/resumes/lu_kai.pdf
+?? hellojobs/data/resumes/ma_xin.pdf
+?? hellojobs/data/resumes/peng_yu.pdf
+?? hellojobs/data/resumes/qian_feng.pdf
+?? hellojobs/data/resumes/sun_yue.pdf
+?? hellojobs/data/resumes/tang_li.pdf
+?? hellojobs/data/resumes/tang_wei.pdf
+?? hellojobs/data/resumes/wang_fang.pdf
+?? hellojobs/data/resumes/wu_hao.pdf
+?? hellojobs/data/resumes/xie_bo.pdf
+?? hellojobs/data/resumes/xiong_bing.pdf
+?? hellojobs/data/resumes/xu_lin.pdf
+?? hellojobs/data/resumes/yu_tao.pdf
+?? hellojobs/data/resumes/zhang_wei.pdf
+?? hellojobs/data/resumes/zhao_lei.pdf
+?? hellojobs/data/resumes/zhou_qiang.pdf
+?? hellojobs/resume/bai_rui.pdf
+?? hellojobs/resume/bai_rui.tex
+?? hellojobs/resume/batch_demo_resumes.py
+?? hellojobs/resume/cai_jun.pdf
+?? hellojobs/resume/cai_jun.tex
+?? hellojobs/resume/chen_jing.pdf
+?? hellojobs/resume/chen_jing.tex
+?? hellojobs/resume/dong_mei.pdf
+?? hellojobs/resume/dong_mei.tex
+?? hellojobs/resume/feng_qi.pdf
+?? hellojobs/resume/feng_qi.tex
+?? hellojobs/resume/gao_peng.pdf
+?? hellojobs/resume/gao_peng.tex
+?? hellojobs/resume/guo_yan.pdf
+?? hellojobs/resume/guo_yan.tex
+?? hellojobs/resume/han_lu.pdf
+?? hellojobs/resume/han_lu.tex
+?? hellojobs/resume/he_sen.pdf
+?? hellojobs/resume/he_sen.tex
+?? hellojobs/resume/huang_ting.pdf
+?? hellojobs/resume/huang_ting.tex
+?? hellojobs/resume/jiang_nan.pdf
+?? hellojobs/resume/jiang_nan.tex
+?? hellojobs/resume/li_ming.pdf
+?? hellojobs/resume/li_ming.tex
+?? hellojobs/resume/lin_jie.pdf
+?? hellojobs/resume/lin_jie.tex
+?? hellojobs/resume/liu_yang.pdf
+?? hellojobs/resume/liu_yang.tex
+?? hellojobs/resume/lu_kai.pdf
+?? hellojobs/resume/lu_kai.tex
+?? hellojobs/resume/ma_xin.pdf
+?? hellojobs/resume/ma_xin.tex
+?? hellojobs/resume/peng_yu.pdf
+?? hellojobs/resume/peng_yu.tex
+?? hellojobs/resume/qian_feng.pdf
+?? hellojobs/resume/qian_feng.tex
+?? hellojobs/resume/sun_yue.pdf
+?? hellojobs/resume/sun_yue.tex
+?? hellojobs/resume/tang_li.pdf
+?? hellojobs/resume/tang_li.tex
+?? hellojobs/resume/tang_wei.pdf
+?? hellojobs/resume/tang_wei.tex
+?? hellojobs/resume/wang_fang.pdf
+?? hellojobs/resume/wang_fang.tex
+?? hellojobs/resume/wu_hao.pdf
+?? hellojobs/resume/wu_hao.tex
+?? hellojobs/resume/xie_bo.pdf
+?? hellojobs/resume/xie_bo.tex
+?? hellojobs/resume/xiong_bing.pdf
+?? hellojobs/resume/xiong_bing.tex
+?? hellojobs/resume/xu_lin.pdf
+?? hellojobs/resume/xu_lin.tex
+?? hellojobs/resume/yu_tao.pdf
+?? hellojobs/resume/yu_tao.tex
+?? hellojobs/resume/zhang_wei.pdf
+?? hellojobs/resume/zhang_wei.tex
+?? hellojobs/resume/zhao_lei.pdf
+?? hellojobs/resume/zhao_lei.tex
+?? hellojobs/resume/zhou_qiang.pdf
+?? hellojobs/resume/zhou_qiang.tex
+?? hellojobs/scripts/
+?? hellojobs/testdataset/
+?? nanobot.zip
+?? nanobot/.specstory/
+?? nanobot/nanobot/providers/azure_openai_provider.py
+?? nanobot/tests/
+-rw-r--r-- 1 root root 466 Apr 19 13:44 hellojobs/.gitignore
+# 环境变量（包含密钥，禁止提交）
+.env
+.env.local
+.env.*.local
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境
+venv/
+.venv/
+env/
+
+# 数据 / 索引（运行时生成，不应入库）
+data/vector_store/
+data/chroma_memory/
+data/candidate_memory.json
+data/resume_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# 日志
+*.log
+logs/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+```
 </details>
 </tool-use>
 
@@ -112,3 +394,1470 @@ Status: **completed**
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
 </details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The user's workspace is located at `/root/project`, which is a monorepo containing the `hellojobs` folder as a submodule. The user wants to push only the hellojobs submodule to a new repository while excluding testdataset. Options include adding testdataset to .gitignore and using git subtree push, or creating a new orphan branch in hellojobs. The preferred approach is to initialize a new git repo inside hellojobs to make it a standalone repository with the root containing only hellojobs files, rather than pushing the entire monorepo structure. This ensures the GitHub repository's root directory contains only the hellojobs project files. - The testdataset directory is untracked and will not be committed, so adding it to hellojobs/.gitignore prevents it from being pushed.
+- To push only the hellojobs submodule:
+  - Option 1: Use `git subtree split --prefix=hellojobs` from the project root and push the result to the remote repository.
+  - Option 2: Initialize a new Git repository inside hellojobs to make it standalone, though this discards its history within the monorepo. The subtree approach preserves the history of hellojobs within the monorepo. However, since the user wants to upload code to an empty hellojobs repository, the simplest method is:
+
+- Add testdataset to .gitignore in hellojobs
+- Add a remote named `hellojobs` pointing to the new repository URL
+- Execute `git subtree push --prefix=hellojobs hellojobs main`
+
+Note that this only pushes commits that modified files under hellojobs/. The user wants to upload only the hellojobs content to a new repository, excluding other submodules like nanobot. To achieve this:
+
+- Add testdataset/ to hellojobs/.gitignore to prevent it from being tracked
+- Ensure any changes in hellojobs are committed before using git subtree push
+- Use `git subtree push --prefix=hellojobs hellojobs main` to push only the hellojobs directory to the remote repository
+
+This approach maintains the history of hellojobs within the monorepo while ensuring only its contents are uploaded to the new repository. The user should avoid committing unrelated files from the entire project and instead:
+
+- Add testdataset to .gitignore to exclude it from tracking
+- Stage only the hellojobs/ directory, ensuring testdataset is ignored
+- Commit changes in the monorepo or use an alternative approach
+
+For `git subtree push --prefix=hellojobs`:
+- Changes must be committed to the main branch (or target branch)
+- Only the hellojobs directory is pushed as the root of the remote repository
+
+The issue arises because the parent repository contains many modified files outside of hellojobs, such as in nanobot, which complicates the push process. If only the hellojobs changes are committed, the subtree push should work.
+
+The user wants to push only the hellojobs code to an empty remote repository, excluding testdataset.
+
+The best approaches are:
+- A) Use `git subtree split -P hellojobs -b hellojobs-export` followed by pushing the new branch to the remote, preserving hellojobs' full history
+- B) Clone the empty remote repository, sync hellojobs contents while excluding testdataset, commit, and push for a clean slate with fresh history
+
+The user should choose based on whether they want to preserve history (subtree) or start fresh (simple copy).</details></think>
+
+_**Agent (default)**_
+
+正在确认：`hellojobs` 是父仓库 `/root/project` 下的子目录；`origin` 指向 `project` 仓库。将把 `testdataset` 加入 `.gitignore`，并把仅包含 `hellojobs` 的内容推送到你的空仓库。
+
+
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git log -1 --oneline -- hellojobs/ 2>/dev/null; git ls-files hellojobs/testdataset 2>/dev/null | head</summary>
+
+```bash
+cd /root/project && git log -1 --oneline -- hellojobs/ 2>/dev/null; git ls-files hellojobs/testdataset 2>/dev/null | head
+```
+
+```
+4bdfdfe perf(hellojobs): P0+P1 速度优化，端到端 ~30s → ~16s
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /root/project/hellojobs/.gitignore</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The test dataset was never tracked, as "git ls-files" returned no results from the head revision, indicating it was not included in the repository's tracking. I'll add testdataset/ to .gitignore.
+
+For pushing to the hellojobs repo using the standard monorepo approach:
+
+- Option 1: Use git subtree split, but this requires committed changes since it uses existing commits
+- The user likely wants current code including uncommitted work
+- To handle this, I need to:
+  - Commit hellojobs changes (only hellojobs paths) to avoid committing other directories like nanobot
+  - Run subtree split and push
+- Alternatively, use filter-repo or manual export approaches Let me stage selectively:
+- hellojobs/ with .gitignore updated
+- Exclude testdataset via gitignore
+
+I should NOT commit the entire repo's unrelated stuff. I'll do:
+- git add hellojobs/.gitignore
+- git add hellojobs/  # will respect gitignore, testdataset won't be added if ignored
+
+Wait - if testdataset is untracked, adding hellojobs/ won't add it after gitignore. Good.
+
+But there are many untracked files in hellojobs - resumes, eval data - user only said exclude testdataset. Those might be large - I'll only add what makes sense for open source. User mentioned "" (code) and that testdataset can be excluded, without specifying resumes. I will only exclude testdataset as instructed.
+
+Adding all PDF resumes may be too large for a public repo, so Ill avoid adding them.
+
+Using `git add hellojobs/` will include:
+- Modified tracked files
+- New untracked files (but excludes testdataset due to gitignore)
+
+For subtree push, commits are needed. I will proceed with:
+1. StrReplace .</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: du -sh /root/project/hellojobs/testdataset 2>/dev/null; du -sh /root/project/hellojobs/data 2>/dev/null; du -sh /root/project/hellojobs/resume 2>/dev/null</summary>
+
+```bash
+du -sh /root/project/hellojobs/testdataset 2>/dev/null; du -sh /root/project/hellojobs/data 2>/dev/null; du -sh /root/project/hellojobs/resume 2>/dev/null
+```
+
+```
+181M	/root/project/hellojobs/testdataset
+37M	/root/project/hellojobs/data
+6.8M	/root/project/hellojobs/resume
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The test dataset is 181M, which is large enough to exclude. The test dataset is 181M, which is large enough to exclude.
+
+For pushing, I'll:
+- Add testdataset/ to .gitignore
+- Commit only what we need - the subtree split includes ALL committed history under hellojobs, so I need one commit with hellojobs updates
+
+The issue: many files in hellojobs are modified (tracked) + untracked. If I `git add hellojobs/` I'll add 37M data + 6.8M resume - user didn't exclude those.
+
+I'll proceed with user request: only exclude testdataset.
+
+For subtree push to hellojobs empty repo: For subtree push to hellojobs empty repo:
+- Run `git remote add hellojobs ...` to add the remote repository
+- Commit changes to include only necessary files
+- Use `git subtree split --prefix=hellojobs -b hellojobs-split` to create a branch for the subtree
+- Push the subtree to the remote repository using `git push hellojobs hellojobs-split:main` or similar command
+
+Note: Authentication might be required for the push, but preparation should still be done regardless.</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git ls-files hellojobs | wc -l && git diff --name-only hellojobs && echo "---untracked---" && git status -u hellojobs --short | head -40</summary>
+
+```bash
+cd /root/project && git ls-files hellojobs | wc -l && git diff --name-only hellojobs && echo "---untracked---" && git status -u hellojobs --short | head -40
+```
+
+```
+80
+hellojobs/.specstory/.project.json
+"hellojobs/.specstory/history/2026-04-17_12-22-13Z-\351\241\271\347\233\256\351\207\217\345\214\226\346\214\207\346\240\207\345\234\250\347\256\200\345\216\206\344\270\255\347\232\204\345\272\224\347\224\250.md"
+hellojobs/.specstory/history/2026-04-18_17-39-50Z-frontend-interface-modification.md
+"hellojobs/.specstory/history/2026-04-18_18-57-28Z-reviewer\351\200\237\345\272\246\344\274\230\345\214\226.md"
+"hellojobs/.specstory/history/2026-04-19_05-38-33Z-\351\241\271\347\233\256\350\277\220\350\241\214\351\200\237\345\272\246\344\274\230\345\214\226.md"
+hellojobs/.specstory/statistics.json
+hellojobs/README.md
+hellojobs/api/server.py
+hellojobs/config.py
+hellojobs/rag/retriever.py
+hellojobs/rag/vector_store.py
+hellojobs/resume/resume-photo.pdf
+hellojobs/static/index.html
+---untracked---
+ M hellojobs/.specstory/.project.json
+ M "hellojobs/.specstory/history/2026-04-17_12-22-13Z-\351\241\271\347\233\256\351\207\217\345\214\226\346\214\207\346\240\207\345\234\250\347\256\200\345\216\206\344\270\255\347\232\204\345\272\224\347\224\250.md"
+ M hellojobs/.specstory/history/2026-04-18_17-39-50Z-frontend-interface-modification.md
+ M "hellojobs/.specstory/history/2026-04-18_18-57-28Z-reviewer\351\200\237\345\272\246\344\274\230\345\214\226.md"
+ M "hellojobs/.specstory/history/2026-04-19_05-38-33Z-\351\241\271\347\233\256\350\277\220\350\241\214\351\200\237\345\272\246\344\274\230\345\214\226.md"
+ M hellojobs/.specstory/statistics.json
+ M hellojobs/README.md
+ M hellojobs/api/server.py
+ M hellojobs/config.py
+ M hellojobs/rag/retriever.py
+ M hellojobs/rag/vector_store.py
+ M hellojobs/resume/resume-photo.pdf
+ M hellojobs/static/index.html
+?? hellojobs/.cursor/skills/generate-resume/SKILL.md
+?? hellojobs/.cursor/skills/generate-resume/reference.md
+?? hellojobs/.cursor/skills/generate-resume/scripts/compile.sh
+?? hellojobs/.specstory/history/2026-04-19_09-57-21Z-conversations-about-design.md.md
+?? hellojobs/.specstory/history/2026-04-19_10-15-53Z-code-upload-to-github-repository.md
+?? hellojobs/data/eval_end_to_end.jsonl
+?? hellojobs/data/eval_it_aligned_e2e.jsonl
+?? hellojobs/data/eval_it_aligned_retrieval.jsonl
+?? hellojobs/data/eval_it_run_e2e.jsonl
+?? hellojobs/data/eval_it_run_retrieval.jsonl
+?? hellojobs/data/eval_it_smoke_e2e.jsonl
+?? hellojobs/data/eval_it_smoke_retrieval.jsonl
+?? hellojobs/data/eval_mix520_aligned_e2e.jsonl
+?? hellojobs/data/eval_mix520_aligned_retrieval.jsonl
+?? hellojobs/data/eval_pools/IT_eval_run/10641230.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/10839851.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/10840430.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/11580408.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/11584809.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/11957080.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/12334140.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/12635195.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/12763627.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/13405733.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/13836471.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/14789139.pdf
+?? hellojobs/data/eval_pools/IT_eval_run/15118506.pdf
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The user intends to push the hellojobs project to GitHub.</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: du -sh /root/project/hellojobs/data/eval_pools 2>/dev/null</summary>
+
+```bash
+du -sh /root/project/hellojobs/data/eval_pools 2>/dev/null
+```
+
+```
+40K	/root/project/hellojobs/data/eval_pools
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: du -sh /root/project/hellojobs/data/*.jsonl 2>/dev/null | sort -h | tail -5; du -sh /root/project/hellojobs/data/resumes 2>/dev/null</summary>
+
+```bash
+du -sh /root/project/hellojobs/data/*.jsonl 2>/dev/null | sort -h | tail -5; du -sh /root/project/hellojobs/data/resumes 2>/dev/null
+```
+
+```
+8.0K	/root/project/hellojobs/data/eval_it_aligned_retrieval.jsonl
+8.0K	/root/project/hellojobs/data/eval_it_run_retrieval.jsonl
+12K	/root/project/hellojobs/data/eval_it_run_e2e.jsonl
+12K	/root/project/hellojobs/data/eval_mix520_aligned_e2e.jsonl
+12K	/root/project/hellojobs/data/eval_mix520_aligned_retrieval.jsonl
+4.2M	/root/project/hellojobs/data/resumes
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: du -sh /root/project/hellojobs/data/* 2>/dev/null | sort -h</summary>
+
+```bash
+du -sh /root/project/hellojobs/data/* 2>/dev/null | sort -h
+```
+
+```
+4.0K	/root/project/hellojobs/data/eval_end_to_end.jsonl
+4.0K	/root/project/hellojobs/data/eval_it_smoke_e2e.jsonl
+4.0K	/root/project/hellojobs/data/eval_it_smoke_retrieval.jsonl
+4.0K	/root/project/hellojobs/data/eval_retrieval.jsonl
+8.0K	/root/project/hellojobs/data/eval_it_aligned_e2e.jsonl
+8.0K	/root/project/hellojobs/data/eval_it_aligned_retrieval.jsonl
+8.0K	/root/project/hellojobs/data/eval_it_run_retrieval.jsonl
+12K	/root/project/hellojobs/data/eval_it_run_e2e.jsonl
+12K	/root/project/hellojobs/data/eval_mix520_aligned_e2e.jsonl
+12K	/root/project/hellojobs/data/eval_mix520_aligned_retrieval.jsonl
+40K	/root/project/hellojobs/data/candidate_memory.json
+40K	/root/project/hellojobs/data/eval_pools
+1.1M	/root/project/hellojobs/data/chroma_memory
+4.2M	/root/project/hellojobs/data/resumes
+32M	/root/project/hellojobs/data/vector_store
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The vector_store is 32MB in size. However, since `.gitignore` already includes `data/vector_store/`, this directory will not be committed to version control. chroma_memory is already in gitignore, which is good.
+
+Adding `hellojobs/` to git will include:
+- resumes (4.2M) - not in gitignore (gitignore has data/resume_cache/ but not data/resumes/)
+- eval files (small)
+- resume/ folder (6.8M) with tex+pdf
+
+The user only asked to exclude testdataset, so I will:
+- Add testdataset/ to hellojobs/.gitignore
+- Optionally add .specstory to global ignore (not requested)
+- Stage hellojobs with `git add hellojobs/` (excluding testdataset)
+- Commit with message
+- Add remote hellojobs if not exists The `git subtree split --prefix=hellojobs -b hellojobs-export` command may take time to execute. After splitting, push with `git push hellojobs hellojobs-export:main`. If the push fails due to authentication issues, the user should run the command with their personal access token.
+
+Regarding the subtree operation, committing only the hellojobs folder ensures that the split branch contains only the contents of hellojobs at the root level, not nested within a hellojobs directory.
+
+One potential issue is that the commit may include `hellojobs/.specstory`, which contains IDE history and might not be desired. This should be reviewed and potentially excluded. Not requested to exclude.
+
+- Check if `hellojobs` remote needs to be added:
+  ```bash
+  git remote add hellojobs https://github.com/maple0leaves/hellojobs.git
+  ```
+
+- Committing changes to the monorepo means the hellojobs commit will be part of `project.git`'s main branch, not separate.
+
+- Run the following commands:
+  ```bash
+  cd /root/project
+  git add hellojobs/.gitignore
+  git add hellojobs/
+  git status --short hellojobs | head
+  ```</details></think>
+
+_**Agent (default)**_
+
+正在将 `testdataset/` 加入 `.gitignore`，提交 `hellojobs` 的变更，并使用 `git subtree split` 将 `hellojobs` 目录作为独立仓库推送到你的空 GitHub 仓库。
+
+
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2">
+
+<details><summary>Tool use: **edit_file_v2** • Edit file: /root/project/hellojobs/.gitignore</summary>
+
+</details>
+
+</tool-use>
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+- Run `git add hellojobs/` to stage the directory.
+- Commit the changes with a descriptive message.</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git add hellojobs/ && git status --short hellojobs | grep -i testdataset || echo "(testdataset not staged)" && git diff --cached --stat hellojobs | tail -5</summary>
+
+```bash
+cd /root/project && git add hellojobs/ && git status --short hellojobs | grep -i testdataset || echo "(testdataset not staged)" && git diff --cached --stat hellojobs | tail -5
+```
+
+```
+(testdataset not staged)
+ hellojobs/scripts/gen_eval_from_category.py        |  298 +
+ hellojobs/scripts/materialize_multi_pool.py        |   78 +
+ hellojobs/scripts/synth_aligned_eval_llm.py        |  192 +
+ hellojobs/static/index.html                        |    4 +-
+ 745 files changed, 19871 insertions(+), 41 deletions(-)
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+745 files  a large number, including resumes.</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git commit --trailer "Made-with: Cursor" -m "$(cat <<'EOF'
+chore(hellojobs): sync project and ignore testdataset
+
+Exclude local testdataset/ from version control; prepare subtree push to standalone repo.
+EOF
+)"</summary>
+
+```bash
+cd /root/project && git commit --trailer "Made-with: Cursor" -m "$(cat <<'EOF'
+chore(hellojobs): sync project and ignore testdataset
+
+Exclude local testdataset/ from version control; prepare subtree push to standalone repo.
+EOF
+)"
+```
+
+```
+[main c45ee6a] chore(hellojobs): sync project and ignore testdataset
+ 745 files changed, 19871 insertions(+), 41 deletions(-)
+ create mode 100644 hellojobs/.cursor/skills/generate-resume/SKILL.md
+ create mode 100644 hellojobs/.cursor/skills/generate-resume/reference.md
+ create mode 100644 hellojobs/.cursor/skills/generate-resume/scripts/compile.sh
+ create mode 100644 hellojobs/.specstory/history/2026-04-19_09-57-21Z-conversations-about-design.md.md
+ create mode 100644 hellojobs/.specstory/history/2026-04-19_10-15-53Z-code-upload-to-github-repository.md
+ create mode 100644 hellojobs/data/eval_end_to_end.jsonl
+ create mode 100644 hellojobs/data/eval_it_aligned_e2e.jsonl
+ create mode 100644 hellojobs/data/eval_it_aligned_retrieval.jsonl
+ create mode 100644 hellojobs/data/eval_it_run_e2e.jsonl
+ create mode 100644 hellojobs/data/eval_it_run_retrieval.jsonl
+ create mode 100644 hellojobs/data/eval_it_smoke_e2e.jsonl
+ create mode 100644 hellojobs/data/eval_it_smoke_retrieval.jsonl
+ create mode 100644 hellojobs/data/eval_mix520_aligned_e2e.jsonl
+ create mode 100644 hellojobs/data/eval_mix520_aligned_retrieval.jsonl
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/10641230.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/10839851.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/10840430.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/11580408.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/11584809.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/11957080.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/12334140.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/12635195.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/12763627.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/13405733.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/13836471.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/14789139.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/15118506.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/15297298.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/15651486.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/15802627.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/16186411.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/16899268.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/17111768.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/17641670.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/17681064.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/17688766.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/17987433.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/18159866.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/18301617.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/18752129.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/19201175.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/19796840.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/20001721.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/20408458.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/20824105.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/20879311.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/21780877.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/22450718.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/23666211.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/23864648.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/24020470.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/24038620.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/24913648.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/25857360.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/25905275.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/25959103.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/26768723.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/26801767.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/27058381.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/27295996.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/27372171.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/27485716.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/27536013.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/28035460.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/28672970.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/28897981.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/29075857.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/29975124.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/30223363.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/31243710.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/33241454.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/33381211.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/35325329.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/36434348.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/36856210.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/37242217.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/37764298.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/38753827.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/39413067.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/39718499.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/41344156.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/48037995.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/51363762.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/51639418.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/52246737.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/52618188.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/66832845.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/68460556.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/79541391.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/83816738.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/90867631.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/91121135.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/91635250.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_eval_run/91697974.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/10553553.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/10641230.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/12334140.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/12763627.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/13385306.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/13836471.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/17111768.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/17641670.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/17681064.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/17987433.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/18187364.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/23864648.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/25959103.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/26801767.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/27770859.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/28126340.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/29051656.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/31243710.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/37764298.pdf
+ create mode 120000 hellojobs/data/eval_pools/IT_smoke/89413122.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10030015.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10089434.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10138632.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10219099.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10228751.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10235211.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10247517.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10265057.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10289113.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10464113.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10501991.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10541358.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10549585.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10553553.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10603337.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10624813.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10641230.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10704573.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10712803.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10839851.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10840430.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10898339.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/10985403.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11088337.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11289482.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11441764.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11580408.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11584809.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11877150.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11890896.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11957080.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/11981094.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12011623.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12022566.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12045067.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12059198.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12071138.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12082377.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12334140.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12351749.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12377803.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12488356.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12518008.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12546838.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12632728.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12635195.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12696104.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12748557.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12763627.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12814706.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12820557.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/12858898.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13149176.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13178604.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13199813.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13264796.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13348915.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13385306.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13405733.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13477922.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13574264.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13812481.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13836471.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/13888506.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14049846.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14055971.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14070138.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14106638.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14181049.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14206561.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14241621.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14267489.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14287992.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14358578.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14381464.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14408510.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14413148.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14554542.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14722634.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14726000.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14752209.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14789139.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14825300.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14861855.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14871762.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/14990354.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15118506.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15139979.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15224503.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15233524.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15273850.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15297298.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15423153.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15581242.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15601399.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15620421.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15651486.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15717923.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15765660.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15791766.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15802627.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15811992.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15858254.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15891494.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15918496.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/15973307.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16091352.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16186411.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16223371.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16426777.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16449850.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16533554.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16694152.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16803215.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16899268.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/16911115.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17043822.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17103000.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17111768.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17115815.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17378327.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17392859.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17410700.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17421910.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17488801.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17509935.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17597372.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17602815.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17641670.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17681064.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17688766.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17704246.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17730889.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17781039.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17926546.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/17987433.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18062906.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18067556.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18072085.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18159866.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18171955.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18176523.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18187364.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18236085.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18293620.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18301617.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18311419.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18328743.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18368613.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18636651.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18640927.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18752129.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18757174.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18885231.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18937778.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/18975686.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19124258.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19147494.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19147603.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19156751.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19201175.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19243556.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19396040.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19397727.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19405513.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19473948.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19540089.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19553067.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19557384.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19582792.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19612167.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19738730.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19796840.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/19850482.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20001721.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20024870.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20141807.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20237244.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20275356.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20317319.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20408458.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20423658.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20427934.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20552814.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20553895.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20566550.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20633855.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20674668.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20705888.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20748929.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20819838.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20824105.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20879311.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20882041.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20918464.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20969845.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20977412.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/20981299.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21038022.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21283365.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21595057.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21629057.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21780877.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21807224.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21847415.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/21912637.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22025574.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22423839.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22450718.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22492537.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22605864.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22765255.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/22776912.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23032182.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23296286.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23354541.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23396633.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23438227.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23497307.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23527321.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23568641.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23573064.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23666211.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23760084.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23782450.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23864648.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/23955183.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24020470.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24038620.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24083609.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24230851.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24322804.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24411323.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24412546.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24530382.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24610685.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24611721.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24647386.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24647794.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24670867.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24833063.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24854026.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24889109.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24913648.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24964303.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/24967652.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25101183.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25207620.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25330083.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25370801.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25425322.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25497147.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25608963.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25678238.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25797445.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25810233.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25839123.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25857360.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25905275.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25919149.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25930778.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25959103.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/25990239.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26013403.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26231609.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26425074.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26456899.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26480367.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26530575.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26530696.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26581830.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26746496.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26750846.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26767199.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26768723.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26801767.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26834746.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26932091.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26961846.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/26994282.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27004930.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27018361.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27040860.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27058381.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27139412.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27152464.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27213082.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27219200.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27233183.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27295996.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27330027.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27372171.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27375577.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27409087.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27485716.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27536013.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27607632.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27624540.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27756469.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27770859.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27789372.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27796199.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27850777.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27914096.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/27937592.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28005884.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28035460.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28078163.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28126340.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28139742.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28198029.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28320387.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28337049.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28377361.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28396458.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28398216.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28505854.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28522529.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28623782.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28628090.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28630325.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28631840.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28672970.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28697203.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28724469.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28758002.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28762662.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28831378.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28867567.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28897981.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28916894.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28923650.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/28973180.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29014805.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29051656.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29075857.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29134721.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29184740.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29211919.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29332616.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29399491.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29494962.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29612672.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29648950.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29815762.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29825044.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29908929.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29928796.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/29975124.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30083943.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30097175.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30223363.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30288581.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30542184.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30608780.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/30938994.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31111279.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31199035.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31243710.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31273310.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31454430.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31638814.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31677347.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31684925.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31694970.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/31948488.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32042584.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32081266.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32140087.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32385553.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32531824.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32802563.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/32959732.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33236701.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33241454.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33381211.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33424600.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33578873.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/33685075.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/34046031.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/34131484.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/34250007.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/34303500.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/34797369.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35172961.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35325329.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35389360.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35651876.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35673335.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/35737840.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36074301.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36149549.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36170003.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36434348.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36621169.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36856210.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36904300.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/36970996.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37242217.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37335325.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37360517.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37391947.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37735467.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37764298.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37792474.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/37931076.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38007664.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38087844.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38220146.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38225199.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38535335.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38688388.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38753827.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/38907798.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39237915.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39295103.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39413067.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39675895.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39718499.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39835894.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39855211.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/39875803.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/40018190.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/40792022.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/40987524.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/41344156.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/42304307.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/43752620.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/44624796.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/46260230.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/47276718.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/47410104.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/47919212.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/48037995.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/48285304.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/49127329.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/50328713.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/51349448.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/51363762.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/51588273.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/51639418.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/52246737.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/52618188.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/54101961.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/54227873.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/55097118.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/55477468.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/55595908.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/56691064.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/57002858.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/57088974.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/58165257.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/58428843.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/59450123.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/59696315.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/59777056.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/59818742.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/59938965.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/60004873.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/61634281.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/61677751.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/62071407.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/62850928.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/64017585.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/64755882.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/65456466.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/65708020.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/66741193.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/66832845.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/67501448.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/68460556.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/69155584.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/69487178.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/70089206.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/70528646.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/70541112.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/71772815.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/72136463.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/74236636.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/76454959.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/76916835.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/77638654.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/77828437.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/78229715.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/79376680.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/79541391.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/79759716.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/80275976.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/81125166.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/81217013.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/81677620.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/81761658.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/82125182.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/83816738.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/85918100.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/86549455.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/86595128.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/87118391.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/88038965.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/89197180.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/89413122.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/90280583.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/90629382.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/90682785.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/90867631.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/91121135.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/91467795.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/91564103.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/91635250.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/91697974.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/92069209.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/92200491.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/92524964.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/93653247.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/95382114.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/95519832.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/98108571.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/98379112.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/98509238.pdf
+ create mode 120000 hellojobs/data/eval_pools/mix_520/98513424.pdf
+ create mode 100644 hellojobs/data/eval_retrieval.jsonl
+ create mode 100644 hellojobs/data/resumes/bai_rui.pdf
+ create mode 100644 hellojobs/data/resumes/cai_jun.pdf
+ create mode 100644 hellojobs/data/resumes/chen_jing.pdf
+ create mode 100644 hellojobs/data/resumes/dong_mei.pdf
+ create mode 100644 hellojobs/data/resumes/feng_qi.pdf
+ create mode 100644 hellojobs/data/resumes/gao_peng.pdf
+ create mode 100644 hellojobs/data/resumes/guo_yan.pdf
+ create mode 100644 hellojobs/data/resumes/han_lu.pdf
+ create mode 100644 hellojobs/data/resumes/he_sen.pdf
+ create mode 100644 hellojobs/data/resumes/huang_ting.pdf
+ create mode 100644 hellojobs/data/resumes/jiang_nan.pdf
+ create mode 100644 hellojobs/data/resumes/li_ming.pdf
+ create mode 100644 hellojobs/data/resumes/lin_jie.pdf
+ create mode 100644 hellojobs/data/resumes/liu_yang.pdf
+ create mode 100644 hellojobs/data/resumes/lu_kai.pdf
+ create mode 100644 hellojobs/data/resumes/ma_xin.pdf
+ create mode 100644 hellojobs/data/resumes/peng_yu.pdf
+ create mode 100644 hellojobs/data/resumes/qian_feng.pdf
+ create mode 100644 hellojobs/data/resumes/sun_yue.pdf
+ create mode 100644 hellojobs/data/resumes/tang_li.pdf
+ create mode 100644 hellojobs/data/resumes/tang_wei.pdf
+ create mode 100644 hellojobs/data/resumes/wang_fang.pdf
+ create mode 100644 hellojobs/data/resumes/wu_hao.pdf
+ create mode 100644 hellojobs/data/resumes/xie_bo.pdf
+ create mode 100644 hellojobs/data/resumes/xiong_bing.pdf
+ create mode 100644 hellojobs/data/resumes/xu_lin.pdf
+ create mode 100644 hellojobs/data/resumes/yu_tao.pdf
+ create mode 100644 hellojobs/data/resumes/zhang_wei.pdf
+ create mode 100644 hellojobs/data/resumes/zhao_lei.pdf
+ create mode 100644 hellojobs/data/resumes/zhou_qiang.pdf
+ create mode 100644 hellojobs/resume/bai_rui.pdf
+ create mode 100644 hellojobs/resume/bai_rui.tex
+ create mode 100644 hellojobs/resume/batch_demo_resumes.py
+ create mode 100644 hellojobs/resume/cai_jun.pdf
+ create mode 100644 hellojobs/resume/cai_jun.tex
+ create mode 100644 hellojobs/resume/chen_jing.pdf
+ create mode 100644 hellojobs/resume/chen_jing.tex
+ create mode 100644 hellojobs/resume/dong_mei.pdf
+ create mode 100644 hellojobs/resume/dong_mei.tex
+ create mode 100644 hellojobs/resume/feng_qi.pdf
+ create mode 100644 hellojobs/resume/feng_qi.tex
+ create mode 100644 hellojobs/resume/gao_peng.pdf
+ create mode 100644 hellojobs/resume/gao_peng.tex
+ create mode 100644 hellojobs/resume/guo_yan.pdf
+ create mode 100644 hellojobs/resume/guo_yan.tex
+ create mode 100644 hellojobs/resume/han_lu.pdf
+ create mode 100644 hellojobs/resume/han_lu.tex
+ create mode 100644 hellojobs/resume/he_sen.pdf
+ create mode 100644 hellojobs/resume/he_sen.tex
+ create mode 100644 hellojobs/resume/huang_ting.pdf
+ create mode 100644 hellojobs/resume/huang_ting.tex
+ create mode 100644 hellojobs/resume/jiang_nan.pdf
+ create mode 100644 hellojobs/resume/jiang_nan.tex
+ create mode 100644 hellojobs/resume/li_ming.pdf
+ create mode 100644 hellojobs/resume/li_ming.tex
+ create mode 100644 hellojobs/resume/lin_jie.pdf
+ create mode 100644 hellojobs/resume/lin_jie.tex
+ create mode 100644 hellojobs/resume/liu_yang.pdf
+ create mode 100644 hellojobs/resume/liu_yang.tex
+ create mode 100644 hellojobs/resume/lu_kai.pdf
+ create mode 100644 hellojobs/resume/lu_kai.tex
+ create mode 100644 hellojobs/resume/ma_xin.pdf
+ create mode 100644 hellojobs/resume/ma_xin.tex
+ create mode 100644 hellojobs/resume/peng_yu.pdf
+ create mode 100644 hellojobs/resume/peng_yu.tex
+ create mode 100644 hellojobs/resume/qian_feng.pdf
+ create mode 100644 hellojobs/resume/qian_feng.tex
+ rewrite hellojobs/resume/resume-photo.pdf (96%)
+ create mode 100644 hellojobs/resume/sun_yue.pdf
+ create mode 100644 hellojobs/resume/sun_yue.tex
+ create mode 100644 hellojobs/resume/tang_li.pdf
+ create mode 100644 hellojobs/resume/tang_li.tex
+ create mode 100644 hellojobs/resume/tang_wei.pdf
+ create mode 100644 hellojobs/resume/tang_wei.tex
+ create mode 100644 hellojobs/resume/wang_fang.pdf
+ create mode 100644 hellojobs/resume/wang_fang.tex
+ create mode 100644 hellojobs/resume/wu_hao.pdf
+ create mode 100644 hellojobs/resume/wu_hao.tex
+ create mode 100644 hellojobs/resume/xie_bo.pdf
+ create mode 100644 hellojobs/resume/xie_bo.tex
+ create mode 100644 hellojobs/resume/xiong_bing.pdf
+ create mode 100644 hellojobs/resume/xiong_bing.tex
+ create mode 100644 hellojobs/resume/xu_lin.pdf
+ create mode 100644 hellojobs/resume/xu_lin.tex
+ create mode 100644 hellojobs/resume/yu_tao.pdf
+ create mode 100644 hellojobs/resume/yu_tao.tex
+ create mode 100644 hellojobs/resume/zhang_wei.pdf
+ create mode 100644 hellojobs/resume/zhang_wei.tex
+ create mode 100644 hellojobs/resume/zhao_lei.pdf
+ create mode 100644 hellojobs/resume/zhao_lei.tex
+ create mode 100644 hellojobs/resume/zhou_qiang.pdf
+ create mode 100644 hellojobs/resume/zhou_qiang.tex
+ create mode 100644 hellojobs/scripts/eval_end_to_end.py
+ create mode 100644 hellojobs/scripts/eval_rag_metrics.py
+ create mode 100644 hellojobs/scripts/gen_eval_from_category.py
+ create mode 100644 hellojobs/scripts/materialize_multi_pool.py
+ create mode 100644 hellojobs/scripts/synth_aligned_eval_llm.py
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git log -1 --oneline && (git remote get-url hellojobs 2>/dev/null || git remote add hellojobs https://github.com/maple0leaves/hellojobs.git && echo "added hellojobs remote")</summary>
+
+```bash
+cd /root/project && git log -1 --oneline && (git remote get-url hellojobs 2>/dev/null || git remote add hellojobs https://github.com/maple0leaves/hellojobs.git && echo "added hellojobs remote")
+```
+
+```
+c45ee6a chore(hellojobs): sync project and ignore testdataset
+added hellojobs remote
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git subtree split --prefix=hellojobs -b hellojobs-github</summary>
+
+```bash
+cd /root/project && git subtree split --prefix=hellojobs -b hellojobs-github
+```
+
+```
+1/4 (0) [0]2/4 (1) [0]3/4 (2) [0]4/4 (3) [0]Created branch 'hellojobs-github'
+8bf06776fba3d39177db358aa1731b0484fcab4e
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+- Branch created quickly
+- Pushed to origin/main of hellojobs remote</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git push -u hellojobs hellojobs-github:main</summary>
+
+```bash
+cd /root/project && git push -u hellojobs hellojobs-github:main
+```
+
+```
+]633;Cfatal: unable to access 'https://github.com/maple0leaves/hellojobs.git/': Failed to connect to github.com port 443 after 129502 ms: Connection timed out
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /root/.cursor/projects/root-project-hellojobs/terminals/840941.txt</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+Still runningpossibly uploading or stuck on authentication.</details></think>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="await">
+<details>
+<summary>Tool use: **await**</summary>
+
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="await"><details>
+<summary>Tool use: **await**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: /root/.cursor/projects/root-project-hellojobs/terminals/840941.txt</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+Network timeout occurred when connecting to GitHub; authentication was not the issue. - testdataset  gitignore
+- 
+- 
+-  subtree  hellojobs-github
+
+ GitHub 
+
+
+- 
+- `git push hellojobs hellojobs-github:main`
+- 
+
+
+
+
+
+ hellojobs-github</details></think>
+
+_**Agent (default)**_
+
+本地已准备好推送到 [maple0leaves/hellojobs](https://github.com/maple0leaves/hellojobs.git)，但当前环境访问 `github.com:443` 超时，无法替你完成最后的 `git push`。
+
+## 已完成的操作
+
+1. **在 `hellojobs/.gitignore` 中加入了 `testdataset/`**  
+   该目录约 181MB，不会被 `git add` 进仓库。
+
+2. **在父仓库 `/root/project` 里提交了所有已暂存的 `hellojobs/` 变更**  
+   提交：`c45ee6a`（说明里写明忽略 `testdataset`，便于以后 subtree 推送）。
+
+3. **添加了远程 `hellojobs`**  
+   地址：`https://github.com/maple0leaves/hellojobs.git`
+
+4. **生成了仅含 `hellojobs/` 目录内容的独立分支 `hellojobs-github`**  
+   （`git subtree split --prefix=hellojobs`），推送到 GitHub 后，对方仓库根目录就是项目代码，而不是再套一层 `hellojobs/` 文件夹。
+
+## 你需要在本机执行（能访问 GitHub 时）
+
+在 **`/root/project`** 下执行：
+
+```bash
+cd /root/project
+git push -u hellojobs hellojobs-github:main
+```
+
+若提示认证失败，请用 **HTTPS + Personal Access Token**，或改用 **SSH**：
+
+```bash
+git remote set-url hellojobs git@github.com:maple0leaves/hellojobs.git
+git push -u hellojobs hellojobs-github:main
+```
+
+推送成功后，若不再需要该辅助分支，可删除：
+
+```bash
+git branch -D hellojobs-github
+```
+
+## 说明
+
+- **`testdataset/`** 已通过 `.gitignore` 排除，不会进仓库。  
+- 若你还希望排除 `.specstory/`、大量 `data/resumes` 等，可以说一下，我可以再改 `.gitignore` 并帮你整理提交。  
+- 父仓库的 **`origin`** 仍是 `maple0leaves/project`，本次只增加了 **`hellojobs`** 这个 remote，不会影响原来的 `project` 远程。
+
+---
+
+_**User**_
+
+data太大是不是也推不上
+
+---
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+Large `data` directories do not inherently prevent pushing to GitHub, but they can cause issues if the directory contains untracked files or if the total repository size exceeds GitHub's limits. 
+
+- Consider using `.gitignore` to exclude unnecessary files.
+- Use Git LFS (Large File Storage) for large files that need versioning.
+- Ensure no unintended large files are included in commits.
+- Check GitHubs repository size limits to avoid push failures. GitHub imposes file size restrictions with warnings at 50MB and blocks at 100MB. Repository size limits are soft, but large repositories may experience slow pushes. In the hellojobs/data directory, vector_store (32MB) and chroma_memory (1.1MB) are properly excluded via .gitignore, while resumes (4.2MB) could pose an issue if committed. Eval files are small and likely unproblematic.</details></think>
+
+_**Agent (default)**_
+
+说明 GitHub 限制并检查仓库中 `hellojobs/data` 的跟踪情况。
+
+
+
+_**Agent (default)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cd /root/project && git ls-files hellojobs/data | wc -l && du -ch $(git ls-files hellojobs/data | sed 's|^|/root/project/|') 2>/dev/null | tail -1</summary>
+
+```bash
+cd /root/project && git ls-files hellojobs/data | wc -l && du -ch $(git ls-files hellojobs/data | sed 's|^|/root/project/|') 2>/dev/null | tail -1
+```
+
+```
+666
+4.3M	total
+
+```
+</details>
+</tool-use>
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+Only 666 files, 4.3M total tracked in hellojobs/data - very small.</details></think>
+
+_**Agent (default)**_
+
+**一般不会因为 `data` 太大而“推不上”**，要分两种情况说：
+
+## 1. GitHub 的硬性限制
+
+- **单个文件**：超过 **100MB** 会被拒绝（50MB 以上会有警告）。
+- **整个仓库**：没有写死的上限，但特别大时 clone/push 会变慢，更常见的问题是**单个超大文件**，不是目录“总大小”本身。
+
+## 2. 你这个项目里 `data` 的实际体量
+
+当前 **已被 Git 跟踪的** `hellojobs/data` 一共大约 **666 个文件、合计约 4.3MB**，非常小，**不会因为 `data` 体积导致推不上去**。
+
+大块内容本来就在 `.gitignore` 里，例如：
+
+- `data/vector_store/`（本地索引，往往几十 MB）
+- `data/chroma_memory/`
+- `data/candidate_memory.json`、`data/resume_cache/` 等
+
+这些**默认不会进仓库**，所以不会把推送撑爆。
+
+## 3. 你上次推失败的原因
+
+日志里是 **`Failed to connect to github.com port 443 ... Connection timed out`**，属于**网络连不上 GitHub**，和 `data` 大小无关。换能访问 GitHub 的网络或代理后再 `git push` 即可。
+
+---
+
+**结论**：按当前配置，`data` 不会成为推送瓶颈；若以后往 `data/` 里加**单个超过 100MB** 的文件，才需要改成 Git LFS 或继续用 `.gitignore` 排除。若你希望 **`data/resumes` 等也不上传**，可以说一下，我可以帮你改 `.gitignore` 并说明怎么从已有提交里删掉（若已误提交）。
+
+---
+
+_**User**_
+
+@\root\.cursor\projects\root-project-hellojobs\terminals\1048.txt:46-49 这是什么意思
+
+---
+
+_**Agent (default)**_
+
+<think><details><summary>Thought Process</summary>
+The user is encountering a git error message in their terminal and wants assistance understanding or resolving it. git push  GitHub  TLS 
+
+- 
+-  Git  SSH SSH 
+-  Git  GnuTLS 
+- 
+-  Git 
+
+ TLS 
+```</details></think>
+
+_**Agent (default)**_
+
+这是 **HTTPS 连 GitHub 时，TLS 加密握手没走完就

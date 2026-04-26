@@ -81,10 +81,10 @@ export default function JDManagement() {
       if (editingJD) {
         await updateMutation.mutateAsync({
           id: editingJD.id,
-          data: values as import("../types/jd").JDFormValues,
+          data: values as unknown as import("../types/jd").JDFormValues,
         });
       } else {
-        await createMutation.mutateAsync(values as import("../types/jd").JDFormValues);
+        await createMutation.mutateAsync(values as unknown as import("../types/jd").JDFormValues);
       }
       resetDialog();
     } catch (err: unknown) {

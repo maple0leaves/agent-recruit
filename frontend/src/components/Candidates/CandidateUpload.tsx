@@ -54,7 +54,7 @@ export default function CandidateUpload({ onSuccess }: CandidateUploadProps) {
       const message =
         err && typeof err === "object" && "response" in err
           ? ((err as { response?: { data?: { detail?: string } } }).response?.data?.detail ??
-            (err as Error).message ??
+            (err as unknown as Error).message ??
             "上传失败")
           : err instanceof Error
             ? err.message

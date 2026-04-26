@@ -14,3 +14,4 @@ def hash_password(password: str) -> str:
 def verify_password(password: str, hashed: str) -> bool:
     """Verify a password against its bcrypt hash. Returns bool."""
     return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
+

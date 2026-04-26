@@ -60,7 +60,7 @@ export default function JDForm({
   mode,
 }: JDFormProps) {
   const form = useForm<FormValues>({
-    resolver: zodResolver(jdFormSchema),
+    resolver: zodResolver(jdFormSchema) as any,
     defaultValues: {
       title: templateValues?.name || defaultValues?.title || "",
       department: defaultValues?.department || "",

@@ -42,5 +42,4 @@ export interface JDTemplate {
   education: EducationLevel;
   salary_min: number;
   salary_max: number;
-  description: string;
 }

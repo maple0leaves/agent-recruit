@@ -95,7 +95,6 @@ export default function PipelineActions({
           const stageIndex = PIPELINE_ORDER.indexOf(stage);
           const isPast = currentIndex > stageIndex;
           const isCurrent = currentStatus === stage;
-          const isFuture = stageIndex > currentIndex && !isRejected;
 
           return (
             <div key={stage} className="flex items-center">

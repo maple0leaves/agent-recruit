@@ -17,7 +17,7 @@ interface CandidateFilterBarProps {
 
 export default function CandidateFilterBar({ filters, onFilterChange }: CandidateFilterBarProps) {
   const [searchInput, setSearchInput] = useState(filters.keyword || "");
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const handleSearchChange = (value: string) => {
     setSearchInput(value);
@@ -44,7 +44,7 @@ export default function CandidateFilterBar({ filters, onFilterChange }: Candidat
       <Select
         value={filters.status || "all"}
         onValueChange={(value) =>
-          onFilterChange({ status: value === "all" ? undefined : value })
+          onFilterChange({ status: value === "all" ? undefined : value as string | undefined })
         }
       >
         <SelectTrigger className="w-[130px]">
