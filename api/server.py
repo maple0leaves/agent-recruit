@@ -23,6 +23,7 @@ from agent.skills import build_skill_context, get_skill_tools, load_all_skills, 
 from main import recruitment_graph, recruitment_graph_hitl, run
 from backend.api.routes.auth import router as auth_router
 from backend.api.routes.jd import router as jd_router
+from backend.api.routes.candidate import router as candidate_router
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +45,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(jd_router)
+app.include_router(candidate_router)
 
 
 def _parse_match_results(match_results: list) -> list[MatchResult]:
