@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { Check, MessageSquare, X } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -8,6 +8,7 @@ interface MatchCandidateCardProps {
   candidate: MatchResult;
   onApprove: () => void;
   onReject: () => void;
+  onFeedback?: () => void;
   isReviewed: boolean;
   decision?: "approved" | "rejected" | null;
 }
@@ -16,6 +17,7 @@ export default function MatchCandidateCard({
   candidate,
   onApprove,
   onReject,
+  onFeedback,
   isReviewed,
   decision,
 }: MatchCandidateCardProps) {
@@ -74,6 +76,18 @@ export default function MatchCandidateCard({
         )}
       </CardContent>
       <CardFooter className="flex justify-end gap-2 pt-0">
+        {onFeedback && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onFeedback}
+            disabled={isReviewed}
+            className="gap-1"
+          >
+            <MessageSquare className="h-3 w-3" />
+            反馈
+          </Button>
+        )}
         <Button
           variant="outline"
           size="sm"
