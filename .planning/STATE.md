@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-04-26)
 
 **Core value:** HR can quickly and accurately find matching candidates; AI assists but human approves
-**Current focus:** Phase 2 -- JD Management
+**Current focus:** Phase 3 -- Resume & Candidate Management
 
 ## Current Position
 
-Phase: 2 of 5 (JD Management)
-Plan: 4 of 4 in current phase
-Status: COMPLETE -- Phase 2 JD Management done (JDForm + TemplateSelector + Dialog integration)
-Last activity: 2026-04-26 -- Plan 02-04 completed: JDForm (Zod validation, 8 fields), TemplateSelector (card grid), create/edit dialog with template support
+Phase: 3 of 5 (Resume & Candidate Management)
+Plan: 0 of TBD in current phase
+Status: Context gathered -- ready for planning
+Last activity: 2026-04-26 -- Phase 3 context discussion completed
 
-Progress: [████████████] 100%
+Progress: [████████░░░░] 80%
 
 ## Performance Metrics
 
@@ -80,5 +80,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Plan 02-04 completed (Phase 2 JD Management fully done)
-Resume file: .planning/phases/02-jd-management/02-04-SUMMARY.md
+Stopped at: Phase 3 context gathered
+Resume file: .planning/phases/03-resume-candidate-management/03-CONTEXT.md
