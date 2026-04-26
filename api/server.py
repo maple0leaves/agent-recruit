@@ -12,15 +12,17 @@ from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from sqlalchemy.ext.asyncio import AsyncSession
 from config import CORS_ORIGINS
-from backend.api.deps import get_current_user
+from backend.api.deps import get_current_user, get_db
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from agent.schemas import MatchResult, RecruitmentInput, RecruitmentOutput
 from agent.skills import build_skill_context, get_skill_tools, load_all_skills, match_skills
 from main import recruitment_graph, recruitment_graph_hitl, run
+from backend.db.models.match_session import MatchSession
 from backend.api.routes.auth import router as auth_router
 from backend.api.routes.jd import router as jd_router
 from backend.api.routes.candidate import router as candidate_router
@@ -360,6 +362,158 @@ async def _stream_recruitment(user_input: str, resume_text: str, request: Reques
         yield _sse_event("done", {})
 
 
+class HITLStreamRequest(BaseModel):
+    """Request body for streaming HITL matching (D-01, D-04)."""
+    jd_id: int = Field(description="Job Description ID to match candidates against")
+
+
+async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request, db: AsyncSession):
+    """Generator that streams LangGraph HITL events as SSE.
+
+    Uses recruitment_graph_hitl (with interrupt_before=["reviewer_agent"]) so the
+    graph streams progress until the reviewer interrupt, then sends hitl_pause.
+    """
+    from uuid import uuid4
+
+    thread_id = f"hitl-stream-{uuid4().hex}"
+    config = {"configurable": {"thread_id": thread_id}}
+    initial_state = {
+        "user_input": user_input,
+        "resume_text": None,
+        "jd_info": None,
+        "candidates": [],
+        "match_results": [],
+        "final_report": "",
+        "classification": "",
+        "next_action": "",
+        "hr_approved": None,
+        "hr_feedback": "",
+        "candidate_decisions": {},
+        "messages": [],
+    }
+
+    TIMEOUT_SECONDS = 120
+
+    try:
+        loop = asyncio.get_running_loop()
+        queue: asyncio.Queue = asyncio.Queue()
+
+        def _run_hitl_graph():
+            try:
+                for chunk in recruitment_graph_hitl.stream(initial_state, config=config):
+                    loop.call_soon_threadsafe(queue.put_nowait, chunk)
+            except Exception as exc:
+                loop.call_soon_threadsafe(queue.put_nowait, exc)
+            loop.call_soon_threadsafe(queue.put_nowait, None)
+
+        stream_task = asyncio.create_task(
+            asyncio.wait_for(
+                asyncio.get_event_loop().run_in_executor(None, _run_hitl_graph),
+                timeout=TIMEOUT_SECONDS,
+            )
+        )
+
+        progress_map = {
+            "triage_router": "正在分析需求...",
+            "planner_agent": "正在规划搜索策略...",
+            "worker_agent": "正在搜索并评分候选人...",
+            "reviewer_agent": "正在生成审核报告...",
+        }
+
+        final_state: dict = {}
+        match_results_sent: set[str] = set()
+
+        while True:
+            done, pending = await asyncio.wait(
+                [stream_task, asyncio.ensure_future(queue.get())],
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+
+            if await request.is_disconnected():
+                stream_task.cancel()
+                yield _sse_event("done", {})
+                return
+
+            if stream_task in done and stream_task.exception() is not None:
+                exc = stream_task.exception()
+                if isinstance(exc, asyncio.TimeoutError):
+                    yield _sse_event("error", {"message": "请求超时，请稍后重试"})
+                    yield _sse_event("done", {})
+                    return
+                raise exc
+
+            if stream_task.done():
+                break
+
+            item = queue.get_nowait() if not stream_task.done() else None
+            if item is None:
+                break
+            if isinstance(item, Exception):
+                raise item
+
+            for node_name, node_output in item.items():
+                yield _sse_event("status", {"node": node_name, "status": "completed"})
+
+                if isinstance(node_output, dict) and node_output.get("messages"):
+                    for msg in node_output["messages"]:
+                        if hasattr(msg, "tool_calls") and msg.tool_calls:
+                            for tc in msg.tool_calls:
+                                yield _sse_event(
+                                    "tool_call",
+                                    {
+                                        "tool": tc["name"],
+                                        "args": tc.get("args", {}),
+                                    },
+                                )
+
+                if node_name in progress_map:
+                    yield _sse_event("progress", {"message": progress_map[node_name]})
+
+                if isinstance(node_output, dict):
+                    final_state.update(node_output)
+
+                # Progressive match_result emission (D-07)
+                if isinstance(node_output, dict) and node_output.get("match_results"):
+                    for result in node_output["match_results"]:
+                        candidate_name = result.get("candidate_name", "") if isinstance(result, dict) else getattr(result, "candidate_name", "")
+                        if candidate_name and candidate_name not in match_results_sent:
+                            match_results_sent.add(candidate_name)
+                            if isinstance(result, dict):
+                                yield _sse_event("match_result", result)
+                            else:
+                                yield _sse_event("match_result", result.model_dump())
+
+        # Stream ended (hit interrupt_before=["reviewer_agent"])
+        parsed_results = _parse_match_results(final_state.get("match_results", []))
+
+        # Create MatchSession record for dashboard tracking (D-13)
+        if parsed_results:
+            try:
+                match_session = MatchSession(
+                    jd_id=jd_id,
+                    thread_id=thread_id,
+                    status="pending",
+                    total_candidates=len(parsed_results),
+                )
+                db.add(match_session)
+                await db.commit()
+            except Exception as exc:
+                logger.warning(f"Failed to create MatchSession: {exc}")
+
+        yield _sse_event("hitl_pause", {
+            "match_results": [r.model_dump() for r in parsed_results],
+            "thread_id": thread_id,
+        })
+
+    except asyncio.TimeoutError:
+        yield _sse_event("error", {"message": "请求超时，请稍后重试"})
+    except Exception as e:
+        logger.exception("Streaming HITL recruitment failed")
+        yield _sse_event("error", {"message": str(e)})
+    finally:
+        yield _sse_event("done", {})
+
+
 @app.post("/recruit/stream")
 async def recruit_stream(
     request: RecruitmentInput,
@@ -369,6 +523,48 @@ async def recruit_stream(
     """SSE streaming endpoint for the recruitment workflow."""
     return StreamingResponse(
         _stream_recruitment(request.user_input, request.resume_text or "", http_request),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@app.post("/recruit/hitl/stream")
+async def hitl_stream(
+    request: HITLStreamRequest,
+    http_request: Request,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """SSE streaming endpoint for HITL matching (D-01, D-04).
+
+    Accepts jd_id, fetches the JD, constructs user_input, and starts
+    the HITL LangGraph streaming. Returns SSE events for pipeline progress,
+    tool calls, candidate results, and final hitl_pause.
+    """
+    from backend.db.models.jd import JD
+    from sqlalchemy import select
+
+    result = await db.execute(select(JD).where(JD.id == request.jd_id))
+    jd = result.scalar_one_or_none()
+    if not jd:
+        raise HTTPException(status_code=404, detail="JD 不存在")
+
+    # Construct user_input from JD fields for the agent
+    user_input = (
+        f"招聘{jd.title}，"
+        f"部门：{jd.department}，"
+        f"要求技能：{jd.skills}，"
+        f"{jd.experience_years}年经验，"
+        f"学历要求：{jd.education}，"
+        f"薪资范围：{jd.salary_min}-{jd.salary_max}。"
+        f"{jd.description}"
+    )
+
+    return StreamingResponse(
+        _stream_hitl_recruitment(user_input, request.jd_id, http_request, db),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
