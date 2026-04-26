@@ -1,16 +1,60 @@
-import { Card, CardContent } from "../components/ui/card";
-import { LayoutDashboard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Briefcase, Users, ClipboardCheck } from "lucide-react";
+import { Skeleton } from "../components/ui/skeleton";
+import { useDashboardStats } from "../hooks/useDashboard";
+import StatsCard from "../components/Dashboard/StatsCard";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const { data, isLoading } = useDashboardStats();
+
   return (
-    <div className="flex flex-col items-center justify-center py-16">
-      <Card className="w-full max-w-md">
-        <CardContent className="flex flex-col items-center gap-4 py-12">
-          <LayoutDashboard className="h-12 w-12 text-muted-foreground" />
-          <h2 className="text-xl font-semibold">Dashboard</h2>
-          <p className="text-sm text-muted-foreground">功能开发中，敬请期待</p>
-        </CardContent>
-      </Card>
+    <div className="py-6">
+      <h1 className="text-2xl font-semibold">仪表盘</h1>
+
+      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {isLoading ? (
+          <>
+            {[1, 2, 3].map((i) => (
+              <Skeleton key={i} className="h-24 w-full" />
+            ))}
+          </>
+        ) : (
+          <>
+            <StatsCard
+              title="活跃 JD"
+              value={data?.active_jds ?? 0}
+              icon={Briefcase}
+              onClick={() => navigate("/jd")}
+            />
+            <StatsCard
+              title="候选人总数"
+              value={data?.total_candidates ?? 0}
+              icon={Users}
+              onClick={() => navigate("/candidates")}
+            />
+            <StatsCard
+              title="待审核"
+              value={data?.pending_approvals ?? 0}
+              icon={ClipboardCheck}
+              onClick={() => navigate("/matching")}
+            />
+          </>
+        )}
+      </div>
+
+      {data && data.pending_approvals > 0 && (
+        <div className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-200">
+          您有 <strong>{data.pending_approvals}</strong> 个匹配结果待审核，请前往{" "}
+          <button
+            className="underline cursor-pointer"
+            onClick={() => navigate("/matching")}
+          >
+            匹配页面
+          </button>{" "}
+          审核。
+        </div>
+      )}
     </div>
   );
 }
