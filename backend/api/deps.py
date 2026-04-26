@@ -35,9 +35,9 @@ async def get_current_user(
     if credentials:
         token = credentials.credentials
 
-    # Fallback: read from cookie (for SSE / EventSource)
+    # Fallback: read from cookie (for SSE / fetch-without-interceptor)
     if not token and request:
-        token = request.cookies.get("access_token")
+        token = request.cookies.get("access_token") or request.cookies.get("refresh_token")
 
     if not token:
         raise HTTPException(

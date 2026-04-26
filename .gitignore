@@ -41,6 +41,8 @@ Thumbs.db
 
 # 数据库文件（SQLite）
 data/dev.db
+data/dev.db-shm
+data/dev.db-wal
 data/dev.db-journal
 
 # 前端

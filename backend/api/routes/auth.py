@@ -63,7 +63,7 @@ async def login(
         secure=False,  # Set to True in production with HTTPS
         samesite="lax",
         max_age=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 3600,
-        path="/auth",
+        path="/api",
     )
 
     return LoginResponse(
@@ -79,7 +79,7 @@ async def login(
 @router.post("/logout")
 async def logout(response: Response):
     """Log out: clear the refresh token cookie."""
-    response.delete_cookie(key="refresh_token", path="/auth")
+    response.delete_cookie(key="refresh_token", path="/api")
     return {"message": "已登出"}
 
 

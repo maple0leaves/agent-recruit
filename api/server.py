@@ -10,16 +10,18 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.exception_handlers import http_exception_handler
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from config import CORS_ORIGINS
 from backend.api.deps import get_current_user, get_db
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from agent.schemas import CandidateApproval, MatchResult, RecruitmentInput, RecruitmentOutput
 from agent.skills import build_skill_context, get_skill_tools, load_all_skills, match_skills
@@ -33,6 +35,7 @@ from backend.api.routes.candidate import router as candidate_router
 
 logger = logging.getLogger(__name__)
 
+API_PREFIX = "/api"
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 app = FastAPI(
@@ -49,9 +52,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_router)
-app.include_router(jd_router)
-app.include_router(candidate_router)
+app.include_router(auth_router, prefix=API_PREFIX)
+app.include_router(jd_router, prefix=API_PREFIX)
+app.include_router(candidate_router, prefix=API_PREFIX)
 
 
 def _parse_match_results(match_results: list) -> list[MatchResult]:
@@ -71,6 +74,28 @@ async def frontend():
     return FileResponse(str(STATIC_DIR / "index.html"))
 
 
+def _should_serve_spa(request: Request, status_code: int) -> bool:
+    """Serve the SPA shell only for non-API 404s on client-side routes."""
+    if status_code != 404 or request.method not in {"GET", "HEAD"} or not STATIC_DIR.exists():
+        return False
+
+    path = request.url.path
+    if path.startswith(API_PREFIX) or path.startswith("/assets"):
+        return False
+    if path in {"/favicon.svg", "/icons.svg"}:
+        return False
+
+    return "." not in Path(path).name
+
+
+@app.exception_handler(StarletteHTTPException)
+async def spa_not_found_handler(request: Request, exc: StarletteHTTPException):
+    """Return index.html for client-side routes while preserving API errors."""
+    if _should_serve_spa(request, exc.status_code):
+        return FileResponse(str(STATIC_DIR / "index.html"))
+    return await http_exception_handler(request, exc)
+
+
 if STATIC_DIR.exists():
     app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
 
@@ -83,12 +108,12 @@ if STATIC_DIR.exists():
         return FileResponse(str(STATIC_DIR / "icons.svg"))
 
 
-@app.get("/health")
+@app.get("/api/health")
 async def health():
     return {"status": "ok"}
 
 
-@app.post("/recruit", response_model=RecruitmentOutput)
+@app.post("/api/recruit", response_model=RecruitmentOutput)
 async def recruit(request: RecruitmentInput, _user: dict = Depends(get_current_user)):
     """Run the full recruitment workflow."""
     try:
@@ -122,7 +147,7 @@ class HITLResumeRequest(BaseModel):
     global_feedback: str = Field(default="", description="HR 对匹配结果的全局反馈文本")
 
 
-@app.post("/recruit/hitl/start")
+@app.post("/api/recruit/hitl/start")
 async def hitl_start(request: HITLStartRequest, _user: dict = Depends(get_current_user)):
     """Start a HITL recruitment workflow (pauses before reviewer for HR approval)."""
     from uuid import uuid4
@@ -162,11 +187,11 @@ async def hitl_start(request: HITLStartRequest, _user: dict = Depends(get_curren
         "classification": classification,
         "match_results": parsed_results,
         "final_report": "",
-        "message": "系统已暂停，等待 HR 审核。请调用 /recruit/hitl/resume 提交审核结果。",
+        "message": "系统已暂停，等待 HR 审核。请调用 /api/recruit/hitl/resume 提交审核结果。",
     }
 
 
-@app.post("/recruit/hitl/resume")
+@app.post("/api/recruit/hitl/resume")
 async def hitl_resume(
     request: HITLResumeRequest,
     http_request: Request,
@@ -242,7 +267,7 @@ async def hitl_resume(
     }
 
 
-@app.get("/dashboard/stats")
+@app.get("/api/dashboard/stats")
 async def dashboard_stats(
     db: AsyncSession = Depends(get_db),
     _user: dict = Depends(get_current_user),
@@ -254,14 +279,12 @@ async def dashboard_stats(
     """
     from sqlalchemy import func, select as sa_select
 
-    active_jds_result, total_candidates_result, pending_approvals_result = await asyncio.gather(
-        db.execute(sa_select(func.count()).select_from(JD).where(JD.status == "active")),
-        db.execute(sa_select(func.count()).select_from(Candidate)),
-        db.execute(
-            sa_select(func.count())
-            .select_from(MatchSession)
-            .where(MatchSession.status == "pending")
-        ),
+    active_jds_result = await db.execute(sa_select(func.count()).select_from(JD).where(JD.status == "active"))
+    total_candidates_result = await db.execute(sa_select(func.count()).select_from(Candidate))
+    pending_approvals_result = await db.execute(
+        sa_select(func.count())
+        .select_from(MatchSession)
+        .where(MatchSession.status == "pending")
     )
 
     return {
@@ -271,7 +294,7 @@ async def dashboard_stats(
     }
 
 
-@app.get("/matching/{session_id}/export/pdf")
+@app.get("/api/matching/{session_id}/export/pdf")
 async def export_match_pdf(
     session_id: int,
     db: AsyncSession = Depends(get_db),
@@ -325,7 +348,7 @@ async def export_match_pdf(
             pass
 
 
-@app.get("/matching/{session_id}/export/excel")
+@app.get("/api/matching/{session_id}/export/excel")
 async def export_match_excel(
     session_id: int,
     db: AsyncSession = Depends(get_db),
@@ -368,7 +391,7 @@ async def export_match_excel(
             pass
 
 
-@app.post("/upload-resume")
+@app.post("/api/upload-resume")
 async def upload_resume(file: UploadFile = File(...), _user: dict = Depends(get_current_user)):
     """Accept a PDF or plain-text resume file and return its extracted text."""
     filename = (file.filename or "").lower()
@@ -484,8 +507,9 @@ async def _stream_recruitment(user_input: str, resume_text: str, request: Reques
         final_state: dict = {}
 
         while True:
+            queue_get = asyncio.ensure_future(queue.get())
             done, pending = await asyncio.wait(
-                [stream_task, asyncio.ensure_future(queue.get())],
+                [stream_task, queue_get],
                 return_when=asyncio.FIRST_COMPLETED,
             )
 
@@ -509,7 +533,7 @@ async def _stream_recruitment(user_input: str, resume_text: str, request: Reques
                 break
 
             # Process queue items
-            item = queue.get_nowait() if not stream_task.done() else None
+            item = queue_get.result() if queue_get in done and not queue_get.cancelled() else None
             if item is None:
                 break
             if isinstance(item, Exception):
@@ -623,8 +647,9 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
         match_results_sent: set[str] = set()
 
         while True:
+            queue_get = asyncio.ensure_future(queue.get())
             done, pending = await asyncio.wait(
-                [stream_task, asyncio.ensure_future(queue.get())],
+                [stream_task, queue_get],
                 return_when=asyncio.FIRST_COMPLETED,
             )
 
@@ -644,7 +669,7 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
             if stream_task.done():
                 break
 
-            item = queue.get_nowait() if not stream_task.done() else None
+            item = queue_get.result() if queue_get in done and not queue_get.cancelled() else None
             if item is None:
                 break
             if isinstance(item, Exception):
@@ -779,8 +804,9 @@ async def _stream_feedback_rerun(
         match_results_sent: set[str] = set()
 
         while True:
+            queue_get = asyncio.ensure_future(queue.get())
             done, pending = await asyncio.wait(
-                [stream_task, asyncio.ensure_future(queue.get())],
+                [stream_task, queue_get],
                 return_when=asyncio.FIRST_COMPLETED,
             )
 
@@ -800,7 +826,7 @@ async def _stream_feedback_rerun(
             if stream_task.done():
                 break
 
-            item = queue.get_nowait() if not stream_task.done() else None
+            item = queue_get.result() if queue_get in done and not queue_get.cancelled() else None
             if item is None:
                 break
             if isinstance(item, Exception):
@@ -995,7 +1021,7 @@ def _parse_skills(skills_str: str) -> list[str]:
     return [p for p in skills_str.split() if p]
 
 
-@app.post("/recruit/stream")
+@app.post("/api/recruit/stream")
 async def recruit_stream(
     request: RecruitmentInput,
     http_request: Request,
@@ -1012,7 +1038,7 @@ async def recruit_stream(
     )
 
 
-@app.post("/recruit/hitl/stream")
+@app.post("/api/recruit/hitl/stream")
 async def hitl_stream(
     request: HITLStreamRequest,
     http_request: Request,
@@ -1054,7 +1080,7 @@ async def hitl_stream(
     )
 
 
-@app.post("/recruit/hitl/reverse-stream")
+@app.post("/api/recruit/hitl/reverse-stream")
 async def hitl_reverse_stream(
     request: HITLReverseRequest,
     http_request: Request,
@@ -1073,7 +1099,7 @@ async def hitl_reverse_stream(
     )
 
 
-@app.get("/skills")
+@app.get("/api/skills")
 async def list_skills(_user: dict = Depends(get_current_user)):
     """List all available skills with name, description, tools, and trigger."""
     skills = load_all_skills()
@@ -1088,7 +1114,7 @@ async def list_skills(_user: dict = Depends(get_current_user)):
     ]
 
 
-@app.post("/admin/rebuild-index")
+@app.post("/api/admin/rebuild-index")
 async def rebuild_index(_user: dict = Depends(get_current_user)):
     """Rebuild the resume vector store index from the data/resumes directory."""
     from config import RESUME_DIR, VECTOR_STORE_PATH
@@ -1104,8 +1130,9 @@ async def rebuild_index(_user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/{full_path:path}", include_in_schema=False)
-async def spa_fallback(full_path: str):
+# Removed broad catch-all route in favor of 404-based SPA fallback.
+# Legacy helper kept undecorated for reference; routing now uses spa_not_found_handler.
+async def _unused_spa_fallback_reference(full_path: str):
     """SPA fallback — serve index.html for any non-API route."""
     if STATIC_DIR.exists():
         return FileResponse(str(STATIC_DIR / "index.html"))

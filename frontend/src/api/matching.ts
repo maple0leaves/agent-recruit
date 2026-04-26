@@ -1,12 +1,18 @@
 import apiClient from "./client";
 import type { ReviewDecision, SubmitReviewResponse } from "../types/matching";
 
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(/\/$/, "");
+
+function apiUrl(path: string): string {
+  return `${apiBaseUrl}${path}`;
+}
+
 /** Start a matching session via SSE stream.
  *  Uses fetch directly (not axios) because we need ReadableStream for SSE consumption.
  *  @param signal Optional AbortSignal for cancellation (D-03).
  */
 export function startMatchingStream(jdId: number, signal?: AbortSignal): Promise<Response> {
-  return fetch("/recruit/hitl/stream", {
+  return fetch(apiUrl("/recruit/hitl/stream"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ jd_id: jdId }),
@@ -23,7 +29,7 @@ export function startReverseMatchingStream(
   candidateId: number,
   signal?: AbortSignal
 ): Promise<Response> {
-  return fetch("/recruit/hitl/reverse-stream", {
+  return fetch(apiUrl("/recruit/hitl/reverse-stream"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ candidate_id: candidateId }),
@@ -52,7 +58,7 @@ export function submitFeedbackAndStream(
   decisions: ReviewDecision[],
   feedback: string
 ): Promise<Response> {
-  return fetch("/recruit/hitl/resume", {
+  return fetch(apiUrl("/recruit/hitl/resume"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
