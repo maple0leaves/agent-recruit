@@ -10,8 +10,8 @@ progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 18
-  completed_plans: 15
-  percent: 83
+  completed_plans: 16
+  percent: 89
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 4 of 5 (AI Matching & Approval)
-Plan: 1 of 4 in current phase (Executing plan 1)
+Plan: 4 of 4 in current phase (Starting plan 04)
 Status: In progress
 Last activity: 2026-04-26
 
@@ -47,7 +47,7 @@ Progress: [████████░░] 83%
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | 4 | 9.0 min | 3.0 min |
-| 4. AI Matching & Approval | 1 | 2.0 min | 2.0 min |
+| 4. AI Matching & Approval | 2 | 10.0 min | 5.0 min |
 | 5. Advanced Features | TBD | - | - |
 
 *Updated after each plan completion*
@@ -99,7 +99,9 @@ Progress: [████████░░] 83%
 - Plan 04-02: MatchSession created during streaming and updated at resume time
 - Plan 04-02: fetch + ReadableStream for POST SSE consumption (not EventSource)
 - Plan 04-03: useMatchingSSE manages 9-state machine (IDLE/CONNECTING/STREAMING/PAUSED/REVIEWING/SUBMITTING/DONE/ERROR/CANCELLED)
-- Plan 04-04: Route /matching/:jdId parameterized for JD-scoped matching
+- Plan 04-03: startMatchingStream accepts optional AbortSignal for SSE cancellation via AbortController
+- Plan 04-03: useMatchingSSE calls startMatchingStream API function (not raw fetch) for consistency
+- Plan 04-03: useDashboardStats uses staleTime: Infinity for page-load-only refresh
 
 ### Pending Todos
 
@@ -112,5 +114,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Completed plan 04-01 per-candidate approval foundations
+Stopped at: Completed plan 04-03 frontend infrastructure for matching and dashboard
 Resume file: None
