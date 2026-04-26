@@ -10,25 +10,25 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 2 of 5 (JD Management)
-Plan: 3 of 4 in current phase
-Status: Plan 02-03 complete (JD list page with table, filter, pagination, status badges)
-Last activity: 2026-04-26 -- Plan 02-03 completed: 4 JD list components + JD Management list page with TanStack Table, debounced search, status/date filters, pagination
+Plan: 4 of 4 in current phase
+Status: COMPLETE -- Phase 2 JD Management done (JDForm + TemplateSelector + Dialog integration)
+Last activity: 2026-04-26 -- Plan 02-04 completed: JDForm (Zod validation, 8 fields), TemplateSelector (card grid), create/edit dialog with template support
 
-Progress: [████████░░░░] 75%
+Progress: [████████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 6.5 min
-- Total execution time: 58.2 min
+- Total plans completed: 10
+- Average duration: 6.4 min
+- Total execution time: 64.2 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
-| 2. JD Management | 3 | 26.2 min | 8.7 min |
+| 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | TBD | - | - |
 | 4. AI Matching & Approval | TBD | - | - |
 | 5. Advanced Features | TBD | - | - |
@@ -65,6 +65,9 @@ Progress: [████████░░░░] 75%
 - Plan 02-01: Date filtering uses direct string comparison instead of cast(..., Date) for SQLite compatibility
 - Plan 02-01: Title validation via Pydantic field_validator (min_length=1)
 - Plan 02-01: 3 hardcoded templates stored in backend/config/templates.py (software-engineer, product-manager, sales-manager)
+- Plan 02-04: JDForm uses locally inferred FormValues type from Zod schema (not importing JDFormValues from types/jd.ts) to avoid type drift
+- Plan 02-04: Create flow: Dialog -> template selection -> form. Edit flow: Dialog -> form directly.
+- Plan 02-04: Error display uses inline state-based banner (submitError) rather than sonner toast library
 
 ### Pending Todos
 
@@ -77,5 +80,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Plan 02-02 completed (frontend infra for JD management)
-Resume file: .planning/phases/02-jd-management/02-02-SUMMARY.md
+Stopped at: Plan 02-04 completed (Phase 2 JD Management fully done)
+Resume file: .planning/phases/02-jd-management/02-04-SUMMARY.md

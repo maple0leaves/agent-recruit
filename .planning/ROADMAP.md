@@ -7,7 +7,7 @@ hellojobs is an AI-assisted, human-judged recruitment matching system. It starts
 ## Phases
 
 - [x] **Phase 1: Backend Foundation & Authentication** - Secure backend with auth, relational DB, and frontend scaffold
-- [ ] **Phase 2: JD Management** - Full CRUD for job descriptions with templates and search
+- [x] **Phase 2: JD Management** - Full CRUD for job descriptions with templates and search
 - [ ] **Phase 3: Resume & Candidate Management** - Resume upload, parsing, candidate search, and status tracking
 - [ ] **Phase 4: AI Matching & Approval** - Core matching loop with SSE streaming, results display, and approve/reject
 - [ ] **Phase 5: Advanced Features & Export** - Bi-directional matching, agent feedback, and PDF/Excel export
@@ -51,7 +51,7 @@ Plans:
 - [x] 02-01-PLAN.md — Backend: JD model, Alembic migration, template config, CRUD API, integration tests
 - [x] 02-02-PLAN.md — Frontend infra: npm packages, shadcn components, TS types, API helpers, Query hooks
 - [x] 02-03-PLAN.md — Frontend list page: table, filter bar, pagination, status badge, action dropdowns
-- [ ] 02-04-PLAN.md — Frontend form: create/edit dialog, Zod validation, template selector, status actions
+- [x] 02-04-PLAN.md — Frontend form: create/edit dialog, Zod validation, template selector, status actions
 
 ### Phase 3: Resume & Candidate Management
 **Goal**: HR can upload resumes, view parsed candidate data, and track candidates through the pipeline.
@@ -99,7 +99,7 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend Foundation & Authentication | 6/6 | Complete | 2026-04-26 |
-| 2. JD Management | 3/4 | In progress | - |
+| 2. JD Management | 4/4 | Complete | 2026-04-26 |
 | 3. Resume & Candidate Management | 0/TBD | Not started | - |
 | 4. AI Matching & Approval | 0/TBD | Not started | - |
 | 5. Advanced Features & Export | 0/TBD | Not started | - |
