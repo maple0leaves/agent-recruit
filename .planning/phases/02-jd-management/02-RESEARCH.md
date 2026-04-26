@@ -1088,7 +1088,7 @@ export function JDPagination({ page, pageSize, total, onPageChange }: JDPaginati
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Date range filter: date_from/date_to format**
    - What we know: D-08 requires date range filtering. shadcn Calendar returns Date objects.
