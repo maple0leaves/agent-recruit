@@ -427,6 +427,11 @@ class HITLStreamRequest(BaseModel):
     jd_id: int = Field(description="Job Description ID to match candidates against")
 
 
+class HITLReverseRequest(BaseModel):
+    """Request body for reverse matching (MATCH-04, D-02)."""
+    candidate_id: int = Field(description="Candidate ID to find matching JDs for")
+
+
 async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request, db: AsyncSession):
     """Generator that streams LangGraph HITL events as SSE.
 
@@ -547,6 +552,7 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
         parsed_results = _parse_match_results(final_state.get("match_results", []))
 
         # Create MatchSession record for dashboard tracking (D-13)
+        match_session = None
         if parsed_results:
             try:
                 match_session = MatchSession(
@@ -557,12 +563,14 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
                 )
                 db.add(match_session)
                 await db.commit()
+                await db.refresh(match_session)  # IMPORT: get session.id for hitl_pause
             except Exception as exc:
                 logger.warning(f"Failed to create MatchSession: {exc}")
 
         yield _sse_event("hitl_pause", {
             "match_results": [r.model_dump() for r in parsed_results],
             "thread_id": thread_id,
+            "session_id": match_session.id if match_session else None,
         })
 
     except asyncio.TimeoutError:
@@ -572,6 +580,117 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
         yield _sse_event("error", {"message": str(e)})
     finally:
         yield _sse_event("done", {})
+
+
+async def _stream_reverse_matching(candidate_id: int, request: Request, db: AsyncSession):
+    """Generator that scores active JDs against the given candidate's skills.
+
+    Simpler than _stream_hitl_recruitment -- does NOT run the LangGraph agent.
+    Instead, computes skill-overlap scores for each active JD.
+    (MATCH-04, D-02)
+    """
+    from uuid import uuid4
+
+    thread_id = f"reverse-{uuid4().hex}"
+
+    # Fetch candidate
+    from sqlalchemy import select as sa_select
+    result = await db.execute(
+        sa_select(Candidate).where(Candidate.id == candidate_id)
+    )
+    candidate = result.scalar_one_or_none()
+    if not candidate:
+        yield _sse_event("error", {"message": "候选人不存在"})
+        yield _sse_event("done", {})
+        return
+
+    # Parse candidate skills
+    candidate_skills = _parse_skills(candidate.skills)
+
+    # Fetch all active JDs
+    jd_result = await db.execute(
+        sa_select(JD).where(JD.status == "active")
+    )
+    active_jds = jd_result.scalars().all()
+
+    if not active_jds:
+        yield _sse_event("error", {"message": "暂无活跃职位"})
+        yield _sse_event("done", {})
+        return
+
+    TIMEOUT_SECONDS = 120
+
+    try:
+        # Compute scores for each JD
+        scored_results = []
+        for jd in active_jds:
+            jd_skills = _parse_skills(jd.skills)
+            intersection = set(candidate_skills) & set(jd_skills)
+            union = set(candidate_skills) | set(jd_skills)
+            score = int(len(intersection) / len(union) * 100) if union else 0
+            matched_skills = list(intersection)
+            missing_skills = [s for s in jd_skills if s not in candidate_skills]
+
+            result_item = MatchResult(
+                candidate_name=jd.title,
+                match_score=score,
+                matched_skills=matched_skills,
+                missing_skills=missing_skills,
+                recommendation="反向匹配",
+                should_proceed=False,
+            )
+            scored_results.append(result_item)
+
+            # Yield match_result event for each
+            yield _sse_event("match_result", result_item.model_dump())
+
+        # Sort for the hitl_pause event
+        scored_results.sort(key=lambda r: r.match_score, reverse=True)
+
+        # Create MatchSession with candidate_id
+        match_session = None
+        if scored_results:
+            try:
+                import json as _json
+                match_session = MatchSession(
+                    jd_id=None,
+                    candidate_id=candidate_id,
+                    thread_id=thread_id,
+                    status="pending",
+                    total_candidates=len(scored_results),
+                    results_json=_json.dumps(
+                        [r.model_dump() for r in scored_results],
+                        ensure_ascii=False,
+                    ),
+                )
+                db.add(match_session)
+                await db.commit()
+                await db.refresh(match_session)
+            except Exception as exc:
+                logger.warning(f"Failed to create MatchSession: {exc}")
+
+        yield _sse_event("hitl_pause", {
+            "match_results": [r.model_dump() for r in scored_results],
+            "thread_id": thread_id,
+            "session_id": match_session.id if match_session else None,
+        })
+
+    except Exception as e:
+        logger.exception("Streaming reverse matching failed")
+        yield _sse_event("error", {"message": str(e)})
+    finally:
+        yield _sse_event("done", {})
+
+
+def _parse_skills(skills_str: str) -> list[str]:
+    """Parse a skills string into a list of skill names."""
+    if not skills_str:
+        return []
+    # Try comma-separated, then fall back to whitespace-split
+    parts = [s.strip() for s in skills_str.split(",")]
+    if len(parts) > 1:
+        return [p for p in parts if p]
+    return [p for p in skills_str.split() if p]
 
 
 @app.post("/recruit/stream")
@@ -630,6 +749,25 @@ async def hitl_stream(
             "Cache-Control": "no-cache",
             "X-Accel-Buffering": "no",
         },
+    )
+
+
+@app.post("/recruit/hitl/reverse-stream")
+async def hitl_reverse_stream(
+    request: HITLReverseRequest,
+    http_request: Request,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """SSE streaming endpoint for reverse matching (MATCH-04, D-02).
+
+    Accepts candidate_id, fetches the candidate and all active JDs,
+    computes skill-overlap scores, and streams results as SSE events.
+    """
+    return StreamingResponse(
+        _stream_reverse_matching(request.candidate_id, http_request, db),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
 
 
