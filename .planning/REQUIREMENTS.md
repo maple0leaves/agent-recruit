@@ -22,11 +22,11 @@ Requirements for initial full-stack release. Each maps to roadmap phases.
 
 ### Resume & Candidate Management
 
-- [ ] **RES-01**: HR 可以上传候选人简历（PDF/Word 格式）
-- [ ] **RES-02**: 系统自动解析简历，提取姓名、技能、教育、工作经历等结构化信息
-- [ ] **RES-03**: HR 可以查看候选人详情（解析结果、匹配历史、当前状态）
-- [ ] **RES-04**: HR 可以搜索候选人库（按姓名、技能、状态）
-- [ ] **RES-05**: 候选人状态追踪（新入库 → 筛选中 → 面试 → 录用 → 不合适）
+- [x] **RES-01**: HR 可以上传候选人简历（PDF/Word 格式）
+- [x] **RES-02**: 系统自动解析简历，提取姓名、技能、教育、工作经历等结构化信息
+- [x] **RES-03**: HR 可以查看候选人详情（解析结果、匹配历史、当前状态）
+- [x] **RES-04**: HR 可以搜索候选人库（按姓名、技能、状态）
+- [x] **RES-05**: 候选人状态追踪（新入库 → 筛选中 → 面试 → 录用 → 不合适）
 
 ### AI Matching
 
@@ -80,11 +80,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | JD-02 | Phase 2 | Complete (02-01) |
 | JD-03 | Phase 2 | Complete (02-01) |
 | JD-04 | Phase 2 | Complete (02-01) |
-| RES-01 | Phase 3 | Pending |
-| RES-02 | Phase 3 | Pending |
-| RES-03 | Phase 3 | Pending |
-| RES-04 | Phase 3 | Pending |
-| RES-05 | Phase 3 | Pending |
+| RES-01 | Phase 3 | Complete (03-01) |
+| RES-02 | Phase 3 | Complete (03-01) |
+| RES-03 | Phase 3 | Complete (03-01) |
+| RES-04 | Phase 3 | Complete (03-01) |
+| RES-05 | Phase 3 | Complete (03-01) |
 | MATCH-01 | Phase 4 | Pending |
 | MATCH-02 | Phase 4 | Pending |
 | MATCH-03 | Phase 4 | Pending |
@@ -106,7 +106,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------|-------------|-------|
 | Phase 1: Backend Foundation & Authentication | AUTH-01, AUTH-02, AUTH-03 | 3 |
 | Phase 2: JD Management | JD-01, JD-02, JD-03, JD-04 | 4 |
-| Phase 3: Resume & Candidate Management | RES-01, RES-02, RES-03, RES-04, RES-05 | 5 |
+| Phase 3: Resume & Candidate Management | RES-01, RES-02, RES-03, RES-04, RES-05 | 5 (complete 03-01) |
 | Phase 4: AI Matching & Approval | MATCH-01, MATCH-02, MATCH-03, APRV-01, APRV-02, DASH-01 | 6 |
 | Phase 5: Advanced Features & Export | MATCH-04, APRV-03, DASH-02 | 3 |
 

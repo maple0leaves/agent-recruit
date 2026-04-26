@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 3 of 5 (Resume & Candidate Management)
-Plan: 0 of TBD in current phase
-Status: Context gathered -- ready for planning
-Last activity: 2026-04-26 -- Phase 3 context discussion completed
+Plan: 1 of 4 in current phase
+Status: Plan 03-01 complete -- backend candidate management infrastructure
+Last activity: 2026-04-26 -- Plan 03-01 executed (candidate model, migration, upload/CRUD/status API, tests)
 
 Progress: [████████░░░░] 80%
 
@@ -68,6 +68,12 @@ Progress: [████████░░░░] 80%
 - Plan 02-04: JDForm uses locally inferred FormValues type from Zod schema (not importing JDFormValues from types/jd.ts) to avoid type drift
 - Plan 02-04: Create flow: Dialog -> template selection -> form. Edit flow: Dialog -> form directly.
 - Plan 02-04: Error display uses inline state-based banner (submitError) rather than sonner toast library
+- Plan 03-01: CandidateResponse uses pydantic ConfigDict(from_attributes=True) for ORM conversion (simpler than manual dict conversion used by JD routes)
+- Plan 03-01: status_note validation strips whitespace and rejects empty strings via Pydantic field_validator
+- Plan 03-01: File save uses RESUME_DIR from config.py; relative data/resumes/ path stored in DB
+- Plan 03-01: .doc files rejected with specific message suggesting save-as .docx (python-docx does not support legacy .doc)
+- Plan 03-01: analyze_resume wrapped in asyncio.to_thread() to avoid event loop blocking during 3-10s LLM parse
+- Plan 03-01: CandidateUpdate uses model_dump(exclude_none=True) for partial updates -- only explicitly provided fields are set
 
 ### Pending Todos
 
@@ -80,5 +86,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-resume-candidate-management/03-CONTEXT.md
+Stopped at: Plan 03-01 completed
+Resume file: .planning/phases/03-resume-candidate-management/03-01-PLAN.md
