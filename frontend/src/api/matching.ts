@@ -43,3 +43,24 @@ export async function submitReview(
   });
   return res.data;
 }
+
+/** Submit feedback and return SSE stream for re-run results (APRV-03, D-05).
+ *  Uses fetch directly (not axios) to consume SSE ReadableStream.
+ */
+export function submitFeedbackAndStream(
+  threadId: string,
+  decisions: ReviewDecision[],
+  feedback: string
+): Promise<Response> {
+  return fetch("/recruit/hitl/resume", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      thread_id: threadId,
+      approvals: decisions,
+      feedback_rerun: true,
+      global_feedback: feedback,
+    }),
+    credentials: "include",
+  });
+}

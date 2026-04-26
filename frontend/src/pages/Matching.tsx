@@ -8,6 +8,7 @@ import PipelineSteps from "../components/Matching/PipelineSteps";
 import MatchCandidateCard from "../components/Matching/MatchCandidateCard";
 import ReviewNoteDialog from "../components/Matching/ReviewNoteDialog";
 import CancelMatchDialog from "../components/Matching/CancelMatchDialog";
+import FeedbackDialog from "../components/Matching/FeedbackDialog";
 import type { ReviewDecision } from "../types/matching";
 
 interface ReviewEntry {
@@ -32,12 +33,16 @@ export default function Matching() {
     startReverse,
     cancel,
     submitReview,
+    submitFeedback,
   } = useMatchingSSE();
 
   const [reviewMap, setReviewMap] = useState<Record<string, ReviewEntry>>({});
   const [reviewDialog, setReviewDialog] = useState<{
     candidateName: string;
     isRejection: boolean;
+  } | null>(null);
+  const [feedbackDialog, setFeedbackDialog] = useState<{
+    candidateName: string;
   } | null>(null);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
 
@@ -89,6 +94,28 @@ export default function Matching() {
     }));
     await submitReview(decisions);
   }, [candidates, reviewMap, submitReview]);
+
+  const handleFeedback = useCallback((candidateName: string) => {
+    setFeedbackDialog({ candidateName });
+  }, []);
+
+  const handleFeedbackSubmit = useCallback(
+    async (feedback: string) => {
+      if (!feedbackDialog) return;
+      const decisions: ReviewDecision[] = candidates.map((c) => ({
+        candidate_name: c.candidate_name,
+        approved: reviewMap[c.candidate_name]?.approved ?? false,
+        feedback: reviewMap[c.candidate_name]?.feedback ?? "",
+      }));
+      const success = await submitFeedback(feedback, decisions);
+      if (success) {
+        // Clear review map for re-review
+        setReviewMap({});
+      }
+      setFeedbackDialog(null);
+    },
+    [feedbackDialog, candidates, reviewMap, submitFeedback]
+  );
 
   // Helper: render state-specific content
   const renderContent = () => {
@@ -200,6 +227,7 @@ export default function Matching() {
                   candidate={c}
                   onApprove={() => handleApprove(c.candidate_name)}
                   onReject={() => handleReject(c.candidate_name)}
+                  onFeedback={() => handleFeedback(c.candidate_name)}
                   isReviewed={!!reviewMap[c.candidate_name]}
                   decision={
                     reviewMap[c.candidate_name]
@@ -353,6 +381,16 @@ export default function Matching() {
           candidateName={reviewDialog.candidateName}
           isRejection={reviewDialog.isRejection}
           onSubmit={handleReviewSubmit}
+        />
+      )}
+
+      {/* Feedback dialog for Agent re-adjustment */}
+      {feedbackDialog && (
+        <FeedbackDialog
+          open={true}
+          onClose={() => setFeedbackDialog(null)}
+          candidateName={feedbackDialog.candidateName}
+          onSubmit={handleFeedbackSubmit}
         />
       )}
 

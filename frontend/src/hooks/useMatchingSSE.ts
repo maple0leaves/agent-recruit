@@ -7,7 +7,7 @@ import type {
   SubmitReviewResponse,
 } from "../types/matching";
 import { PIPELINE_STEPS } from "../types/matching";
-import { startMatchingStream, startReverseMatchingStream, submitReview } from "../api/matching";
+import { startMatchingStream, startReverseMatchingStream, submitFeedbackAndStream, submitReview } from "../api/matching";
 
 export interface SSEEvent {
   event: string;
@@ -246,6 +246,67 @@ export function useMatchingSSE() {
     []
   );
 
+  const submitFeedback = useCallback(
+    async (feedback: string, currentDecisions: ReviewDecision[]): Promise<boolean> => {
+      if (!threadIdRef.current) {
+        setError("缺少会话 ID");
+        setState("ERROR");
+        return false;
+      }
+      setState("SUBMITTING");
+      try {
+        const response = await submitFeedbackAndStream(
+          threadIdRef.current, currentDecisions, feedback
+        );
+
+        if (!response.ok) {
+          const errBody = await response.json().catch(() => ({}));
+          throw new Error((errBody as { detail?: string }).detail || "反馈提交失败");
+        }
+
+        // Reset state for new SSE stream (clear candidates, reset to STREAMING)
+        setState("STREAMING");
+        setCandidates([]);
+        setPipelineSteps(PIPELINE_STEPS.map((s) => ({ ...s, status: "pending" as const })));
+
+        const reader = response.body!.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const parts = buffer.split("\n\n");
+          buffer = parts.pop() || "";
+
+          for (const part of parts) {
+            if (!part.startsWith("data: ")) continue;
+            try {
+              const parsed = JSON.parse(part.slice(6)) as SSEEvent;
+              handleSSEEvent(parsed.event, parsed.data);
+            } catch {
+              // Skip malformed events
+            }
+          }
+        }
+
+        setState((prev) => {
+          if (prev === "STREAMING") return "PAUSED";
+          return prev;
+        });
+        return true;
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "反馈提交失败";
+        setError(message);
+        setState("ERROR");
+        return false;
+      }
+    },
+    [handleSSEEvent]
+  );
+
   return {
     state,
     pipelineSteps,
@@ -257,6 +318,7 @@ export function useMatchingSSE() {
     startReverse,
     cancel,
     submitReview: submitReviewResult,
+    submitFeedback,
   };
 }
 
