@@ -86,7 +86,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 04-01-PLAN.md -- Backend core: MatchSession model, per-candidate schemas, reviewer agent modifications
+- [x] 04-01-PLAN.md -- Backend core: MatchSession model, per-candidate schemas, reviewer agent modifications
 - [ ] 04-02-PLAN.md -- Backend API: streaming HITL endpoint, per-candidate resume, dashboard stats
 - [ ] 04-03-PLAN.md -- Frontend infra: matching types, SSE hook, pipeline/card/dialog components, StatsCard
 - [ ] 04-04-PLAN.md -- Frontend pages: matching trigger in JD table, full Matching/Dashboard pages
@@ -113,5 +113,5 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 | 1. Backend Foundation & Authentication | 6/6 | Complete | 2026-04-26 |
 | 2. JD Management | 4/4 | Complete | 2026-04-26 |
 | 3. Resume & Candidate Management | 4/4 | Complete | 2026-04-26 |
-| 4. AI Matching & Approval | 0/4 | Planned (ready to execute) | - |
+| 4. AI Matching & Approval | 1/4 | In progress | 2026-04-26 |
 | 5. Advanced Features & Export | 0/TBD | Not started | - |
