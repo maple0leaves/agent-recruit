@@ -9,9 +9,9 @@ Requirements for initial full-stack release. Each maps to roadmap phases.
 
 ### Authentication & Authorization
 
-- [ ] **AUTH-01**: HR 可以使用用户名和密码登录系统
-- [ ] **AUTH-02**: 系统支持角色区分（管理员、招聘专员、部门主管）
-- [ ] **AUTH-03**: 登录状态持久化，刷新页面不需要重新登录
+- [x] **AUTH-01**: HR 可以使用用户名和密码登录系统
+- [x] **AUTH-02**: 系统支持角色区分（管理员、招聘专员、部门主管）
+- [x] **AUTH-03**: 登录状态持久化，刷新页面不需要重新登录
 
 ### JD Management
 
@@ -73,9 +73,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Test infra ready |
-| AUTH-02 | Phase 1 | Test infra ready |
-| AUTH-03 | Phase 1 | Test infra ready |
+| AUTH-01 | Phase 1 | Complete (01-02) |
+| AUTH-02 | Phase 1 | Complete (01-02) |
+| AUTH-03 | Phase 1 | Complete (01-02) |
 | JD-01 | Phase 2 | Pending |
 | JD-02 | Phase 2 | Pending |
 | JD-03 | Phase 2 | Pending |
