@@ -2,7 +2,7 @@
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, field_validator
-from sqlalchemy import select, func, or_, cast, Date
+from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.api.deps import get_current_user, get_db
@@ -25,6 +25,13 @@ class JDSchema(BaseModel):
     salary_min: int = 0
     salary_max: int = 0
     description: str = ""
+
+    @field_validator("title")
+    @classmethod
+    def title_non_empty(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("职位名称不能为空")
+        return v.strip()
 
 
 class JDResponse(BaseModel):
@@ -135,10 +142,10 @@ async def list_jds(
         )
 
     if date_from:
-        base_query = base_query.where(cast(JD.updated_at, Date) >= date_from)
+        base_query = base_query.where(JD.updated_at >= date_from)
 
     if date_to:
-        base_query = base_query.where(JD.updated_at <= f"{date_to}T23:59:59Z")
+        base_query = base_query.where(JD.updated_at <= f"{date_to} 23:59:59")
 
     # Count total
     count_query = select(func.count()).select_from(base_query.subquery())

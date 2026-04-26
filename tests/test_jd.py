@@ -1,4 +1,5 @@
 """Integration tests for JD CRUD, filtering, pagination, templates."""
+from datetime import datetime, timezone
 import pytest
 from backend.auth.jwt import create_access_token
 
@@ -218,7 +219,7 @@ class TestListJD:
         """GET /jd?keyword=Python filters by title/department/skills (D-08)."""
         headers = _auth_header(test_user)
         await self._create_jd(test_client, headers, title="Python工程师")
-        await self._create_jd(test_client, headers, title="Java工程师")
+        await self._create_jd(test_client, headers, title="Java工程师", skills="Java, Spring, MySQL")
 
         resp = await test_client.get(
             "/jd?keyword=Python", headers=headers
@@ -229,14 +230,13 @@ class TestListJD:
         assert data["items"][0]["title"] == "Python工程师"
 
     async def test_list_jds_date_filter(self, test_client, test_user):
-        """GET /jd with date_from/date_to includes JDs from today."""
+        """GET /jd with date_from/date_to includes JDs from today (UTC)."""
         headers = _auth_header(test_user)
         await self._create_jd(test_client, headers, title="Today's JD")
 
-        import datetime
-        today = datetime.date.today().isoformat()
+        today_utc = datetime.now(timezone.utc).date().isoformat()
         resp = await test_client.get(
-            f"/jd?date_from={today}&date_to={today}", headers=headers
+            f"/jd?date_from={today_utc}&date_to={today_utc}", headers=headers
         )
         assert resp.status_code == 200
         data = resp.json()
