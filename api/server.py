@@ -8,12 +8,13 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from config import CORS_ORIGINS
+from backend.api.deps import get_current_user
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
@@ -55,7 +56,7 @@ def _parse_match_results(match_results: list) -> list[MatchResult]:
 
 
 @app.get("/", include_in_schema=False)
-def frontend():
+async def frontend():
     """Serve the frontend single-page app."""
     return FileResponse(str(STATIC_DIR / "index.html"))
 
@@ -65,15 +66,16 @@ if STATIC_DIR.exists():
 
 
 @app.get("/health")
-def health():
+async def health():
     return {"status": "ok"}
 
 
 @app.post("/recruit", response_model=RecruitmentOutput)
-def recruit(request: RecruitmentInput):
+async def recruit(request: RecruitmentInput, _user: dict = Depends(get_current_user)):
     """Run the full recruitment workflow."""
     try:
-        result = run(
+        result = await asyncio.to_thread(
+            run,
             user_input=request.user_input,
             resume_text=request.resume_text or "",
         )
@@ -91,19 +93,21 @@ def recruit(request: RecruitmentInput):
 class HITLStartRequest(BaseModel):
     user_input: str
     resume_text: Optional[str] = None
-    thread_id: str = "hitl-thread"
+    thread_id: Optional[str] = None
 
 
 class HITLResumeRequest(BaseModel):
-    thread_id: str = "hitl-thread"
+    thread_id: str
     hr_approved: bool
     hr_feedback: str = ""
 
 
 @app.post("/recruit/hitl/start")
-def hitl_start(request: HITLStartRequest):
+async def hitl_start(request: HITLStartRequest, _user: dict = Depends(get_current_user)):
     """Start a HITL recruitment workflow (pauses before reviewer for HR approval)."""
-    config = {"configurable": {"thread_id": request.thread_id}}
+    from uuid import uuid4
+    thread_id = request.thread_id if request.thread_id is not None else f"hitl-{uuid4().hex}"
+    config = {"configurable": {"thread_id": thread_id}}
     initial_state = {
         "user_input": request.user_input,
         "resume_text": request.resume_text,
@@ -117,7 +121,7 @@ def hitl_start(request: HITLStartRequest):
         "hr_feedback": "",
         "messages": [],
     }
-    result = recruitment_graph_hitl.invoke(initial_state, config=config)
+    result = await asyncio.to_thread(recruitment_graph_hitl.invoke, initial_state, config=config)
     parsed_results = _parse_match_results(result.get("match_results", []))
     final_report = result.get("final_report", "")
     classification = result.get("classification", "")
@@ -125,7 +129,7 @@ def hitl_start(request: HITLStartRequest):
     if final_report:
         return {
             "status": "completed",
-            "thread_id": request.thread_id,
+            "thread_id": thread_id,
             "classification": classification,
             "match_results": parsed_results,
             "final_report": final_report,
@@ -134,7 +138,7 @@ def hitl_start(request: HITLStartRequest):
 
     return {
         "status": "waiting_for_hr",
-        "thread_id": request.thread_id,
+        "thread_id": thread_id,
         "classification": classification,
         "match_results": parsed_results,
         "final_report": "",
@@ -143,10 +147,11 @@ def hitl_start(request: HITLStartRequest):
 
 
 @app.post("/recruit/hitl/resume")
-def hitl_resume(request: HITLResumeRequest):
+async def hitl_resume(request: HITLResumeRequest, _user: dict = Depends(get_current_user)):
     """Resume the HITL workflow after HR review."""
     config = {"configurable": {"thread_id": request.thread_id}}
-    result = recruitment_graph_hitl.invoke(
+    result = await asyncio.to_thread(
+        recruitment_graph_hitl.invoke,
         {
             "hr_approved": request.hr_approved,
             "hr_feedback": request.hr_feedback,
@@ -164,7 +169,7 @@ def hitl_resume(request: HITLResumeRequest):
 
 
 @app.post("/upload-resume")
-async def upload_resume(file: UploadFile = File(...)):
+async def upload_resume(file: UploadFile = File(...), _user: dict = Depends(get_current_user)):
     """Accept a PDF or plain-text resume file and return its extracted text."""
     filename = (file.filename or "").lower()
     if not (filename.endswith(".pdf") or filename.endswith(".txt")):
@@ -307,7 +312,7 @@ async def _stream_recruitment(user_input: str, resume_text: str):
 
 
 @app.post("/recruit/stream")
-async def recruit_stream(request: RecruitmentInput):
+async def recruit_stream(request: RecruitmentInput, _user: dict = Depends(get_current_user)):
     """SSE streaming endpoint for the recruitment workflow."""
     return StreamingResponse(
         _stream_recruitment(request.user_input, request.resume_text or ""),
@@ -320,7 +325,7 @@ async def recruit_stream(request: RecruitmentInput):
 
 
 @app.get("/skills")
-def list_skills():
+async def list_skills(_user: dict = Depends(get_current_user)):
     """List all available skills with name, description, tools, and trigger."""
     skills = load_all_skills()
     return [
@@ -335,13 +340,13 @@ def list_skills():
 
 
 @app.post("/admin/rebuild-index")
-def rebuild_index():
+async def rebuild_index(_user: dict = Depends(get_current_user)):
     """Rebuild the resume vector store index from the data/resumes directory."""
     from config import RESUME_DIR, VECTOR_STORE_PATH
     from rag.vector_store import build_vector_store
 
     try:
-        build_vector_store(RESUME_DIR, VECTOR_STORE_PATH)
+        await asyncio.to_thread(build_vector_store, RESUME_DIR, VECTOR_STORE_PATH)
         from rag.retriever import invalidate_vector_store_cache
 
         invalidate_vector_store_cache()
