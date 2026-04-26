@@ -30,9 +30,10 @@ interface JDTableProps {
   data: JD[];
   onEdit: (jd: JD) => void;
   onStatusChange?: (id: number, status: string) => void;
+  onStartMatching?: (jd: JD) => void; // D-01: trigger matching
 }
 
-export default function JDTable({ data, onEdit, onStatusChange }: JDTableProps) {
+export default function JDTable({ data, onEdit, onStatusChange, onStartMatching }: JDTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const columns = useMemo<ColumnDef<JD>[]>(
@@ -94,6 +95,11 @@ export default function JDTable({ data, onEdit, onStatusChange }: JDTableProps) 
                 <DropdownMenuItem onClick={() => onEdit(jd)}>
                   编辑
                 </DropdownMenuItem>
+                {onStartMatching && (
+                  <DropdownMenuItem onClick={() => onStartMatching(jd)}>
+                    开始匹配
+                  </DropdownMenuItem>
+                )}
                 {statusActions[jd.status]?.map((action) => (
                   <DropdownMenuItem
                     key={action.nextStatus}
@@ -108,7 +114,7 @@ export default function JDTable({ data, onEdit, onStatusChange }: JDTableProps) 
         },
       },
     ],
-    [onEdit, onStatusChange]
+    [onEdit, onStatusChange, onStartMatching]
   );
 
   const table = useReactTable({

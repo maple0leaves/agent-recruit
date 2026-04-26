@@ -11,6 +11,7 @@ import TemplateSelector from "../components/JDs/TemplateSelector";
 import JDTable from "../components/JDs/JDTable";
 import JDFilterBar from "../components/JDs/JDFilterBar";
 import JDPagination from "../components/JDs/JDPagination";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
 import { FileText } from "lucide-react";
@@ -36,6 +37,11 @@ export default function JDManagement() {
   const [showTemplateStep, setShowTemplateStep] = useState(true);
   const [selectedTemplate, setSelectedTemplate] = useState<JDTemplate | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleStartMatching = (jd: JD) => {
+    navigate(`/matching/${jd.id}`);
+  };
 
   const resetDialog = () => {
     setDialogOpen(false);
@@ -128,6 +134,7 @@ export default function JDManagement() {
           data={data?.items || []}
           onEdit={handleEdit}
           onStatusChange={handleStatusChange}
+          onStartMatching={handleStartMatching}
         />
       )}
 
