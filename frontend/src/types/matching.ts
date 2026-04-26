@@ -18,6 +18,7 @@ export interface MatchResult {
 export interface HITLPausePayload {
   match_results: MatchResult[];
   thread_id: string;
+  session_id?: number;
 }
 
 export interface ReviewDecision {

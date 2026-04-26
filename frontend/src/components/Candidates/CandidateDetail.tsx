@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PipelineActions from "./PipelineActions";
 import { useCandidate, useUpdateCandidate } from "@/hooks/useCandidates";
 import type { Candidate, CandidateUpdate } from "@/types/candidate";
-import { ArrowLeft, Edit2, X, Clock } from "lucide-react";
+import { ArrowLeft, Edit2, X, Clock, Search } from "lucide-react";
 
 interface CandidateDetailProps {
   candidateId: number;
@@ -150,6 +151,7 @@ export default function CandidateDetail({
   const { data: candidate, isLoading, isError } = useCandidate(candidateId);
   const updateMutation = useUpdateCandidate();
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const handleSave = async (values: CandidateUpdate) => {
     try {
@@ -294,6 +296,29 @@ export default function CandidateDetail({
               // by useUpdateCandidateStatus's onSuccess
             }}
           />
+        </CardContent>
+      </Card>
+
+      {/* Separator */}
+      <Separator />
+
+      {/* Section 4: Reverse Matching (D-01) */}
+      <Card>
+        <CardHeader>
+          <CardTitle>反向匹配</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            查找与候选人技能匹配的职位
+          </p>
+          <Button
+            variant="default"
+            className="gap-2"
+            onClick={() => navigate(`/matching?candidateId=${candidateId}`)}
+          >
+            <Search className="h-4 w-4" />
+            反向匹配
+          </Button>
         </CardContent>
       </Card>
     </div>

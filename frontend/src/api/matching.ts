@@ -15,6 +15,23 @@ export function startMatchingStream(jdId: number, signal?: AbortSignal): Promise
   });
 }
 
+/** Start a reverse matching session via SSE stream (MATCH-04, D-02).
+ *  Finds JDs matching the given candidate's skills.
+ *  Uses fetch directly for ReadableStream SSE consumption.
+ */
+export function startReverseMatchingStream(
+  candidateId: number,
+  signal?: AbortSignal
+): Promise<Response> {
+  return fetch("/recruit/hitl/reverse-stream", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ candidate_id: candidateId }),
+    credentials: "include",
+    signal,
+  });
+}
+
 /** Submit HR review decisions for all matched candidates (D-12). */
 export async function submitReview(
   threadId: string,
