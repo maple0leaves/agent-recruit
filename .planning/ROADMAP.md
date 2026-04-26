@@ -6,7 +6,7 @@ hellojobs is an AI-assisted, human-judged recruitment matching system. It starts
 
 ## Phases
 
-- [ ] **Phase 1: Backend Foundation & Authentication** - Secure backend with auth, relational DB, and frontend scaffold
+- [x] **Phase 1: Backend Foundation & Authentication** - Secure backend with auth, relational DB, and frontend scaffold
 - [ ] **Phase 2: JD Management** - Full CRUD for job descriptions with templates and search
 - [ ] **Phase 3: Resume & Candidate Management** - Resume upload, parsing, candidate search, and status tracking
 - [ ] **Phase 4: AI Matching & Approval** - Core matching loop with SSE streaming, results display, and approve/reject
@@ -33,7 +33,7 @@ Plans:
 - [x] 01-03-PLAN.md — Frontend scaffold (Vite init, Tailwind v4, shadcn/ui, router, api client, auth store+hook)
 - [x] 01-04-PLAN.md — Frontend pages (Login page with all states, ProtectedRoute, Layout sidebar, placeholder pages)
 - [x] 01-05-PLAN.md — Backend hardening (auth middleware, async conversion, SSE timeout/disconnect, SqliteSaver, UUID thread_id)
-- [ ] 01-06-PLAN.md — Integration (frontend build wiring, test suite verification, seed admin user)
+- [x] 01-06-PLAN.md — Integration (frontend build wiring, test suite verification, seed admin user)
 
 ### Phase 2: JD Management
 **Goal**: HR can create, manage, and use templates for job descriptions.
@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend Foundation & Authentication | 5/6 | Executing | 2026-04-26 |
+| 1. Backend Foundation & Authentication | 6/6 | Complete | 2026-04-26 |
 | 2. JD Management | 0/TBD | Not started | - |
 | 3. Resume & Candidate Management | 0/TBD | Not started | - |
 | 4. AI Matching & Approval | 0/TBD | Not started | - |
