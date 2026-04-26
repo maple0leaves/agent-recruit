@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { useJDs, useUpdateJDStatus, type JDFilters } from "../hooks/useJDs";
+import {
+  useJDs,
+  useUpdateJDStatus,
+  useCreateJD,
+  useUpdateJD,
+  type JDFilters,
+} from "../hooks/useJDs";
+import JDForm from "../components/JDs/JDForm";
+import TemplateSelector from "../components/JDs/TemplateSelector";
 import JDTable from "../components/JDs/JDTable";
 import JDFilterBar from "../components/JDs/JDFilterBar";
 import JDPagination from "../components/JDs/JDPagination";
@@ -12,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../components/ui/dialog";
-import type { JD } from "../types/jd";
+import type { JD, JDTemplate } from "../types/jd";
 
 export default function JDManagement() {
   const [filters, setFilters] = useState<JDFilters>({
@@ -21,8 +29,21 @@ export default function JDManagement() {
   });
   const { data, isLoading, isPlaceholderData } = useJDs(filters);
   const updateStatusMutation = useUpdateJDStatus();
+  const createMutation = useCreateJD();
+  const updateMutation = useUpdateJD();
   const [editingJD, setEditingJD] = useState<JD | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [showTemplateStep, setShowTemplateStep] = useState(true);
+  const [selectedTemplate, setSelectedTemplate] = useState<JDTemplate | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const resetDialog = () => {
+    setDialogOpen(false);
+    setShowTemplateStep(true);
+    setSelectedTemplate(null);
+    setEditingJD(null);
+    setSubmitError(null);
+  };
 
   const handleFilterChange = (updates: Partial<JDFilters>) => {
     setFilters((prev) => ({ ...prev, ...updates, page: 1 }));
@@ -48,12 +69,40 @@ export default function JDManagement() {
     );
   };
 
+  const handleFormSubmit = async (values: Record<string, unknown>) => {
+    setSubmitError(null);
+    try {
+      if (editingJD) {
+        await updateMutation.mutateAsync({
+          id: editingJD.id,
+          data: values as import("../types/jd").JDFormValues,
+        });
+      } else {
+        await createMutation.mutateAsync(values as import("../types/jd").JDFormValues);
+      }
+      resetDialog();
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "操作失败，请稍后重试";
+      setSubmitError(message);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 py-6">
       {/* Page header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">JD管理</h1>
-        <Button onClick={() => {}}>新建 JD</Button>
+        <Button
+          onClick={() => {
+            setEditingJD(null);
+            setSelectedTemplate(null);
+            setShowTemplateStep(true);
+            setDialogOpen(true);
+          }}
+        >
+          新建 JD
+        </Button>
       </div>
 
       {/* Filter bar */}
@@ -92,15 +141,72 @@ export default function JDManagement() {
         />
       )}
 
-      {/* Edit dialog placeholder (Plan 04 integration point) */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+      {/* Create/Edit Dialog */}
+      <Dialog open={dialogOpen} onOpenChange={(open) => { if (!open) resetDialog(); }}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {editingJD ? `编辑 - ${editingJD.title}` : "新建 JD"}
+              {editingJD ? "编辑JD" : showTemplateStep ? "选择模板" : "新建JD"}
             </DialogTitle>
           </DialogHeader>
-          <p className="text-muted-foreground">编辑功能</p>
+
+          {showTemplateStep && !editingJD ? (
+            <>
+              <TemplateSelector
+                selectedName={selectedTemplate?.name}
+                onSelect={(template) => {
+                  setSelectedTemplate(template);
+                  setShowTemplateStep(false);
+                }}
+              />
+              <div className="text-center mt-4">
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setSelectedTemplate(null);
+                    setShowTemplateStep(false);
+                  }}
+                >
+                  跳过模板，手动填写
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              {submitError && (
+                <div className="rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
+                  {submitError}
+                </div>
+              )}
+              <JDForm
+                mode={editingJD ? "edit" : "create"}
+                defaultValues={
+                  editingJD
+                    ? {
+                        title: editingJD.title,
+                        department: editingJD.department,
+                        skills: editingJD.skills,
+                        experience_years: editingJD.experience_years,
+                        education: editingJD.education,
+                        salary_min: editingJD.salary_min,
+                        salary_max: editingJD.salary_max,
+                        description: editingJD.description,
+                      }
+                    : undefined
+                }
+                templateValues={selectedTemplate}
+                onSubmit={handleFormSubmit}
+                onCancel={() => {
+                  if (!editingJD && !showTemplateStep) {
+                    setShowTemplateStep(true);
+                  } else {
+                    resetDialog();
+                  }
+                }}
+                isSubmitting={createMutation.isPending || updateMutation.isPending}
+              />
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </div>
