@@ -72,7 +72,15 @@ async def frontend():
 
 
 if STATIC_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+    app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
+
+    @app.get("/favicon.svg", include_in_schema=False)
+    async def favicon():
+        return FileResponse(str(STATIC_DIR / "favicon.svg"))
+
+    @app.get("/icons.svg", include_in_schema=False)
+    async def icons():
+        return FileResponse(str(STATIC_DIR / "icons.svg"))
 
 
 @app.get("/health")
@@ -1094,6 +1102,14 @@ async def rebuild_index(_user: dict = Depends(get_current_user)):
         return {"status": "ok", "message": "向量索引已重建，检索缓存已刷新"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/{full_path:path}", include_in_schema=False)
+async def spa_fallback(full_path: str):
+    """SPA fallback — serve index.html for any non-API route."""
+    if STATIC_DIR.exists():
+        return FileResponse(str(STATIC_DIR / "index.html"))
+    return {"detail": "Not Found"}
 
 
 if __name__ == "__main__":
