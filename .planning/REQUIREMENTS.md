@@ -15,10 +15,10 @@ Requirements for initial full-stack release. Each maps to roadmap phases.
 
 ### JD Management
 
-- [ ] **JD-01**: HR 可以在系统里创建新的 JD（职位名称、部门、技能要求、经验要求、薪资范围）
-- [ ] **JD-02**: HR 可以编辑、关闭已有的 JD
-- [ ] **JD-03**: HR 可以按部门、状态、日期筛选和搜索 JD 列表
-- [ ] **JD-04**: 系统提供常用 JD 模板，HR 可以基于模板快速创建
+- [x] **JD-01**: HR 可以在系统里创建新的 JD（职位名称、部门、技能要求、经验要求、薪资范围）
+- [x] **JD-02**: HR 可以编辑、关闭已有的 JD
+- [x] **JD-03**: HR 可以按部门、状态、日期筛选和搜索 JD 列表
+- [x] **JD-04**: 系统提供常用 JD 模板，HR 可以基于模板快速创建
 
 ### Resume & Candidate Management
 
@@ -76,10 +76,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-01 | Phase 1 | Complete (01-02) |
 | AUTH-02 | Phase 1 | Complete (01-02) |
 | AUTH-03 | Phase 1 | Complete (01-02) |
-| JD-01 | Phase 2 | Pending |
-| JD-02 | Phase 2 | Pending |
-| JD-03 | Phase 2 | Pending |
-| JD-04 | Phase 2 | Pending |
+| JD-01 | Phase 2 | Complete (02-01) |
+| JD-02 | Phase 2 | Complete (02-01) |
+| JD-03 | Phase 2 | Complete (02-01) |
+| JD-04 | Phase 2 | Complete (02-01) |
 | RES-01 | Phase 3 | Pending |
 | RES-02 | Phase 3 | Pending |
 | RES-03 | Phase 3 | Pending |

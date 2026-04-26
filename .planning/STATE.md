@@ -10,25 +10,25 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 2 of 5 (JD Management)
-Plan: 0 of TBD in current phase
-Status: Context gathered -- ready for planning
-Last activity: 2026-04-26 -- Phase 2 context discussion completed
+Plan: 1 of TBD in current phase
+Status: Plan 02-01 complete (JD model, templates, CRUD API, tests)
+Last activity: 2026-04-26 -- Plan 02-01 completed: JD ORM model, Alembic migration, 3 templates, 6 CRUD endpoints, 14 integration tests
 
-Progress: [████░░░░░░░░] 40%
+Progress: [████░░░░░░░░] 42%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 5.3 min
-- Total execution time: 32.0 min
+- Total plans completed: 7
+- Average duration: 5.9 min
+- Total execution time: 41.0 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
-| 2. JD Management | TBD | - | - |
+| 2. JD Management | 1 | 9.0 min | 9.0 min |
 | 3. Resume Management | TBD | - | - |
 | 4. AI Matching & Approval | TBD | - | - |
 | 5. Advanced Features | TBD | - | - |
@@ -57,6 +57,12 @@ Progress: [████░░░░░░░░] 40%
 - Plan 01-05: HITL session UUIDs generated with `uuid4().hex` (shorter hex string vs full UUID with dashes)
 - Plan 01-06: Use file-based temp SQLite for test isolation (not :memory:) so test data is shared across sessions
 - Plan 01-06: Use FastAPI app.dependency_overrides to inject test DB engine (not module patching)
+- Plan 02-01: JD EducationLevel enum with Chinese values (高中, 大专, 本科, 硕士, 博士, 不限)
+- Plan 02-01: JDStatus three-state lifecycle: draft -> active -> closed -> active
+- Plan 02-01: JD status transitions enforced via dict lookup (not state machine library)
+- Plan 02-01: Date filtering uses direct string comparison instead of cast(..., Date) for SQLite compatibility
+- Plan 02-01: Title validation via Pydantic field_validator (min_length=1)
+- Plan 02-01: 3 hardcoded templates stored in backend/config/templates.py (software-engineer, product-manager, sales-manager)
 
 ### Pending Todos
 
@@ -69,5 +75,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-26
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-jd-management/02-CONTEXT.md
+Stopped at: Plan 02-01 completed (JD model + templates + CRUD + tests)
+Resume file: .planning/phases/02-jd-management/02-01-SUMMARY.md
