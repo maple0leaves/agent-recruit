@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
 import { BrainCircuit, ArrowLeft, Send, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
@@ -18,13 +18,18 @@ interface ReviewEntry {
 export default function Matching() {
   const { jdId } = useParams<{ jdId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const candidateIdParam = queryParams.get("candidateId");
   const {
     state,
     pipelineSteps,
     candidates,
     finalReport,
     error,
+    sessionId,
     start,
+    startReverse,
     cancel,
     submitReview,
   } = useMatchingSSE();
@@ -36,15 +41,22 @@ export default function Matching() {
   } | null>(null);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
 
-  // Start matching when page mounts with jdId
+  // Start matching when page mounts with jdId (forward) or candidateId (reverse)
   useEffect(() => {
-    if (jdId && state === "IDLE") {
-      const id = parseInt(jdId, 10);
-      if (!isNaN(id)) {
-        start(id);
+    if (state === "IDLE") {
+      if (jdId) {
+        const id = parseInt(jdId, 10);
+        if (!isNaN(id)) {
+          start(id);
+        }
+      } else if (candidateIdParam) {
+        const id = parseInt(candidateIdParam, 10);
+        if (!isNaN(id)) {
+          startReverse(id);
+        }
       }
     }
-  }, [jdId, state, start]);
+  }, [jdId, candidateIdParam, state, start, startReverse]);
 
   const allReviewed = candidates.length > 0 && candidates.every((c) => reviewMap[c.candidate_name]);
 
@@ -85,13 +97,19 @@ export default function Matching() {
         return (
           <div className="flex flex-col items-center gap-4 py-16 text-muted-foreground">
             <BrainCircuit className="h-16 w-16" />
-            <h2 className="text-xl font-semibold">智能匹配</h2>
+            <h2 className="text-xl font-semibold">
+              {candidateIdParam ? "智能反向匹配" : "智能匹配"}
+            </h2>
             <p className="text-sm">
-              请从 JD 列表选择一个职位开始匹配
+              {candidateIdParam
+                ? "正在准备反向匹配，请稍候..."
+                : "请从 JD 列表选择一个职位开始匹配"}
             </p>
-            <Button variant="outline" onClick={() => navigate("/jd")}>
-              前往 JD 列表
-            </Button>
+            {!candidateIdParam && (
+              <Button variant="outline" onClick={() => navigate("/jd")}>
+                前往 JD 列表
+              </Button>
+            )}
           </div>
         );
 
@@ -223,7 +241,7 @@ export default function Matching() {
           <div className="space-y-6 py-6">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-green-600 dark:text-green-400">
-                匹配完成
+                {candidateIdParam ? "反向匹配完成" : "匹配完成"}
               </h2>
               <Button variant="outline" onClick={() => navigate("/jd")}>
                 返回 JD 列表
@@ -280,6 +298,11 @@ export default function Matching() {
               </Button>
               {jdId && (
                 <Button onClick={() => start(parseInt(jdId, 10))}>
+                  重试
+                </Button>
+              )}
+              {candidateIdParam && (
+                <Button onClick={() => startReverse(parseInt(candidateIdParam, 10))}>
                   重试
                 </Button>
               )}

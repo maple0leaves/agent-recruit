@@ -7,7 +7,7 @@ import type {
   SubmitReviewResponse,
 } from "../types/matching";
 import { PIPELINE_STEPS } from "../types/matching";
-import { startMatchingStream, submitReview } from "../api/matching";
+import { startMatchingStream, startReverseMatchingStream, submitReview } from "../api/matching";
 
 export interface SSEEvent {
   event: string;
@@ -20,6 +20,7 @@ export function useMatchingSSE() {
   const [candidates, setCandidates] = useState<MatchResult[]>([]);
   const [finalReport, setFinalReport] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<number | null>(null);
   const threadIdRef = useRef<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -66,11 +67,15 @@ export function useMatchingSSE() {
         break;
       }
       case "hitl_pause": {
-        const { match_results, thread_id } = data as {
+        const { match_results, thread_id, session_id } = data as {
           match_results: MatchResult[];
           thread_id: string;
+          session_id?: number;
         };
         threadIdRef.current = thread_id;
+        if (session_id) {
+          setSessionId(session_id);
+        }
         // Sort descending by score (D-08)
         const sorted = [...match_results].sort(
           (a, b) => b.match_score - a.match_score
@@ -154,6 +159,64 @@ export function useMatchingSSE() {
     }
   }, [handleSSEEvent]);
 
+  const startReverse = useCallback(async (candidateId: number) => {
+    setState("CONNECTING");
+    setError(null);
+    setCandidates([]);
+    setFinalReport("");
+    setSessionId(null);
+    setPipelineSteps(PIPELINE_STEPS.map((s) => ({ ...s, status: "pending" as const })));
+    threadIdRef.current = null;
+
+    abortRef.current = new AbortController();
+
+    try {
+      const response = await startReverseMatchingStream(candidateId, abortRef.current.signal);
+
+      if (!response.ok) {
+        const errBody = await response.json().catch(() => ({}));
+        throw new Error((errBody as { detail?: string }).detail || "反向匹配请求失败");
+      }
+
+      setState("STREAMING");
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() || "";
+
+        for (const part of parts) {
+          if (!part.startsWith("data: ")) continue;
+          try {
+            const parsed = JSON.parse(part.slice(6)) as SSEEvent;
+            handleSSEEvent(parsed.event, parsed.data);
+          } catch {
+            // Skip malformed events
+          }
+        }
+      }
+
+      setState((prev) => {
+        if (prev === "STREAMING") return "PAUSED";
+        return prev;
+      });
+    } catch (err: unknown) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        setState("CANCELLED");
+        return;
+      }
+      const message = err instanceof Error ? err.message : "连接异常";
+      setError(message);
+      setState("ERROR");
+    }
+  }, [handleSSEEvent]);
+
   const cancel = useCallback(() => {
     abortRef.current?.abort();
     setState("CANCELLED");
@@ -189,7 +252,9 @@ export function useMatchingSSE() {
     candidates,
     finalReport,
     error,
+    sessionId,
     start,
+    startReverse,
     cancel,
     submitReview: submitReviewResult,
   };
