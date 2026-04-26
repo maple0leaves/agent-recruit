@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Completed Phase 4 (04-ai-matching-approval) -- all plans done
-last_updated: "2026-04-26"
-last_activity: 2026-04-26
+status: in_progress
+stopped_at: Completed Plan 05-01 (reverse matching)
+last_updated: "2026-04-27"
+last_activity: 2026-04-27
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 19
+  completed_plans: 19
   percent: 100
 ---
 
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 
 ## Current Position
 
-Phase: 4 of 5 (AI Matching & Approval) -- COMPLETE
-Plan: 4 of 4 in current phase
-Status: Completed
-Last activity: 2026-04-26
+Phase: 5 of 5 (Advanced Features & Export)
+Plan: 1 of 3 in current phase
+Status: Completed Plan 01 (reverse matching)
+Last activity: 2026-04-27
 
 Progress: [██████████] 100%
 
@@ -48,7 +48,7 @@ Progress: [██████████] 100%
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | 4 | 9.0 min | 3.0 min |
 | 4. AI Matching & Approval | 4 | 18.2 min | 6.1 min |
-| 5. Advanced Features | TBD | - | - |
+| 5. Advanced Features & Export | 1 | 5.0 min | 5.0 min |
 
 *Updated after each plan completion*
 
@@ -105,6 +105,8 @@ Progress: [██████████] 100%
 - Plan 04-04: Matching page renders /matching/:jdId and /matching paths separately for param and paramless access
 - Plan 04-04: Review map managed as Record<string, ReviewEntry> instead of array to simplify lookup-per-candidate
 - Plan 04-04: Dashboard pending approvals alert uses inline amber banner consistent with existing pattern
+- Plan 05-01: Alembic batch mode (render_as_batch=True) required for SQLite compatibility with ALTER COLUMN operations
+- Plan 05-01: Reverse matching uses simple skill-overlap scoring (no LangGraph agent) for simplicity and speed
 
 ### Pending Todos
 
