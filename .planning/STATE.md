@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed Plan 05-01 (reverse matching)
+stopped_at: Completed Plan 05-02 (agent feedback)
 last_updated: "2026-04-27"
 last_activity: 2026-04-27
 progress:
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 5 of 5 (Advanced Features & Export)
-Plan: 1 of 3 in current phase
-Status: Completed Plan 01 (reverse matching)
+Plan: 2 of 3 in current phase
+Status: Completed Plan 02 (agent feedback)
 Last activity: 2026-04-27
 
 Progress: [██████████] 100%
@@ -36,9 +36,9 @@ Progress: [██████████] 100%
 
 **Velocity:**
 
-- Total plans completed: 17
-- Average duration: 5.1 min
-- Total execution time: 87.4 min
+- Total plans completed: 18
+- Average duration: 5.0 min
+- Total execution time: 89.4 min
 
 **By Phase:**
 
@@ -48,7 +48,7 @@ Progress: [██████████] 100%
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | 4 | 9.0 min | 3.0 min |
 | 4. AI Matching & Approval | 4 | 18.2 min | 6.1 min |
-| 5. Advanced Features & Export | 1 | 5.0 min | 5.0 min |
+| 5. Advanced Features & Export | 2 | 7.0 min | 3.5 min |
 
 *Updated after each plan completion*
 
@@ -107,6 +107,8 @@ Progress: [██████████] 100%
 - Plan 04-04: Dashboard pending approvals alert uses inline amber banner consistent with existing pattern
 - Plan 05-01: Alembic batch mode (render_as_batch=True) required for SQLite compatibility with ALTER COLUMN operations
 - Plan 05-01: Reverse matching uses simple skill-overlap scoring (no LangGraph agent) for simplicity and speed
+- Plan 05-02: Feedback re-run creates a separate SSE generator (_stream_feedback_rerun) rather than parameterizing _stream_hitl_recruitment
+- Plan 05-02: Frontend uses fetch-based SSE (submitFeedbackAndStream) instead of axios for SSE re-run results
 
 ### Pending Todos
 
@@ -118,6 +120,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-26
-Stopped at: Completed Plan 04-04 (frontend pages: matching trigger, full Matching/Dashboard pages)
+Last session: 2026-04-27
+Stopped at: Completed Plan 05-02 (agent feedback with SSE re-stream)
 Resume file: None
