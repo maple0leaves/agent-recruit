@@ -70,7 +70,7 @@ Plans:
 - [x] 03-01-PLAN.md -- Backend: Candidate model, migration, upload/CRUD/status API, tests, deps
 - [x] 03-02-PLAN.md -- Frontend infra: types, API functions, TanStack Query hooks
 - [x] 03-03-PLAN.md -- Frontend list page: table, filter bar, upload widget, pagination
-- [ ] 03-04-PLAN.md -- Frontend detail page: inline editing, match history placeholder, pipeline controls
+- [x] 03-04-PLAN.md -- Frontend detail page: inline editing, match history placeholder, pipeline controls
 
 ### Phase 4: AI Matching & Approval
 **Goal**: HR can run AI matching against a JD, see real-time results, and approve or reject candidates.
