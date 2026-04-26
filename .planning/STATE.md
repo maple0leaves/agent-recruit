@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed Plan 05-02 (agent feedback)
+stopped_at: Completed Plan 05-03 (PDF/Excel export) -- ALL PHASES COMPLETE
 last_updated: "2026-04-27"
 last_activity: 2026-04-27
 progress:
   total_phases: 5
-  completed_phases: 4
-  total_plans: 19
-  completed_plans: 19
+  completed_phases: 5
+  total_plans: 20
+  completed_plans: 20
   percent: 100
 ---
 
@@ -26,19 +26,30 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 5 of 5 (Advanced Features & Export)
-Plan: 2 of 3 in current phase
-Status: Completed Plan 02 (agent feedback)
+Plan: 3 of 3 in current phase -- COMPLETE
+Status: Completed Plan 03 (PDF/Excel export)
 Last activity: 2026-04-27
 
 Progress: [██████████] 100%
+
+## Milestone Status
+
+**v1.0 milestone is COMPLETE.** All 5 phases and 20 plans executed.
+All requirements met across all phases:
+- AUTH-01/02/03: Auth and role-based access
+- JD-01/02/03/04: JD management lifecycle
+- RES-01/02/03/04/05: Resume and candidate management
+- MATCH-01/02/03/04: Bi-directional AI matching
+- APRV-01/02/03: Approval and feedback workflows
+- DASH-01/02: Dashboard and export
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 18
-- Average duration: 5.0 min
-- Total execution time: 89.4 min
+- Total plans completed: 20
+- Average duration: 5.1 min
+- Total execution time: 101.4 min
 
 **By Phase:**
 
@@ -48,7 +59,7 @@ Progress: [██████████] 100%
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
 | 3. Resume Management | 4 | 9.0 min | 3.0 min |
 | 4. AI Matching & Approval | 4 | 18.2 min | 6.1 min |
-| 5. Advanced Features & Export | 2 | 7.0 min | 3.5 min |
+| 5. Advanced Features & Export | 3 | 19.0 min | 6.3 min |
 
 *Updated after each plan completion*
 
@@ -109,6 +120,10 @@ Progress: [██████████] 100%
 - Plan 05-01: Reverse matching uses simple skill-overlap scoring (no LangGraph agent) for simplicity and speed
 - Plan 05-02: Feedback re-run creates a separate SSE generator (_stream_feedback_rerun) rather than parameterizing _stream_hitl_recruitment
 - Plan 05-02: Frontend uses fetch-based SSE (submitFeedbackAndStream) instead of axios for SSE re-run results
+- Plan 05-03: results_json stored at MatchSession creation time (forward and reverse) for self-contained export without graph re-run
+- Plan 05-03: Export endpoints use tempfile.NamedTemporaryFile with try/finally cleanup per threat model T-05-08
+- Plan 05-03: Export endpoints protected by Depends(get_current_user) per threat model T-05-07/T-05-10
+- Plan 05-03: CJK font (gbsn00lp.ttf) registered at PDF module import time for Chinese text support
 
 ### Pending Todos
 
@@ -121,5 +136,8 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-27
-Stopped at: Completed Plan 05-02 (agent feedback with SSE re-stream)
+Stopped at: Completed Plan 05-03 (PDF/Excel export) -- ALL PHASES COMPLETE
 Resume file: None
+
+---
+**Milestone v1.0 COMPLETE.** All 5 phases, 20 plans executed.

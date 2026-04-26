@@ -10,7 +10,7 @@ hellojobs is an AI-assisted, human-judged recruitment matching system. It starts
 - [x] **Phase 2: JD Management** - Full CRUD for job descriptions with templates and search
 - [x] **Phase 3: Resume & Candidate Management** - Resume upload, parsing, candidate search, and status tracking
 - [x] **Phase 4: AI Matching & Approval** - Core matching loop with SSE streaming, results display, and approve/reject
-- [ ] **Phase 5: Advanced Features & Export** - Bi-directional matching, agent feedback, and PDF/Excel export
+- [x] **Phase 5: Advanced Features & Export** - Bi-directional matching, agent feedback, and PDF/Excel export
 
 ## Phase Details
 
@@ -106,7 +106,7 @@ Plans:
 Plans:
 - [x] 05-01-PLAN.md -- Reverse matching: backend schema migration + streaming endpoint + CandidateDetail button + Matching page candidateId support
 - [x] 05-02-PLAN.md -- Agent feedback: feedback_rerun in resume endpoint + FeedbackDialog + SSE re-stream flow
-- [ ] 05-03-PLAN.md -- PDF/Excel export: reportlab/openpyxl module + export API endpoints + Matching page download buttons
+- [x] 05-03-PLAN.md -- PDF/Excel export: reportlab/openpyxl module + export API endpoints + Matching page download buttons
 
 ## Progress
 
@@ -119,4 +119,4 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 | 2. JD Management | 4/4 | Complete | 2026-04-26 |
 | 3. Resume & Candidate Management | 4/4 | Complete | 2026-04-26 |
 | 4. AI Matching & Approval | 4/4 | Complete | 2026-04-26 |
-| 5. Advanced Features & Export | 2/3 | In progress | 2026-04-27 |
+| 5. Advanced Features & Export | 3/3 | Complete | 2026-04-27 |
