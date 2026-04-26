@@ -3,6 +3,7 @@ import { useCandidates, type CandidateFilters } from "../hooks/useCandidates";
 import CandidateTable from "../components/Candidates/CandidateTable";
 import CandidateFilterBar from "../components/Candidates/CandidateFilterBar";
 import CandidateUpload from "../components/Candidates/CandidateUpload";
+import CandidateDetail from "../components/Candidates/CandidateDetail";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
 import { Users, Upload, ChevronLeft, ChevronRight } from "lucide-react";
@@ -34,6 +35,10 @@ export default function Candidates() {
     setShowUpload(false);
   };
 
+  const handleBackToList = () => {
+    setSelectedCandidateId(null);
+  };
+
   const totalPages = data ? Math.ceil(data.total / filters.pageSize) : 0;
 
   const getPageNumbers = (): (number | "...")[] => {
@@ -58,6 +63,17 @@ export default function Candidates() {
 
     return pages;
   };
+
+  if (selectedCandidateId !== null) {
+    return (
+      <div className="py-6">
+        <CandidateDetail
+          candidateId={selectedCandidateId}
+          onBack={handleBackToList}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 py-6">
