@@ -20,7 +20,12 @@ class TestCheckpointer:
             saver1 = SqliteSaver(conn1)
 
             # Create a test checkpoint
-            test_config = {"configurable": {"thread_id": "test-thread-1"}}
+            test_config = {
+                "configurable": {
+                    "thread_id": "test-thread-1",
+                    "checkpoint_ns": "",
+                }
+            }
             test_checkpoint = {
                 "v": 1,
                 "ts": "2026-01-01T00:00:00Z",
@@ -28,8 +33,13 @@ class TestCheckpointer:
                 "parent_id": None,
                 "channel_values": {"user_input": "test"},
             }
+            test_metadata = {
+                "source": "input",
+                "step": 1,
+                "writes": {"user_input": "test"},
+            }
             # SqliteSaver.put writes a checkpoint
-            saver1.put(test_config, test_checkpoint, {})
+            saver1.put(test_config, test_checkpoint, test_metadata, {})
 
             # Close first connection
             conn1.close()
