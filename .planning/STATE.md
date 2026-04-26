@@ -10,25 +10,25 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 2 of 5 (JD Management)
-Plan: 2 of 4 in current phase
-Status: Plan 02-02 complete (frontend infra: npm packages, shadcn components, TS types, API helpers, Query hooks)
-Last activity: 2026-04-26 -- Plan 02-02 completed: 4 new npm packages, 10 shadcn v4 components, JD TypeScript types, 5 API functions, 5 TanStack Query hooks
+Plan: 3 of 4 in current phase
+Status: Plan 02-03 complete (JD list page with table, filter, pagination, status badges)
+Last activity: 2026-04-26 -- Plan 02-03 completed: 4 JD list components + JD Management list page with TanStack Table, debounced search, status/date filters, pagination
 
-Progress: [██████░░░░░░] 50%
+Progress: [████████░░░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 5.8 min
-- Total execution time: 46.2 min
+- Total plans completed: 9
+- Average duration: 6.5 min
+- Total execution time: 58.2 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
-| 2. JD Management | 2 | 14.2 min | 7.1 min |
+| 2. JD Management | 3 | 26.2 min | 8.7 min |
 | 3. Resume Management | TBD | - | - |
 | 4. AI Matching & Approval | TBD | - | - |
 | 5. Advanced Features | TBD | - | - |
