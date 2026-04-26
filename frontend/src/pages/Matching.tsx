@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router-dom";
-import { BrainCircuit, ArrowLeft, Send, AlertCircle, Loader2 } from "lucide-react";
+import { BrainCircuit, ArrowLeft, Send, AlertCircle, Loader2, FileDown, FileSpreadsheet } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Skeleton } from "../components/ui/skeleton";
 import { useMatchingSSE } from "../hooks/useMatchingSSE";
@@ -311,6 +311,32 @@ export default function Matching() {
                 })}
               </div>
             </div>
+
+            {/* Export buttons (D-07) */}
+            {sessionId && (
+              <div className="flex items-center gap-3 pt-4 border-t">
+                <span className="text-sm font-medium text-muted-foreground">导出结果:</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  onClick={() => window.open(`/matching/${sessionId}/export/pdf`, "_blank")}
+                >
+                  <FileDown className="h-4 w-4" />
+                  导出 PDF
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2"
+                  onClick={() => window.open(`/matching/${sessionId}/export/excel`, "_blank")}
+                >
+                  <FileSpreadsheet className="h-4 w-4" />
+                  导出 Excel
+                </Button>
+              </div>
+            )}
+
           </div>
         );
 
