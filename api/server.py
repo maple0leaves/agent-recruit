@@ -5,6 +5,8 @@ import json
 import logging
 import os
 import sys
+import tempfile
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
@@ -259,6 +261,103 @@ async def dashboard_stats(
         "total_candidates": total_candidates_result.scalar() or 0,
         "pending_approvals": pending_approvals_result.scalar() or 0,
     }
+
+
+@app.get("/matching/{session_id}/export/pdf")
+async def export_match_pdf(
+    session_id: int,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """Export matching result as PDF report (DASH-02, D-08).
+
+    Fetches MatchSession by id, reads results_json for candidate data,
+    generates PDF via reportlab, returns FileResponse for download.
+
+    Anti-pattern avoidance: Uses tempfile with try/finally cleanup
+    (research anti-pattern "Resumable file download").
+    """
+    from sqlalchemy import select as sa_select
+
+    result = await db.execute(
+        sa_select(MatchSession).where(MatchSession.id == session_id)
+    )
+    session = result.scalar_one_or_none()
+    if not session:
+        raise HTTPException(status_code=404, detail="匹配会话不存在")
+
+    # Extract match results from session (stored as JSON in results_json)
+    candidates = []
+    if session.results_json:
+        candidates = json.loads(session.results_json)
+
+    # Get JD title from thread state or use fallback
+    jd_title = f"Session #{session_id}"
+
+    # Generate PDF
+    from backend.export.pdf import generate_match_report_pdf
+
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    try:
+        generate_match_report_pdf(
+            jd_title=jd_title,
+            match_date=session.created_at.strftime("%Y-%m-%d") if session.created_at else datetime.now().strftime("%Y-%m-%d"),
+            candidates=candidates,
+            output_path=tmp.name,
+        )
+        return FileResponse(
+            tmp.name,
+            media_type="application/pdf",
+            filename=f"match-report-{session_id}.pdf",
+        )
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
+
+
+@app.get("/matching/{session_id}/export/excel")
+async def export_match_excel(
+    session_id: int,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """Export matching result as Excel spreadsheet (DASH-02, D-09).
+
+    Same pattern as export_match_pdf but uses openpyxl for .xlsx output.
+    """
+    from sqlalchemy import select as sa_select
+
+    result = await db.execute(
+        sa_select(MatchSession).where(MatchSession.id == session_id)
+    )
+    session = result.scalar_one_or_none()
+    if not session:
+        raise HTTPException(status_code=404, detail="匹配会话不存在")
+
+    candidates = []
+    if session.results_json:
+        candidates = json.loads(session.results_json)
+
+    from backend.export.excel import generate_match_report_excel
+
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
+    try:
+        generate_match_report_excel(
+            candidates=candidates,
+            output_path=tmp.name,
+        )
+        return FileResponse(
+            tmp.name,
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            filename=f"match-report-{session_id}.xlsx",
+        )
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
 
 
 @app.post("/upload-resume")
@@ -587,6 +686,10 @@ async def _stream_hitl_recruitment(user_input: str, jd_id: int, request: Request
                     thread_id=thread_id,
                     status="pending",
                     total_candidates=len(parsed_results),
+                    results_json=json.dumps(
+                        [r.model_dump() for r in parsed_results],
+                        ensure_ascii=False,
+                    ),
                 )
                 db.add(match_session)
                 await db.commit()
@@ -746,6 +849,10 @@ async def _stream_feedback_rerun(
                     thread_id=new_thread_id,
                     status="pending",
                     total_candidates=len(parsed_results),
+                    results_json=json.dumps(
+                        [r.model_dump() for r in parsed_results],
+                        ensure_ascii=False,
+                    ),
                 )
                 db.add(new_session)
                 await db.commit()
