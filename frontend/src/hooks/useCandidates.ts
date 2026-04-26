@@ -57,8 +57,9 @@ export function useUpdateCandidate() {
   const queryClient = useQueryClient();
   return useMutation<Candidate, Error, { id: number; data: CandidateUpdate }>({
     mutationFn: ({ id, data }) => updateCandidate(id, data),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["candidates", "list"] });
+      queryClient.invalidateQueries({ queryKey: ["candidates", variables.id] });
     },
   });
 }
@@ -67,8 +68,9 @@ export function useUpdateCandidateStatus() {
   const queryClient = useQueryClient();
   return useMutation<Candidate, Error, { id: number; status: string; status_note: string }>({
     mutationFn: ({ id, status, status_note }) => updateCandidateStatus(id, status, status_note),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["candidates", "list"] });
+      queryClient.invalidateQueries({ queryKey: ["candidates", variables.id] });
     },
   });
 }
