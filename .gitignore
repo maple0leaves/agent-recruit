@@ -23,6 +23,7 @@ testdataset/
 # 数据 / 索引（运行时生成，不应入库）
 data/vector_store/
 data/chroma_memory/
+data/resumes/
 data/candidate_memory.json
 data/resume_cache/
 

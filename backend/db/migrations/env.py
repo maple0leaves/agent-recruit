@@ -23,6 +23,7 @@ if config.config_file_name is not None:
 from backend.db.engine import Base
 from backend.db.models.user import User  # noqa: F401 - populate Base.metadata
 from backend.db.models.jd import JD  # noqa: F401 - populate Base.metadata
+from backend.db.models.candidate import Candidate  # noqa: F401 - populate Base.metadata
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
