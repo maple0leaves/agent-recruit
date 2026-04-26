@@ -73,33 +73,43 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| JD-01 | — | Pending |
-| JD-02 | — | Pending |
-| JD-03 | — | Pending |
-| JD-04 | — | Pending |
-| RES-01 | — | Pending |
-| RES-02 | — | Pending |
-| RES-03 | — | Pending |
-| RES-04 | — | Pending |
-| RES-05 | — | Pending |
-| MATCH-01 | — | Pending |
-| MATCH-02 | — | Pending |
-| MATCH-03 | — | Pending |
-| MATCH-04 | — | Pending |
-| APRV-01 | — | Pending |
-| APRV-02 | — | Pending |
-| APRV-03 | — | Pending |
-| DASH-01 | — | Pending |
-| DASH-02 | — | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| JD-01 | Phase 2 | Pending |
+| JD-02 | Phase 2 | Pending |
+| JD-03 | Phase 2 | Pending |
+| JD-04 | Phase 2 | Pending |
+| RES-01 | Phase 3 | Pending |
+| RES-02 | Phase 3 | Pending |
+| RES-03 | Phase 3 | Pending |
+| RES-04 | Phase 3 | Pending |
+| RES-05 | Phase 3 | Pending |
+| MATCH-01 | Phase 4 | Pending |
+| MATCH-02 | Phase 4 | Pending |
+| MATCH-03 | Phase 4 | Pending |
+| MATCH-04 | Phase 5 | Pending |
+| APRV-01 | Phase 4 | Pending |
+| APRV-02 | Phase 4 | Pending |
+| APRV-03 | Phase 5 | Pending |
+| DASH-01 | Phase 4 | Pending |
+| DASH-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 21 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 21 ⚠️
+- Mapped to phases: 21 ✓
+- Unmapped: 0
+
+### Phase Summary
+
+| Phase | Requirements | Count |
+|-------|-------------|-------|
+| Phase 1: Backend Foundation & Authentication | AUTH-01, AUTH-02, AUTH-03 | 3 |
+| Phase 2: JD Management | JD-01, JD-02, JD-03, JD-04 | 4 |
+| Phase 3: Resume & Candidate Management | RES-01, RES-02, RES-03, RES-04, RES-05 | 5 |
+| Phase 4: AI Matching & Approval | MATCH-01, MATCH-02, MATCH-03, APRV-01, APRV-02, DASH-01 | 6 |
+| Phase 5: Advanced Features & Export | MATCH-04, APRV-03, DASH-02 | 3 |
 
 ---
 *Requirements defined: 2026-04-26*
-*Last updated: 2026-04-26 after initial definition*
+*Last updated: 2026-04-26 after roadmap creation*
