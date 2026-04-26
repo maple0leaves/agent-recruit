@@ -8,7 +8,7 @@ hellojobs is an AI-assisted, human-judged recruitment matching system. It starts
 
 - [x] **Phase 1: Backend Foundation & Authentication** - Secure backend with auth, relational DB, and frontend scaffold
 - [x] **Phase 2: JD Management** - Full CRUD for job descriptions with templates and search
-- [ ] **Phase 3: Resume & Candidate Management** - Resume upload, parsing, candidate search, and status tracking
+- [x] **Phase 3: Resume & Candidate Management** - Resume upload, parsing, candidate search, and status tracking
 - [ ] **Phase 4: AI Matching & Approval** - Core matching loop with SSE streaming, results display, and approve/reject
 - [ ] **Phase 5: Advanced Features & Export** - Bi-directional matching, agent feedback, and PDF/Excel export
 
@@ -82,8 +82,14 @@ Plans:
   3. HR can watch the agent's matching progress in real-time via a streaming pipeline visualization
   4. HR can approve or reject each matched candidate with optional notes
   5. HR sees a dashboard showing active JD count, total candidates, and pending approvals count
-**Plans**: TBD
+**Plans**: 4 plans across 2 waves
 **UI hint**: yes
+
+Plans:
+- [ ] 04-01-PLAN.md -- Backend core: MatchSession model, per-candidate schemas, reviewer agent modifications
+- [ ] 04-02-PLAN.md -- Backend API: streaming HITL endpoint, per-candidate resume, dashboard stats
+- [ ] 04-03-PLAN.md -- Frontend infra: matching types, SSE hook, pipeline/card/dialog components, StatsCard
+- [ ] 04-04-PLAN.md -- Frontend pages: matching trigger in JD table, full Matching/Dashboard pages
 
 ### Phase 5: Advanced Features & Export
 **Goal**: HR can find JDs for a candidate, send feedback to the agent, and export matching reports.
@@ -106,6 +112,6 @@ Phases execute in numeric order: 1 -> 2/3 (parallel-capable) -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Backend Foundation & Authentication | 6/6 | Complete | 2026-04-26 |
 | 2. JD Management | 4/4 | Complete | 2026-04-26 |
-| 3. Resume & Candidate Management | 3/4 | In progress | Plan 03-03 complete (2026-04-26) |
-| 4. AI Matching & Approval | 0/TBD | Not started | - |
+| 3. Resume & Candidate Management | 4/4 | Complete | 2026-04-26 |
+| 4. AI Matching & Approval | 0/4 | Planned (ready to execute) | - |
 | 5. Advanced Features & Export | 0/TBD | Not started | - |

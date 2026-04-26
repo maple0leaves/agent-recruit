@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-04-26T18:47:18.097Z"
+status: planning
+stopped_at: Planning Phase 4 (04-ai-matching-approval)
+last_updated: "2026-04-26"
 last_activity: 2026-04-26
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 14
+  total_plans: 18
   completed_plans: 14
-  percent: 100
+  percent: 77
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-26)
 
 **Core value:** HR can quickly and accurately find matching candidates; AI assists but human approves
-**Current focus:** Phase 3 -- Resume & Candidate Management
+**Current focus:** Phase 4 -- AI Matching & Approval
 
 ## Current Position
 
-Phase: 3 of 5 (Resume & Candidate Management)
-Plan: 4 of 4 in current phase
+Phase: 4 of 5 (AI Matching & Approval)
+Plan: 0 of 4 in current phase (Planning complete)
 Status: Ready to execute
 Last activity: 2026-04-26
 
-Progress: [██████████] 100%
+Progress: [████████░░] 77%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 12
-- Average duration: 6.1 min
+- Total plans completed: 14
+- Average duration: 5.2 min
 - Total execution time: 73.2 min
 
 **By Phase:**
@@ -46,12 +46,11 @@ Progress: [██████████] 100%
 |-------|-------|-------|----------|
 | 1. Foundation | 6 | 32.0 min | 5.3 min |
 | 2. JD Management | 4 | 32.2 min | 8.1 min |
-| 3. Resume Management | 3 | 9.0 min | 3.0 min |
-| 4. AI Matching & Approval | TBD | - | - |
+| 3. Resume Management | 4 | 9.0 min | 3.0 min |
+| 4. AI Matching & Approval | 4 | (planned) | - |
 | 5. Advanced Features | TBD | - | - |
 
 *Updated after each plan completion*
-| Phase 03 P04 | 12 min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -92,13 +91,15 @@ Progress: [██████████] 100%
 - Plan 03-01: .doc files rejected with specific message suggesting save-as .docx (python-docx does not support legacy .doc)
 - Plan 03-01: analyze_resume wrapped in asyncio.to_thread() to avoid event loop blocking during 3-10s LLM parse
 - Plan 03-01: CandidateUpdate uses model_dump(exclude_none=True) for partial updates -- only explicitly provided fields are set
-- [Phase ?]: Plan 03-04: Inline edit uses controlled component state (useState + Input/Textarea) instead of react-hook-form
-
-### Decisions
-
-- Plan 03-02: Candidate filters (page, pageSize, status, keyword) match existing JDFilters pattern for consistency
-- Plan 03-02: CandidateUploadResponse extends Candidate with optional `warnings` array for partial upload results
-- Plan 03-02: useCandidate hook uses `enabled: id !== null` pattern to prevent query execution when no id provided
+- Plan 03-04: Inline edit uses controlled component state (useState + Input/Textarea) instead of react-hook-form
+- Plan 04-01: MatchSession model for pending approvals tracking
+- Plan 04-01: Per-candidate approval via candidate_decisions dict in RecruitmentState
+- Plan 04-01: reviewer_agent handles per-candidate decisions with backward compat
+- Plan 04-02: POST /recruit/hitl/stream uses recruitment_graph_hitl.stream() with interrupt_before
+- Plan 04-02: MatchSession created during streaming and updated at resume time
+- Plan 04-02: fetch + ReadableStream for POST SSE consumption (not EventSource)
+- Plan 04-03: useMatchingSSE manages 9-state machine (IDLE/CONNECTING/STREAMING/PAUSED/REVIEWING/SUBMITTING/DONE/ERROR/CANCELLED)
+- Plan 04-04: Route /matching/:jdId parameterized for JD-scoped matching
 
 ### Pending Todos
 
@@ -110,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-26T18:47:18.087Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-04-26
+Stopped at: Phase 4 planning complete
 Resume file: None
