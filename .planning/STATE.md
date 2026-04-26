@@ -10,24 +10,24 @@ See: .planning/PROJECT.md (updated 2026-04-26)
 ## Current Position
 
 Phase: 1 of 5 (Backend Foundation & Authentication)
-Plan: 6 of 6 in current phase
-Status: Planned (6 plans, 3 waves)
-Last activity: 2026-04-26 — Phase 1 planning completed
+Plan: 2 of 6 (next: 01-02-PLAN.md)
+Status: Executing — Plan 01-01 complete
+Last activity: 2026-04-26 — Plan 01-01 test infrastructure created
 
-Progress: [██░░░░░░░░] 20%
+Progress: [███░░░░░░░] 24%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: N/A
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: 1 min
+- Total execution time: 1 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Foundation | 6 | - | - |
+| 1. Foundation | 6 | 1 min | 1 min |
 | 2. JD Management | TBD | - | - |
 | 3. Resume Management | TBD | - | - |
 | 4. Matching & Approval | TBD | - | - |
@@ -41,6 +41,7 @@ Progress: [██░░░░░░░░] 20%
 
 - Roadmap: 5 phases, backend-first ordering. Phase 1 must be complete before any frontend feature work begins.
 - Phases 2 (JD) and 3 (Resume) can be built in parallel after Phase 1.
+- Plan 01-01: Added pytest.ini with asyncio_mode=auto because pytest-asyncio 1.x defaults to Mode.STRICT and would not run the async test skeletons.
 
 ### Pending Todos
 
@@ -52,6 +53,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-26 00:00
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-backend-foundation-auth/01-CONTEXT.md
+Last session: 2026-04-26 23:47
+Stopped at: Plan 01-01 complete (test infrastructure)
+Resume file: .planning/phases/01-backend-foundation-auth/01-01-SUMMARY.md

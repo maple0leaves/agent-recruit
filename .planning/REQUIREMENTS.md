@@ -73,9 +73,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Test infra ready |
+| AUTH-02 | Phase 1 | Test infra ready |
+| AUTH-03 | Phase 1 | Test infra ready |
 | JD-01 | Phase 2 | Pending |
 | JD-02 | Phase 2 | Pending |
 | JD-03 | Phase 2 | Pending |
