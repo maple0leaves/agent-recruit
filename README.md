@@ -9,6 +9,7 @@
 
 ## 目录
 
+- [界面演示](#界面演示)
 - [系统要求](#系统要求)
 - [快速开始](#快速开始)
 - [环境变量配置](#环境变量配置)
@@ -20,6 +21,10 @@
 - [常见问题](#常见问题)
 
 ---
+
+## 界面演示
+
+[hellojobs界面演示](https://www.bilibili.com/video/BV1eMorB7E4w/)
 
 ## 系统要求
 
@@ -60,7 +65,7 @@ python -m backend.db.seed
 python api/server.py
 ```
 
-打开 http://localhost:8000/ ，使用配置的管理员账号登录。
+打开 [http://localhost:8000/](http://localhost:8000/) ，使用配置的管理员账号登录。
 
 ---
 
@@ -124,8 +129,8 @@ ADMIN_PASSWORD=你的管理员密码
 python api/server.py
 ```
 
-- 前端页面：http://localhost:8000/
-- API 文档（Swagger）：http://localhost:8000/docs
+- 前端页面：[http://localhost:8000/](http://localhost:8000/)
+- API 文档（Swagger）：[http://localhost:8000/docs](http://localhost:8000/docs)
 
 ### 方式二：CLI 交互模式
 
@@ -141,7 +146,7 @@ python main.py
 cd frontend && npm install && npm run dev
 ```
 
-启动 Vite 开发服务器（http://localhost:5173），API 请求自动代理到后端 :8000，支持热更新。
+启动 Vite 开发服务器（[http://localhost:5173），API](http://localhost:5173），API) 请求自动代理到后端 :8000，支持热更新。
 
 ---
 
@@ -158,26 +163,30 @@ npm run build      # 生产构建（输出到 ../static/）
 
 **技术栈：**
 
-| 类别 | 技术 |
-|------|------|
-| 框架 | React 19 + TypeScript |
-| 构建 | Vite 8 |
-| 样式 | Tailwind CSS 4 + shadcn/ui |
-| 路由 | React Router 7 |
-| 状态管理 | Zustand |
+
+| 类别   | 技术                           |
+| ---- | ---------------------------- |
+| 框架   | React 19 + TypeScript        |
+| 构建   | Vite 8                       |
+| 样式   | Tailwind CSS 4 + shadcn/ui   |
+| 路由   | React Router 7               |
+| 状态管理 | Zustand                      |
 | 数据请求 | TanStack React Query + Axios |
-| 实时通信 | SSE（流式匹配结果） |
+| 实时通信 | SSE（流式匹配结果）                  |
+
 
 **前端页面路由：**
 
-| 路径 | 页面 | 说明 |
-|------|------|------|
-| `/login` | 登录 | 公共页面 |
-| `/dashboard` | 仪表盘 | 活跃职位/候选人/待审核统计 |
-| `/jd` | 职位管理 | 创建、编辑、筛选职位 |
-| `/candidates` | 候选人管理 | 上传简历、管理应聘流程 |
-| `/matching` | 智能匹配 | 选择职位发起 AI 匹配 |
-| `/matching/:jdId` | 匹配详情 | 针对特定职位的匹配会话 |
+
+| 路径                | 页面    | 说明             |
+| ----------------- | ----- | -------------- |
+| `/login`          | 登录    | 公共页面           |
+| `/dashboard`      | 仪表盘   | 活跃职位/候选人/待审核统计 |
+| `/jd`             | 职位管理  | 创建、编辑、筛选职位     |
+| `/candidates`     | 候选人管理 | 上传简历、管理应聘流程    |
+| `/matching`       | 智能匹配  | 选择职位发起 AI 匹配   |
+| `/matching/:jdId` | 匹配详情  | 针对特定职位的匹配会话    |
+
 
 ---
 
@@ -185,59 +194,71 @@ npm run build      # 生产构建（输出到 ../static/）
 
 ### 认证
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/api/auth/login` | 用户名+密码登录，返回 access_token + 设置 refresh_token cookie |
-| POST | `/api/auth/logout` | 登出，清除 cookie |
-| GET | `/api/auth/me` | 获取当前用户信息 |
+
+| 方法   | 路径                 | 说明                                                 |
+| ---- | ------------------ | -------------------------------------------------- |
+| POST | `/api/auth/login`  | 用户名+密码登录，返回 access_token + 设置 refresh_token cookie |
+| POST | `/api/auth/logout` | 登出，清除 cookie                                       |
+| GET  | `/api/auth/me`     | 获取当前用户信息                                           |
+
 
 ### 职位管理
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/jd` | 分页列表，支持 status / keyword / date 筛选 |
-| POST | `/api/jd` | 创建职位 |
-| GET | `/api/jd/{id}` | 获取职位详情 |
-| PUT | `/api/jd/{id}` | 更新职位 |
-| PATCH | `/api/jd/{id}/status` | 更新职位状态 |
-| GET | `/api/jd/templates` | 获取职位模板 |
+
+| 方法    | 路径                    | 说明                                 |
+| ----- | --------------------- | ---------------------------------- |
+| GET   | `/api/jd`             | 分页列表，支持 status / keyword / date 筛选 |
+| POST  | `/api/jd`             | 创建职位                               |
+| GET   | `/api/jd/{id}`        | 获取职位详情                             |
+| PUT   | `/api/jd/{id}`        | 更新职位                               |
+| PATCH | `/api/jd/{id}/status` | 更新职位状态                             |
+| GET   | `/api/jd/templates`   | 获取职位模板                             |
+
 
 ### 候选人管理
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/candidates` | 分页列表，支持 status / keyword 筛选 |
-| POST | `/api/candidates/upload` | 上传简历（PDF/DOCX），自动解析 |
-| GET | `/api/candidates/{id}` | 获取候选人详情 |
-| PUT | `/api/candidates/{id}` | 更新候选人信息 |
-| PATCH | `/api/candidates/{id}/status` | 更新应聘流程状态 |
+
+| 方法    | 路径                            | 说明                          |
+| ----- | ----------------------------- | --------------------------- |
+| GET   | `/api/candidates`             | 分页列表，支持 status / keyword 筛选 |
+| POST  | `/api/candidates/upload`      | 上传简历（PDF/DOCX），自动解析         |
+| GET   | `/api/candidates/{id}`        | 获取候选人详情                     |
+| PUT   | `/api/candidates/{id}`        | 更新候选人信息                     |
+| PATCH | `/api/candidates/{id}/status` | 更新应聘流程状态                    |
+
 
 ### AI 匹配
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| POST | `/api/recruit` | 标准招聘流程（同步） |
-| POST | `/api/recruit/stream` | SSE 流式招聘流程 |
-| POST | `/api/recruit/hitl/start` | 启动 HITL 流程（HR 审核前暂停） |
-| POST | `/api/recruit/hitl/resume` | 提交 HR 审核并继续 |
-| POST | `/api/recruit/hitl/stream` | SSE 流式 HITL 匹配 |
-| POST | `/api/recruit/hitl/reverse-stream` | SSE 反向匹配（按候选人找职位） |
+
+| 方法   | 路径                                 | 说明                   |
+| ---- | ---------------------------------- | -------------------- |
+| POST | `/api/recruit`                     | 标准招聘流程（同步）           |
+| POST | `/api/recruit/stream`              | SSE 流式招聘流程           |
+| POST | `/api/recruit/hitl/start`          | 启动 HITL 流程（HR 审核前暂停） |
+| POST | `/api/recruit/hitl/resume`         | 提交 HR 审核并继续          |
+| POST | `/api/recruit/hitl/stream`         | SSE 流式 HITL 匹配       |
+| POST | `/api/recruit/hitl/reverse-stream` | SSE 反向匹配（按候选人找职位）    |
+
 
 ### 仪表盘 & 导出
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/dashboard/stats` | 仪表盘统计（活跃职位/候选人/待审核） |
-| GET | `/api/matching/{session_id}/export/pdf` | 导出匹配报告 PDF |
-| GET | `/api/matching/{session_id}/export/excel` | 导出匹配报告 Excel |
+
+| 方法  | 路径                                        | 说明                  |
+| --- | ----------------------------------------- | ------------------- |
+| GET | `/api/dashboard/stats`                    | 仪表盘统计（活跃职位/候选人/待审核） |
+| GET | `/api/matching/{session_id}/export/pdf`   | 导出匹配报告 PDF          |
+| GET | `/api/matching/{session_id}/export/excel` | 导出匹配报告 Excel        |
+
 
 ### 其他
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/health` | 健康检查 |
-| GET | `/api/skills` | 查看所有可用技能 |
+
+| 方法   | 路径                         | 说明            |
+| ---- | -------------------------- | ------------- |
+| GET  | `/api/health`              | 健康检查          |
+| GET  | `/api/skills`              | 查看所有可用技能      |
 | POST | `/api/admin/rebuild-index` | 重建 FAISS 向量索引 |
+
 
 ### SSE 事件格式
 
