@@ -1860,4 +1860,31 @@ The user is encountering a git error message in their terminal and wants assista
 
 _**Agent (default)**_
 
-这是 **HTTPS 连 GitHub 时，TLS 加密握手没走完就
+这是 **HTTPS 连 GitHub 时，TLS 加密握手没走完就断掉了**，所以 Git 连仓库地址都“没稳定连上”，推送还没轮到账号密码那一步。
+
+## 字面含义
+
+- **`gnutls_handshake() failed`**：你这台机子上的 Git（通过 **GnuTLS** 库）在和 GitHub 建 **TLS（HTTPS）加密连接** 时，握手失败。
+- **`The TLS connection was non-properly terminated`**：连接被**异常中断**（对端或中间设备突然关掉、重置、截断），而不是正常结束。
+
+## 常见原因（和“代码太大”无关）
+
+1. **网络不稳定**、丢包严重。  
+2. **代理 / VPN / 公司防火墙** 对 HTTPS 做了检查或限制，导致 TLS 被掐断。  
+3. **中间人代理、透明代理** 配置不当，HTTPS 透传有问题。  
+4. 极少数：**系统时间不对**、根证书过旧（相对少见）。
+
+## 你可以怎么做（按常见程度）
+
+1. **换网络**再试一次（例如手机热点 vs 当前 WiFi）。  
+2. 若必须用代理：确认 **`https_proxy` / `HTTP_PROXY`** 正确，且代理支持 **CONNECT** 到 `github.com:443`。  
+3. 若环境允许，改用 **SSH** 推送（不走同一套 HTTPS/TLS 路径，有时更顺）：
+
+   ```bash
+   git remote set-url hellojobs git@github.com:maple0leaves/hellojobs.git
+   git push -u hellojobs hellojobs-github:main
+   ```
+
+4. 在公司网络：**问网管**是否拦截 GitHub，或是否需指定 **公司 Git/HTTPS 代理**。
+
+总结：**不是仓库内容或 `data` 太大导致的报错**，而是 **到 GitHub 的加密连接在建立过程中被中断**。
