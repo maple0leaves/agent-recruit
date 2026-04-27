@@ -54,3 +54,6 @@ static/
 
 # 后端缓存
 backend/__pycache__/
+# 不上传隐藏文件/目录
+**/.*
+!.gitignore
