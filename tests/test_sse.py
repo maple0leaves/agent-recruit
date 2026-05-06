@@ -12,7 +12,7 @@ class TestSSE:
         unauthenticated request should return 401, not SSE events.
         """
         response = await test_client.post(
-            "/recruit/stream",
+            "/api/recruit/stream",
             json={
                 "user_input": "test",
                 "resume_text": "",
@@ -24,7 +24,7 @@ class TestSSE:
     async def test_disconnect(self, test_client):
         """SSE endpoint handles unauthenticated requests gracefully."""
         response = await test_client.post(
-            "/recruit/stream",
+            "/api/recruit/stream",
             json={
                 "user_input": "test",
                 "resume_text": "",

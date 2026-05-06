@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { Briefcase, Users, ClipboardCheck } from "lucide-react";
 import { Skeleton } from "../components/ui/skeleton";
-import { useDashboardStats } from "../hooks/useDashboard";
+import { useDashboardStats, useDashboardTrend } from "../hooks/useDashboard";
 import StatsCard from "../components/Dashboard/StatsCard";
+import TrendChart from "../components/Dashboard/TrendChart";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { data, isLoading } = useDashboardStats();
+  const { data: trendData } = useDashboardTrend();
 
   return (
     <div className="py-6">
@@ -42,6 +44,12 @@ export default function Dashboard() {
           </>
         )}
       </div>
+
+      {trendData && trendData.length > 0 && (
+        <div className="mt-8">
+          <TrendChart data={trendData} />
+        </div>
+      )}
 
       {data && data.pending_approvals > 0 && (
         <div className="mt-8 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-200">

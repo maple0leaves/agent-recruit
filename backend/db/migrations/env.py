@@ -9,9 +9,17 @@ from alembic import context
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '..', '.env'))
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    sync_url = database_url.replace("+asyncpg", "").replace("+aiosqlite", "")
+    config.set_main_option("sqlalchemy.url", sync_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

@@ -7,6 +7,8 @@ import {
   FileText,
   Users,
   BrainCircuit,
+  History,
+  Settings,
   LogOut,
   Briefcase,
 } from "lucide-react";
@@ -16,6 +18,8 @@ const navItems = [
   { path: "/jd", label: "JD管理", icon: FileText },
   { path: "/candidates", label: "候选人", icon: Users },
   { path: "/matching", label: "智能匹配", icon: BrainCircuit },
+  { path: "/match-history", label: "匹配历史", icon: History },
+  { path: "/settings", label: "设置", icon: Settings },
 ];
 
 export default function Layout() {

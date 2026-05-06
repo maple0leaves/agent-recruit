@@ -320,7 +320,7 @@ export default function Matching() {
                   variant="outline"
                   size="sm"
                   className="gap-2"
-                  onClick={() => window.open(`/matching/${sessionId}/export/pdf`, "_blank")}
+                  onClick={() => window.open(`/api/matching/${sessionId}/export/pdf`, "_blank")}
                 >
                   <FileDown className="h-4 w-4" />
                   导出 PDF
@@ -329,7 +329,7 @@ export default function Matching() {
                   variant="outline"
                   size="sm"
                   className="gap-2"
-                  onClick={() => window.open(`/matching/${sessionId}/export/excel`, "_blank")}
+                  onClick={() => window.open(`/api/matching/${sessionId}/export/excel`, "_blank")}
                 >
                   <FileSpreadsheet className="h-4 w-4" />
                   导出 Excel

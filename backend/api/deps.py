@@ -55,16 +55,20 @@ async def get_current_user(
         )
 
 
-def require_role(required_role: str):
-    """Dependency factory: require a specific role to access the endpoint.
+def require_role(*allowed_roles: str):
+    """Dependency factory: require one of the specified roles to access the endpoint.
 
     Usage:
         @router.get("/admin-only")
         async def admin_endpoint(user=Depends(require_role("admin"))):
             ...
+
+        @router.get("/hr-or-admin")
+        async def hr_endpoint(user=Depends(require_role("admin", "recruiter"))):
+            ...
     """
     async def _role_checker(current_user: dict = Depends(get_current_user)):
-        if current_user.get("role") != required_role:
+        if current_user.get("role") not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="权限不足",

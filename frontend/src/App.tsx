@@ -4,6 +4,8 @@ import Dashboard from "./pages/Dashboard";
 import JDManagement from "./pages/JDManagement";
 import Candidates from "./pages/Candidates";
 import Matching from "./pages/Matching";
+import MatchHistory from "./pages/MatchHistory";
+import Settings from "./pages/Settings";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/candidates" element={<Candidates />} />
           <Route path="/matching/:jdId" element={<Matching />} />
           <Route path="/matching" element={<Matching />} />
+          <Route path="/match-history" element={<MatchHistory />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>
 

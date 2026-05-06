@@ -1,10 +1,17 @@
 """Phase 1 test fixtures using file-based temp SQLite for isolation."""
 import os
+import sys
 import tempfile
+from pathlib import Path
+
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from api.server import app
 from backend.db.engine import Base

@@ -8,7 +8,7 @@ class TestLogin:
     async def test_login_success(self, test_client, test_user, test_session):
         """Login with valid credentials returns JWT + HttpOnly cookie."""
         response = await test_client.post(
-            "/auth/login",
+            "/api/auth/login",
             json={
                 "username": "testadmin",
                 "password": "test1234",
@@ -27,7 +27,7 @@ class TestLogin:
     async def test_login_wrong_password(self, test_client, test_user):
         """Login with wrong password returns 401."""
         response = await test_client.post(
-            "/auth/login",
+            "/api/auth/login",
             json={
                 "username": "testadmin",
                 "password": "wrongpassword",
@@ -42,7 +42,7 @@ class TestAuth:
 
     async def test_unauthenticated(self, test_client):
         """Unauthenticated request to a protected endpoint returns 401."""
-        response = await test_client.get("/skills")
+        response = await test_client.get("/api/skills")
         assert response.status_code == 401
         assert "未登录" in response.json()["detail"]
 
@@ -54,7 +54,7 @@ class TestAuthZ:
         """Protected endpoint returns 403 for wrong role via require_role."""
         # First login as admin
         login_resp = await test_client.post(
-            "/auth/login",
+            "/api/auth/login",
             json={
                 "username": "testadmin",
                 "password": "test1234",
@@ -65,7 +65,7 @@ class TestAuthZ:
 
         # Access /skills with admin token (should succeed)
         headers = {"Authorization": f"Bearer {token}"}
-        response = await test_client.get("/skills", headers=headers)
+        response = await test_client.get("/api/skills", headers=headers)
         assert response.status_code == 200
 
 
@@ -76,7 +76,7 @@ class TestSession:
         """/auth/me returns user info from access token."""
         # Login to get access_token
         login_resp = await test_client.post(
-            "/auth/login",
+            "/api/auth/login",
             json={
                 "username": "testadmin",
                 "password": "test1234",
@@ -87,7 +87,7 @@ class TestSession:
 
         # Call /auth/me with the token
         headers = {"Authorization": f"Bearer {token}"}
-        me_resp = await test_client.get("/auth/me", headers=headers)
+        me_resp = await test_client.get("/api/auth/me", headers=headers)
         assert me_resp.status_code == 200
         user_data = me_resp.json()
         assert user_data["sub"] == str(test_user.id)
@@ -97,7 +97,7 @@ class TestSession:
         """Logout clears cookie and invalidates session."""
         # Login first
         login_resp = await test_client.post(
-            "/auth/login",
+            "/api/auth/login",
             json={
                 "username": "testadmin",
                 "password": "test1234",
@@ -106,6 +106,6 @@ class TestSession:
         assert login_resp.status_code == 200
 
         # Logout
-        logout_resp = await test_client.post("/auth/logout")
+        logout_resp = await test_client.post("/api/auth/logout")
         assert logout_resp.status_code == 200
         assert logout_resp.json()["message"] == "已登出"

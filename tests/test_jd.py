@@ -28,7 +28,7 @@ class TestCreateJD:
     async def test_create_jd_success(self, test_client, test_user):
         """Create JD with valid data returns 201 and full JDResponse."""
         headers = _auth_header(test_user)
-        response = await test_client.post("/jd", json=SAMPLE_JD, headers=headers)
+        response = await test_client.post("/api/jd", json=SAMPLE_JD, headers=headers)
         assert response.status_code == 201
         result = response.json()
         assert result["title"] == SAMPLE_JD["title"]
@@ -48,13 +48,13 @@ class TestCreateJD:
         """Create JD with missing required fields returns 422."""
         headers = _auth_header(test_user)
         response = await test_client.post(
-            "/jd", json={"title": "", "department": "技术部"}, headers=headers
+            "/api/jd", json={"title": "", "department": "技术部"}, headers=headers
         )
         assert response.status_code == 422
 
     async def test_create_jd_unauthorized(self, test_client):
         """Create JD without auth header returns 401."""
-        response = await test_client.post("/jd", json=SAMPLE_JD)
+        response = await test_client.post("/api/jd", json=SAMPLE_JD)
         assert response.status_code == 401
 
 
@@ -63,7 +63,7 @@ class TestUpdateCloseJD:
 
     async def _create_jd(self, client, headers, **overrides) -> dict:
         data = {**SAMPLE_JD, **overrides}
-        resp = await client.post("/jd", json=data, headers=headers)
+        resp = await client.post("/api/jd", json=data, headers=headers)
         assert resp.status_code == 201
         return resp.json()
 
@@ -84,7 +84,7 @@ class TestUpdateCloseJD:
             "description": "负责核心系统架构设计与开发",
         }
         resp = await test_client.put(
-            f"/jd/{jd_id}", json=updated_data, headers=headers
+            f"/api/jd/{jd_id}", json=updated_data, headers=headers
         )
         assert resp.status_code == 200
         result = resp.json()
@@ -106,7 +106,7 @@ class TestUpdateCloseJD:
 
         # Activate
         resp = await test_client.patch(
-            f"/jd/{jd_id}/status",
+            f"/api/jd/{jd_id}/status",
             json={"status": "active"},
             headers=headers,
         )
@@ -115,7 +115,7 @@ class TestUpdateCloseJD:
 
         # Close
         resp = await test_client.patch(
-            f"/jd/{jd_id}/status",
+            f"/api/jd/{jd_id}/status",
             json={"status": "closed"},
             headers=headers,
         )
@@ -131,7 +131,7 @@ class TestUpdateCloseJD:
         # draft -> active -> closed -> active
         for status in ["active", "closed", "active"]:
             resp = await test_client.patch(
-                f"/jd/{jd_id}/status",
+                f"/api/jd/{jd_id}/status",
                 json={"status": status},
                 headers=headers,
             )
@@ -145,7 +145,7 @@ class TestUpdateCloseJD:
         jd_id = created["id"]
 
         resp = await test_client.patch(
-            f"/jd/{jd_id}/status",
+            f"/api/jd/{jd_id}/status",
             json={"status": "closed"},
             headers=headers,
         )
@@ -159,7 +159,7 @@ class TestListJD:
 
     async def _create_jd(self, client, headers, **overrides) -> dict:
         data = {**SAMPLE_JD, **overrides}
-        resp = await client.post("/jd", json=data, headers=headers)
+        resp = await client.post("/api/jd", json=data, headers=headers)
         assert resp.status_code == 201
         return resp.json()
 
@@ -174,7 +174,7 @@ class TestListJD:
 
         # Page 1: first 20
         resp1 = await test_client.get(
-            "/jd?page=1&page_size=20", headers=headers
+            "/api/jd?page=1&page_size=20", headers=headers
         )
         assert resp1.status_code == 200
         data1 = resp1.json()
@@ -185,7 +185,7 @@ class TestListJD:
 
         # Page 2: remaining 5
         resp2 = await test_client.get(
-            "/jd?page=2&page_size=20", headers=headers
+            "/api/jd?page=2&page_size=20", headers=headers
         )
         assert resp2.status_code == 200
         data2 = resp2.json()
@@ -201,14 +201,14 @@ class TestListJD:
         jd1 = await self._create_jd(test_client, headers, title="Draft JD")
         # Activate one
         await test_client.patch(
-            f"/jd/{jd1['id']}/status",
+            f"/api/jd/{jd1['id']}/status",
             json={"status": "active"},
             headers=headers,
         )
         await self._create_jd(test_client, headers, title="Another Draft")
 
         resp = await test_client.get(
-            "/jd?status=active", headers=headers
+            "/api/jd?status=active", headers=headers
         )
         assert resp.status_code == 200
         data = resp.json()
@@ -222,7 +222,7 @@ class TestListJD:
         await self._create_jd(test_client, headers, title="Java工程师", skills="Java, Spring, MySQL")
 
         resp = await test_client.get(
-            "/jd?keyword=Python", headers=headers
+            "/api/jd?keyword=Python", headers=headers
         )
         assert resp.status_code == 200
         data = resp.json()
@@ -236,7 +236,7 @@ class TestListJD:
 
         today_utc = datetime.now(timezone.utc).date().isoformat()
         resp = await test_client.get(
-            f"/jd?date_from={today_utc}&date_to={today_utc}", headers=headers
+            f"/api/jd?date_from={today_utc}&date_to={today_utc}", headers=headers
         )
         assert resp.status_code == 200
         data = resp.json()
@@ -248,7 +248,7 @@ class TestListJD:
         await self._create_jd(test_client, headers, title="JD One")
         await self._create_jd(test_client, headers, title="JD Two")
 
-        resp = await test_client.get("/jd", headers=headers)
+        resp = await test_client.get("/api/jd", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] >= 2
@@ -261,7 +261,7 @@ class TestTemplates:
     async def test_list_templates(self, test_client, test_user):
         """GET /jd/templates returns at least 3 template items."""
         headers = _auth_header(test_user)
-        resp = await test_client.get("/jd/templates", headers=headers)
+        resp = await test_client.get("/api/jd/templates", headers=headers)
         assert resp.status_code == 200
         templates = resp.json()
         assert isinstance(templates, list)
@@ -282,14 +282,14 @@ class TestAuth:
     async def test_jd_requires_auth(self, test_client):
         """All JD endpoints return 401 without auth header."""
         # POST /jd
-        assert (await test_client.post("/jd", json=SAMPLE_JD)).status_code == 401
+        assert (await test_client.post("/api/jd", json=SAMPLE_JD)).status_code == 401
         # PUT /jd/1
-        assert (await test_client.put("/jd/1", json=SAMPLE_JD)).status_code == 401
+        assert (await test_client.put("/api/jd/1", json=SAMPLE_JD)).status_code == 401
         # PATCH /jd/1/status
-        assert (await test_client.patch("/jd/1/status", json={"status": "active"})).status_code == 401
+        assert (await test_client.patch("/api/jd/1/status", json={"status": "active"})).status_code == 401
         # GET /jd
-        assert (await test_client.get("/jd")).status_code == 401
+        assert (await test_client.get("/api/jd")).status_code == 401
         # GET /jd/1
-        assert (await test_client.get("/jd/1")).status_code == 401
+        assert (await test_client.get("/api/jd/1")).status_code == 401
         # GET /jd/templates
-        assert (await test_client.get("/jd/templates")).status_code == 401
+        assert (await test_client.get("/api/jd/templates")).status_code == 401

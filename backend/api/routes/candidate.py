@@ -4,14 +4,14 @@ import io
 import json
 import os
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from pydantic import BaseModel, ConfigDict, field_validator
 from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.api.deps import get_current_user, get_db
+from backend.api.deps import get_current_user, get_db, require_role
 from backend.db.models.candidate import Candidate, CandidateStatus
 from config import RESUME_DIR
 from agent.tools import analyze_resume
@@ -123,7 +123,7 @@ def _extract_text(raw_bytes: bytes, ext: str) -> str:
 async def upload_candidate(
     file: UploadFile = File(...),
     db: AsyncSession = Depends(get_db),
-    _user: dict = Depends(get_current_user),
+    _user: dict = Depends(require_role("admin", "recruiter")),
 ):
     """Upload resume, save to disk, extract text, parse via Agent, create candidate (RES-01, RES-02)."""
     # ── 1. Validate file extension ────────────────────────────────────────
@@ -191,7 +191,7 @@ async def upload_candidate(
         status=CandidateStatus.NEW,
         resume_file_path=relative_path,
         status_note="",
-        parsed_at=datetime.now(timezone.utc) if parsed.name else None,
+        parsed_at=datetime.utcnow() if parsed.name else None,
     )
     db.add(candidate)
     await db.commit()
@@ -295,7 +295,7 @@ async def update_candidate_status(
     candidate_id: int,
     data: StatusUpdate,
     db: AsyncSession = Depends(get_db),
-    _user: dict = Depends(get_current_user),
+    _user: dict = Depends(require_role("admin", "recruiter")),
 ):
     """Update pipeline status with transition validation (RES-05, D-14~D-17)."""
     result = await db.execute(select(Candidate).where(Candidate.id == candidate_id))

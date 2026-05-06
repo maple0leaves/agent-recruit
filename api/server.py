@@ -93,7 +93,26 @@ async def spa_not_found_handler(request: Request, exc: StarletteHTTPException):
     """Return index.html for client-side routes while preserving API errors."""
     if _should_serve_spa(request, exc.status_code):
         return FileResponse(str(STATIC_DIR / "index.html"))
+    if request.url.path.startswith(API_PREFIX):
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"error": True, "message": exc.detail, "status_code": exc.status_code},
+        )
     return await http_exception_handler(request, exc)
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Catch all unhandled exceptions and return unified JSON for API routes."""
+    from fastapi.responses import JSONResponse
+    logger.exception("Unhandled exception on %s %s", request.method, request.url.path)
+    if request.url.path.startswith(API_PREFIX):
+        return JSONResponse(
+            status_code=500,
+            content={"error": True, "message": "服务器内部错误，请稍后重试", "status_code": 500},
+        )
+    return JSONResponse(status_code=500, content={"detail": "Internal Server Error"})
 
 
 if STATIC_DIR.exists():
@@ -292,6 +311,91 @@ async def dashboard_stats(
         "total_candidates": total_candidates_result.scalar() or 0,
         "pending_approvals": pending_approvals_result.scalar() or 0,
     }
+
+
+@app.get("/api/dashboard/trend")
+async def dashboard_trend(
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """Return daily counts for candidates and match sessions over the last 7 days."""
+    from sqlalchemy import func, select as sa_select, cast, Date
+
+    today = datetime.utcnow().date()
+    days = [(today - __import__("datetime").timedelta(days=i)) for i in range(6, -1, -1)]
+
+    result = []
+    for day in days:
+        next_day = day + __import__("datetime").timedelta(days=1)
+
+        candidates_count = (await db.execute(
+            sa_select(func.count()).select_from(Candidate)
+            .where(cast(Candidate.created_at, Date) == day)
+        )).scalar() or 0
+
+        matches_count = (await db.execute(
+            sa_select(func.count()).select_from(MatchSession)
+            .where(cast(MatchSession.created_at, Date) == day)
+        )).scalar() or 0
+
+        result.append({
+            "date": day.strftime("%m/%d"),
+            "candidates": candidates_count,
+            "matches": matches_count,
+        })
+
+    return result
+
+
+@app.get("/api/match-sessions")
+async def list_match_sessions(
+    page: int = 1,
+    page_size: int = 20,
+    status: Optional[str] = None,
+    jd_id: Optional[int] = None,
+    db: AsyncSession = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    """List match sessions with pagination and filters."""
+    from sqlalchemy import func, select as sa_select
+
+    base_query = sa_select(MatchSession)
+    if status:
+        base_query = base_query.where(MatchSession.status == status)
+    if jd_id:
+        base_query = base_query.where(MatchSession.jd_id == jd_id)
+
+    count_query = sa_select(func.count()).select_from(base_query.subquery())
+    total = (await db.execute(count_query)).scalar_one()
+
+    data_query = (
+        base_query.order_by(MatchSession.created_at.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    )
+    sessions = (await db.execute(data_query)).scalars().all()
+
+    items = []
+    for s in sessions:
+        jd_title = None
+        if s.jd_id:
+            jd_result = await db.execute(sa_select(JD.title).where(JD.id == s.jd_id))
+            jd_title = jd_result.scalar_one_or_none()
+        items.append({
+            "id": s.id,
+            "jd_id": s.jd_id,
+            "jd_title": jd_title,
+            "candidate_id": s.candidate_id,
+            "thread_id": s.thread_id,
+            "status": s.status,
+            "total_candidates": s.total_candidates,
+            "approved_count": s.approved_count,
+            "rejected_count": s.rejected_count,
+            "created_at": s.created_at.isoformat() if s.created_at else None,
+            "updated_at": s.updated_at.isoformat() if s.updated_at else None,
+        })
+
+    return {"items": items, "total": total, "page": page, "page_size": page_size}
 
 
 @app.get("/api/matching/{session_id}/export/pdf")

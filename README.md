@@ -11,6 +11,7 @@
 
 - [界面演示](#界面演示)
 - [系统要求](#系统要求)
+- [技术栈总览](#技术栈总览)
 - [快速开始](#快速开始)
 - [环境变量配置](#环境变量配置)
 - [运行方式](#运行方式)
@@ -35,7 +36,61 @@
 
 ---
 
+## 技术栈总览
+
+### 后端
+
+| 类别 | 技术 |
+| ---- | ---- |
+| Web 框架 | FastAPI |
+| 运行时 | Python 3.11+ / Uvicorn |
+| ORM | SQLAlchemy Async |
+| 数据库迁移 | Alembic |
+| 数据库 | PostgreSQL（`asyncpg`） |
+| 认证 | JWT + bcrypt |
+| AI/Agent 编排 | LangChain + LangGraph |
+| 向量检索 | FAISS / ChromaDB |
+| 简历解析 | PyMuPDF（PDF）+ python-docx（DOCX） |
+
+### 前端
+
+| 类别 | 技术 |
+| ---- | ---- |
+| 框架 | React 19 + TypeScript |
+| 构建 | Vite 8 |
+| 样式 | Tailwind CSS 4 + shadcn/ui |
+| 路由 | React Router 7 |
+| 状态管理 | Zustand |
+| 数据请求 | TanStack React Query + Axios |
+| 实时通信 | SSE |
+
+### 测试
+
+| 类别 | 技术 |
+| ---- | ---- |
+| 后端测试 | Pytest（async） |
+| 前端测试 | Vitest |
+
+---
+
 ## 快速开始
+
+### 最小启动（PostgreSQL）
+
+如果你只想快速跑起项目，按下面顺序即可：
+
+1. 安装 Python 与前端依赖
+2. 准备一个 PostgreSQL 数据库
+3. 按 `.env` 配置 `DATABASE_URL`
+4. 初始化数据库并创建管理员账号
+5. 启动后端服务
+6. 访问系统并演示主流程：`登录 -> 创建 JD -> 上传候选人 -> 发起匹配 -> 查看结果`
+
+推荐的 PostgreSQL 连接串格式：
+
+```bash
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/hellojobs
+```
 
 ### 1. 安装 Python 依赖
 
@@ -43,7 +98,13 @@
 pip install -r requirements.txt
 ```
 
-### 2. 配置 `.env`
+### 2. 安装前端依赖
+
+```bash
+cd frontend && npm install
+```
+
+### 3. 配置 `.env`
 
 项目根目录已有 `.env`，按需编辑（详见[环境变量配置](#环境变量配置)）：
 
@@ -51,15 +112,17 @@ pip install -r requirements.txt
 OPENAI_API_KEY=你的密钥
 JWT_SECRET=你的JWT密钥（32字节Hex）
 ADMIN_PASSWORD=你的管理员密码
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/hellojobs
 ```
 
-### 3. 初始化数据库
+### 4. 初始化数据库
 
 ```bash
+alembic upgrade head
 python -m backend.db.seed
 ```
 
-### 4. 启动服务
+### 5. 启动服务
 
 ```bash
 python api/server.py
@@ -98,7 +161,7 @@ API_HOST=0.0.0.0
 API_PORT=8000
 
 # ── 数据库 ───────────────────────────────────────────────
-DATABASE_URL=sqlite+aiosqlite:///./data/dev.db
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/hellojobs
 
 # ── JWT 认证 ─────────────────────────────────────────────
 JWT_SECRET=你的32字节Hex密钥
@@ -126,6 +189,7 @@ ADMIN_PASSWORD=你的管理员密码
 ### 方式一：API 服务 + 前端（推荐）
 
 ```bash
+alembic upgrade head
 python api/server.py
 ```
 

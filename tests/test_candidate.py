@@ -65,7 +65,7 @@ class TestUpload:
         headers = _auth_header(test_user)
         pdf_bytes = _make_test_pdf("张三 3年Python经验")
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.pdf", pdf_bytes, "application/pdf")},
             headers=headers,
         )
@@ -88,7 +88,7 @@ class TestUpload:
         headers = _auth_header(test_user)
         docx_bytes = _make_test_docx("张三 3年Python经验")
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.docx", docx_bytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")},
             headers=headers,
         )
@@ -105,7 +105,7 @@ class TestUpload:
         # Create 11MB of garbage bytes
         large_bytes = b"x" * (11 * 1024 * 1024)
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("large.pdf", large_bytes, "application/pdf")},
             headers=headers,
         )
@@ -117,7 +117,7 @@ class TestUpload:
         """Upload non-PDF/DOCX file returns 400."""
         headers = _auth_header(test_user)
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.exe", b"fake exe", "application/octet-stream")},
             headers=headers,
         )
@@ -129,7 +129,7 @@ class TestUpload:
         """Upload without auth header returns 401."""
         pdf_bytes = _make_test_pdf("Test content")
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.pdf", pdf_bytes, "application/pdf")},
         )
         assert response.status_code == 401
@@ -141,7 +141,7 @@ class TestUpload:
         headers = _auth_header(test_user)
         pdf_bytes = _make_test_pdf("Test content")
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.pdf", pdf_bytes, "application/pdf")},
             headers=headers,
         )
@@ -159,7 +159,7 @@ class TestUpload:
         """Legacy .doc format should be rejected with helpful message."""
         headers = _auth_header(test_user)
         response = await test_client.post(
-            "/candidates/upload",
+            "/api/candidates/upload",
             files={"file": ("resume.doc", b"fake doc", "application/msword")},
             headers=headers,
         )
@@ -180,7 +180,7 @@ class TestList:
             mock_analyze.invoke.return_value = mock_return_json
             pdf_bytes = _make_test_pdf("Test")
             resp = await client.post(
-                "/candidates/upload",
+                "/api/candidates/upload",
                 files={"file": ("test.pdf", pdf_bytes, "application/pdf")},
                 headers=headers,
             )
@@ -196,7 +196,7 @@ class TestList:
             assert resp.status_code == 201
 
         # Page 1: first 20
-        resp1 = await test_client.get("/candidates?page=1&page_size=20", headers=headers)
+        resp1 = await test_client.get("/api/candidates?page=1&page_size=20", headers=headers)
         assert resp1.status_code == 200
         data1 = resp1.json()
         assert len(data1["items"]) == 20
@@ -205,7 +205,7 @@ class TestList:
         assert data1["page_size"] == 20
 
         # Page 2: remaining 5
-        resp2 = await test_client.get("/candidates?page=2&page_size=20", headers=headers)
+        resp2 = await test_client.get("/api/candidates?page=2&page_size=20", headers=headers)
         assert resp2.status_code == 200
         data2 = resp2.json()
         assert len(data2["items"]) == 5
@@ -225,7 +225,7 @@ class TestList:
         assert resp.status_code == 201
 
         # Search by name
-        resp = await test_client.get("/candidates?keyword=张三", headers=headers)
+        resp = await test_client.get("/api/candidates?keyword=张三", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] == 1
@@ -242,7 +242,7 @@ class TestList:
         resp = await self._upload_candidate(test_client, headers, mock_java)
         assert resp.status_code == 201
 
-        resp = await test_client.get("/candidates?keyword=Python", headers=headers)
+        resp = await test_client.get("/api/candidates?keyword=Python", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] == 1
@@ -255,14 +255,14 @@ class TestList:
         resp = await self._upload_candidate(test_client, headers, mock_data)
         assert resp.status_code == 201
 
-        resp = await test_client.get("/candidates?status=new", headers=headers)
+        resp = await test_client.get("/api/candidates?status=new", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] >= 1
         for item in data["items"]:
             assert item["status"] == "new"
 
-        resp = await test_client.get("/candidates?status=screening", headers=headers)
+        resp = await test_client.get("/api/candidates?status=screening", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] == 0
@@ -275,14 +275,14 @@ class TestList:
         await self._upload_candidate(test_client, headers, mock_data1)
         await self._upload_candidate(test_client, headers, mock_data2)
 
-        resp = await test_client.get("/candidates", headers=headers)
+        resp = await test_client.get("/api/candidates", headers=headers)
         assert resp.status_code == 200
         data = resp.json()
         assert data["total"] >= 2
 
     async def test_list_requires_auth(self, test_client):
         """GET /candidates without auth returns 401."""
-        resp = await test_client.get("/candidates")
+        resp = await test_client.get("/api/candidates")
         assert resp.status_code == 401
 
 
@@ -300,7 +300,7 @@ class TestCRUD:
             mock_analyze.invoke.return_value = mock_return_json
             pdf_bytes = _make_test_pdf("Test")
             resp = await client.post(
-                "/candidates/upload",
+                "/api/candidates/upload",
                 files={"file": ("test.pdf", pdf_bytes, "application/pdf")},
                 headers=headers,
             )
@@ -312,7 +312,7 @@ class TestCRUD:
         headers = _auth_header(test_user)
         created = await self._create_candidate(test_client, headers)
 
-        resp = await test_client.get(f"/candidates/{created['id']}", headers=headers)
+        resp = await test_client.get(f"/api/candidates/{created['id']}", headers=headers)
         assert resp.status_code == 200
         result = resp.json()
         assert result["name"] == "张三"
@@ -326,7 +326,7 @@ class TestCRUD:
     async def test_get_candidate_not_found(self, test_client, test_user):
         """GET /candidates/9999 returns 404."""
         headers = _auth_header(test_user)
-        resp = await test_client.get("/candidates/9999", headers=headers)
+        resp = await test_client.get("/api/candidates/9999", headers=headers)
         assert resp.status_code == 404
         assert "不存在" in resp.json()["detail"]
 
@@ -344,7 +344,7 @@ class TestCRUD:
             "experience": "5年Python全栈开发经验",
         }
         resp = await test_client.put(
-            f"/candidates/{created['id']}", json=update_data, headers=headers,
+            f"/api/candidates/{created['id']}", json=update_data, headers=headers,
         )
         assert resp.status_code == 200
         result = resp.json()
@@ -361,7 +361,7 @@ class TestCRUD:
     async def test_update_requires_auth(self, test_client):
         """PUT /candidates/1 without auth returns 401."""
         resp = await test_client.put(
-            "/candidates/1", json={"name": "Test"},
+            "/api/candidates/1", json={"name": "Test"},
         )
         assert resp.status_code == 401
 
@@ -373,7 +373,7 @@ class TestCRUD:
         original_email = created["email"]
 
         resp = await test_client.put(
-            f"/candidates/{created['id']}",
+            f"/api/candidates/{created['id']}",
             json={"phone": "13900139000"},
             headers=headers,
         )
@@ -388,7 +388,7 @@ class TestCRUD:
         """PUT /candidates/9999 returns 404."""
         headers = _auth_header(test_user)
         resp = await test_client.put(
-            "/candidates/9999", json={"name": "Test"}, headers=headers,
+            "/api/candidates/9999", json={"name": "Test"}, headers=headers,
         )
         assert resp.status_code == 404
 
@@ -405,7 +405,7 @@ class TestStatus:
             mock_analyze.invoke.return_value = MOCK_CANDIDATE_JSON
             pdf_bytes = _make_test_pdf("Test")
             resp = await client.post(
-                "/candidates/upload",
+                "/api/candidates/upload",
                 files={"file": ("test.pdf", pdf_bytes, "application/pdf")},
                 headers=headers,
             )
@@ -419,7 +419,7 @@ class TestStatus:
         assert candidate["status"] == "new"
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "screening", "status_note": "开始筛选"},
             headers=headers,
         )
@@ -434,7 +434,7 @@ class TestStatus:
         candidate = await self._create_candidate(test_client, headers)
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "rejected", "status_note": "不符合要求"},
             headers=headers,
         )
@@ -448,7 +448,7 @@ class TestStatus:
 
         # new -> screening
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "screening", "status_note": "开始筛选"},
             headers=headers,
         )
@@ -457,7 +457,7 @@ class TestStatus:
 
         # screening -> interview
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "interview", "status_note": "进入面试"},
             headers=headers,
         )
@@ -475,7 +475,7 @@ class TestStatus:
             ("hired", "通过面试"),
         ]:
             resp = await test_client.patch(
-                f"/candidates/{candidate['id']}/status",
+                f"/api/candidates/{candidate['id']}/status",
                 json={"status": status, "status_note": note},
                 headers=headers,
             )
@@ -494,7 +494,7 @@ class TestStatus:
             ("hired", "通过面试"),
         ]:
             resp = await test_client.patch(
-                f"/candidates/{candidate['id']}/status",
+                f"/api/candidates/{candidate['id']}/status",
                 json={"status": status, "status_note": note},
                 headers=headers,
             )
@@ -502,7 +502,7 @@ class TestStatus:
 
         # Try further transition
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "screening", "status_note": "重新筛选"},
             headers=headers,
         )
@@ -514,7 +514,7 @@ class TestStatus:
         candidate = await self._create_candidate(test_client, headers)
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "rejected", "status_note": "不合适"},
             headers=headers,
         )
@@ -522,7 +522,7 @@ class TestStatus:
 
         # Try further transition
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "screening", "status_note": "重新考虑"},
             headers=headers,
         )
@@ -534,7 +534,7 @@ class TestStatus:
         candidate = await self._create_candidate(test_client, headers)
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "screening", "status_note": ""},
             headers=headers,
         )
@@ -546,7 +546,7 @@ class TestStatus:
         candidate = await self._create_candidate(test_client, headers)
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "interview", "status_note": "跳过筛选"},
             headers=headers,
         )
@@ -558,7 +558,7 @@ class TestStatus:
         candidate = await self._create_candidate(test_client, headers)
 
         resp = await test_client.patch(
-            f"/candidates/{candidate['id']}/status",
+            f"/api/candidates/{candidate['id']}/status",
             json={"status": "invalid_status", "status_note": "test"},
             headers=headers,
         )
@@ -574,5 +574,5 @@ class TestLifecycle:
     async def test_no_delete(self, test_client, test_user):
         """DELETE /candidates/{id} returns 405 (D-17: no delete)."""
         headers = _auth_header(test_user)
-        resp = await test_client.delete("/candidates/1", headers=headers)
+        resp = await test_client.delete("/api/candidates/1", headers=headers)
         assert resp.status_code == 405

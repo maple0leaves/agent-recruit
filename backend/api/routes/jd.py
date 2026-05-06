@@ -5,7 +5,7 @@ from pydantic import BaseModel, field_validator
 from sqlalchemy import select, func, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.api.deps import get_current_user, get_db
+from backend.api.deps import get_current_user, get_db, require_role
 from backend.config.templates import TEMPLATES
 from backend.db.models.jd import JD, EducationLevel, JDStatus
 
@@ -173,7 +173,7 @@ async def list_jds(
 async def create_jd(
     data: JDSchema,
     db: AsyncSession = Depends(get_db),
-    _user: dict = Depends(get_current_user),
+    _user: dict = Depends(require_role("admin", "recruiter")),
 ):
     """Create a new JD (JD-01, D-14)."""
     jd = JD(
@@ -214,7 +214,7 @@ async def update_jd(
     jd_id: int,
     data: JDSchema,
     db: AsyncSession = Depends(get_db),
-    _user: dict = Depends(get_current_user),
+    _user: dict = Depends(require_role("admin", "recruiter")),
 ):
     """Update all fields of an existing JD (JD-02, D-14)."""
     result = await db.execute(select(JD).where(JD.id == jd_id))
@@ -244,7 +244,7 @@ async def update_jd_status(
     jd_id: int,
     data: StatusUpdate,
     db: AsyncSession = Depends(get_db),
-    _user: dict = Depends(get_current_user),
+    _user: dict = Depends(require_role("admin", "recruiter")),
 ):
     """Update JD status with D-12 state machine enforcement."""
     result = await db.execute(select(JD).where(JD.id == jd_id))
