@@ -1,6 +1,6 @@
 # Multi-Agent Recruitment System
 
-基于 **Harness Engineering** 原则构建的多 Agent 智能招聘系统，
+基于 **Harness Engineering** 原则构建的多 Agent 智能招聘系统，\\
 项目正在逐步迭代中，目标是做一个自动化，稳定的智能招聘系统，感谢您的到来，敬请期待
 
 > **核心公式：`Agent = Model + Harness`**
