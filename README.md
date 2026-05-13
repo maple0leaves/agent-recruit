@@ -1,7 +1,8 @@
 # Multi-Agent Recruitment System
 
-多智能招聘系统
+**多智能招聘系统** 
 
+![界面](.img.png)
 ---
 
 ## 目录
