@@ -10,6 +10,7 @@
 ## 目录
 
 - [系统要求](#系统要求)
+- [多智能体工作流](#多智能体工作流)
 - [技术栈总览](#技术栈总览)
 - [快速开始](#快速开始)
 - [环境变量配置](#环境变量配置)
@@ -29,6 +30,24 @@
 - 网络连接（调用 LLM / Embedding / Rerank API）
 - OpenAI 兼容 API Key
 
+---
+
+## 多智能体工作流
+
+```bash
+用户输入
+  │
+  ▼
+triage_router ──→ resume_reverse_match_agent ──→ END（简历反向匹配）
+  │
+  ▼（inquiry 分类）
+planner_agent ──→ worker_agent（工具执行）
+  │   ↑__________________|（循环直到有评分结果）
+  ▼
+reviewer_agent ──→ END（生成最终报告）
+  ↑
+  │ HITL 中断点（use_hitl=True 时，HR 审核后恢复）
+```
 ---
 
 ## 技术栈总览
