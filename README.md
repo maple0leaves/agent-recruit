@@ -33,21 +33,8 @@
 ---
 
 ## 多智能体工作流
+![界面](img2.png)
 
-```bash
-用户输入
-  │
-  ▼
-triage_router ──→ resume_reverse_match_agent ──→ END（简历反向匹配）
-  │
-  ▼（inquiry 分类）
-planner_agent ──→ worker_agent（工具执行）
-  │   ↑__________________|（循环直到有评分结果）
-  ▼
-reviewer_agent ──→ END（生成最终报告）
-  ↑
-  │ HITL 中断点（use_hitl=True 时，HR 审核后恢复）
-```
 ---
 
 ## 技术栈总览
