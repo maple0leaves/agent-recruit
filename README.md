@@ -2,7 +2,7 @@
 
 **多智能招聘系统** 
 
-<video src="img.mp4" controls width="100%"></video>
+<video src="img.mp4" controls width="60%"></video>
 
 ![界面](img1.png)
 ---
