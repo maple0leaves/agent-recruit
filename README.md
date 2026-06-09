@@ -2,7 +2,7 @@
 
 **多智能招聘系统** 
 
-![界面](img.pdf)
+<video src="img" controls width="100%"></video>
 
 ![界面](img1.png)
 ---
