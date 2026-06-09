@@ -1,8 +1,10 @@
+
 # agent-recruit
 
 **多智能招聘系统** 
 
-<video src="img.mp4" controls width="60%"></video>
+https://github.com/user-attachments/assets/d1b317b3-8327-4132-bc2d-db01bc2fb2f2
+
 
 ![界面](img1.png)
 ---
