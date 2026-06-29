@@ -1,0 +1,72 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: agent-recruit-backend
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3308}/${MYSQL_DB:hellojobs}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:hellojobs123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6380}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+  mapper-locations: classpath*:mapper/*.xml
+
+# ── Application-specific config ──────────────────────────────────────────
+app:
+  jwt:
+    # 必须与 Python 端 .env 的 JWT_SECRET 一致，两服务才能互认 token
+    secret: ${JWT_SECRET:873d416c4bc5ef637639355771b505adb2f625b045f9feb2c2a8baaf84863a37}
+    access-token-expire-minutes: ${ACCESS_TOKEN_EXPIRE_MINUTES:30}
+    refresh-token-expire-days: ${REFRESH_TOKEN_EXPIRE_DAYS:7}
+  cors:
+    origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:5174,http://localhost:8080,http://localhost:18008,http://127.0.0.1:18008}
+  cookie:
+    # 生产环境（HTTPS）改为 true
+    secure: ${COOKIE_SECURE:false}
+  admin:
+    username: ${ADMIN_USERNAME:admin}
+    password: ${ADMIN_PASSWORD:admin123}
+  login:
+    max-fail: 5
+    block-minutes: 15
+  ai:
+    # Python AI 服务地址（用于 /api/recruit* 反向代理）
+    base-url: ${AI_SERVICE_URL:http://localhost:8008}
+  resume:
+    # 简历保存目录，需与 Python 端 RESUME_DIR 指向同一目录，FAISS 才能读到
+    dir: ${RESUME_DIR:/home/zouzhilin/project/agent-recruit/data/resumes}
+  export:
+    # 导出 PDF 内嵌的中文字体（TTC 用 path,index 形式）
+    cjk-font: ${EXPORT_CJK_FONT:/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc,0}
+
+# ── Knife4j / OpenAPI ────────────────────────────────────────────────────
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+logging:
+  level:
+    com.agentrecruit: INFO

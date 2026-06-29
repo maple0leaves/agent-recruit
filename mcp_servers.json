@@ -1,0 +1,11 @@
+{
+  "_doc": "MCP server config. transport: stdio (command+args) | sse (url) | streamable_http (url). Optional: env, headers.",
+  "servers": [
+    {
+      "name": "fetch",
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-fetch"]
+    }
+  ]
+}
