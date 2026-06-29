@@ -5,7 +5,8 @@ AgentRecruit 是一个面向招聘场景的智能化系统，围绕 JD 管理、
 ## 项目展示
 
 - 演示视频：[在这里添加系统演示视频](docs/assets/demo-video.mp4)
-- 界面图片：[在这里添加产品界面图片](docs/assets/product-screenshot.png)
+<img width="947" height="499" alt="img" src="https://github.com/user-attachments/assets/e21e8509-1651-445e-a88c-f5b6cd0f2ce1" />
+
 
 ## 核心功能
 
