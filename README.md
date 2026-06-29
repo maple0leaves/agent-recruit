@@ -1,6 +1,6 @@
 # AgentRecruit 多智能体招聘系统
 
-AgentRecruit 是一个面向招聘场景的智能化系统，围绕 JD 管理、候选人管理、简历解析、智能匹配、匹配审核和招聘数据看板构建完整工作流。系统采用前后端分离架构，Java 负责业务后端，Python 负责 AI 能力，React 负责管理端交互界面。
+AgentRecruit 是一个面向招聘场景的多智能体系统，围绕 JD 管理、候选人管理、简历解析、智能匹配、匹配审核和招聘数据看板构建完整工作流。系统采用前后端分离架构，Java 负责业务后端，Python 负责 AI 能力，React 负责管理端交互界面。
 
 ## 项目展示
 
@@ -73,7 +73,6 @@ Java 后端负责账号认证、业务数据管理、JD 管理、候选人管理
 - LangChain
 - OpenAI-Compatible LLM
 - Milvus 向量数据库
-- ChromaDB 记忆存储
 - LangSmith 可观测性
 - PyMuPDF / python-docx
 
