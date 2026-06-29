@@ -58,10 +58,9 @@ AgentRecruit 是一个面向招聘场景的多智能体系统，围绕 JD 管理
 - MyBatis-Plus
 - MySQL
 - Redis
-- Flyway
 - WebFlux
 - Knife4j
-- PDFBox / Apache POI / OpenPDF
+- PDFBox
 
 Java 后端负责账号认证、业务数据管理、JD 管理、候选人管理、匹配记录、审核流程、文件管理和与 AI 服务的业务编排。
 
