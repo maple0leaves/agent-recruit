@@ -38,42 +38,28 @@ AgentRecruit 是一个面向招聘场景的多智能体系统，围绕 JD 管理
 
 ### 前端
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS
-- TanStack Query
-- TanStack Table
-- React Router
-- Recharts
-- Lucide React
+- React 
 
 前端负责系统管理界面、表格交互、筛选查询、弹窗表单、审核页面和数据可视化展示。
 
 ### Java 业务后端
 
-- Java 17
-- Spring Boot 3
+- Spring Boot 
 - Spring Security
 - MyBatis-Plus
 - MySQL
 - Redis
-- WebFlux
-- Knife4j
-- PDFBox
 
 Java 后端负责账号认证、业务数据管理、JD 管理、候选人管理、匹配记录、审核流程、文件管理和与 AI 服务的业务编排。
 
 ### Python AI 服务
 
 - Python
-- FastAPI
 - LangGraph
 - LangChain
-- OpenAI-Compatible LLM
 - Milvus 向量数据库
 - LangSmith 可观测性
-- PyMuPDF / python-docx
+- PyMuPDF 
 
 Python AI 服务负责简历解析、候选人画像生成、JD 与候选人的智能匹配、招聘报告生成、向量检索和多 Agent 工作流编排。
 
